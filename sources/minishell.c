@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/08 19:06:59 by natamazy         ###   ########.fr       */
+/*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
+/*   Updated: 2024/05/08 19:06:49 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-
-#endif
+int	main(void)
+{
+	printf("HELL STARTED!!!\n");
+}

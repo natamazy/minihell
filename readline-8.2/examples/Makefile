@@ -21,7 +21,7 @@ RL_LIBRARY_VERSION = 8.2
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /Users/natamazy/Desktop/minihell/readline_lib
+prefix = /Users/natamazy/Desktop/minihell/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

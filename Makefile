@@ -1,6 +1,9 @@
 # Project name
 NAME = minishell
 
+# Readline name
+READLINE = readline
+
 # Compilator
 CC = cc
 # Compilator flags
@@ -22,7 +25,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(NAME)
+all: $(READLINE) $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
@@ -32,8 +35,8 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Configuring readline
-config:
-	@./config_readline readline
+$(READLINE):
+	./config_readline readline
 
 # Cleaning
 clean:
@@ -41,6 +44,8 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	rm -rf $(READLINE)
+	make clean -C readline-8.2
 
 # Remaking
 re: clean all

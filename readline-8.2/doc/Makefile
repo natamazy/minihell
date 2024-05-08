@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/natamazy/Desktop/minihell/readline_lib
+prefix = /Users/natamazy/Desktop/minihell/readline
 
 datarootdir = ${prefix}/share
 

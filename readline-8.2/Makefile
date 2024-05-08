@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/natamazy/Desktop/minihell/readline_lib
+prefix = /Users/natamazy/Desktop/minihell/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
