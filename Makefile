@@ -31,6 +31,10 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Configuring readline
+config:
+	@./config_readline readline
+
 # Cleaning
 clean:
 	$(RM) $(OBJS)
