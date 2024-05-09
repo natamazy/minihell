@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"tokenization.h": "c",
+		"minishell.h": "c",
+		"history.h": "c",
+		"utils.h": "c"
+	}
+}

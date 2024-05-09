@@ -7,7 +7,11 @@ READLINE = readline
 # Compilator
 CC = cc
 # Compilator flags
-CFLAGS = -Wall -Wextra -Werror -Iincludes #-g3 -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -Iincludes -g3 -fsanitize=address
+
+# Libraries
+LIB_PATH = readline/lib
+LIB_NAME = readline
 
 # Headers
 HEADERS = includes/minishell.h
@@ -19,7 +23,8 @@ OBJS_DIR = objects/
 
 # Source file names
 SRCS_NAME = minishell.c \
-			$(wildcard tokenization/*.c)
+			tokenization/*.c\
+			utils/*.c
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
@@ -29,11 +34,11 @@ OBJS_NAME = $(SRCS_NAME:.c=.o)
 all: $(READLINE) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -l$(LIB_NAME) -L$(LIB_PATH)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 # Configuring readline
 $(READLINE):
