@@ -19,13 +19,14 @@ OBJS_DIR = objects/
 
 # Source file names
 SRCS_NAME = minishell.c \
+			$(wildcard tokenization/*.c)
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(READLINE) $(NAME)
+all: $(READLINE) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
@@ -36,16 +37,16 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 
 # Configuring readline
 $(READLINE):
-	./config_readline readline
+	@./config_readline readline
 
 # Cleaning
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
-	rm -rf $(READLINE)
-	make clean -C readline-8.2
+	@$(RM) $(NAME)
+	@rm -rf $(READLINE)
+	@make clean -C readline-8.2 &> /dev/null
 
 # Remaking
 re: clean all

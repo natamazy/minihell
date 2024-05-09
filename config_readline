@@ -2,6 +2,6 @@
 
 path="`pwd`/$1"
 mkdir -p $path
-cd readline-8.2 && ./configure --prefix=$path
-make
-make install
+cd readline-8.2 && ./configure --prefix=$path &> /dev/null
+make &> /dev/null
+make install &> /dev/null

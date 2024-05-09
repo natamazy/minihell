@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/09 14:40:18 by natamazy         ###   ########.fr       */
+/*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
+/*   Updated: 2024/05/09 14:48:36 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef TOKENIZATION_H
+# define TOKENIZATION_H
 
-int	main(void)
+typedef struct s_token	t_token;
+
+typedef enum e_token_type
 {
-	printf("HELL STARTED!!!\n");
-}
+	WORD,
+}	t_token_type;
+
+struct s_token
+{
+	char			*value;
+	t_token_type	type;
+	t_token			*next;
+	t_token			*prev;
+};
+
+#endif
