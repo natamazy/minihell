@@ -11,7 +11,6 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes -g3 -fsanitize=address
 
 # Libraries
 LIB_PATH = readline/lib
-LIB_NAME = readline
 
 # Headers
 HEADERS = includes/minishell.h
@@ -24,25 +23,23 @@ OBJS_DIR = objects/
 # Source file names
 SRCS_NAME = minishell.c \
 			tokenization/*.c\
-			utils/*.c
+			utilities/*.c
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(READLINE) $(LIBFT) $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -l$(LIB_NAME) -L$(LIB_PATH)
+	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(LIB_PATH)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/tokenization
+	@mkdir -p $(OBJS_DIR)/utilities
 	$(CC) $(CFLAGS) -c $< -o $@ 
-
-# Configuring readline
-$(READLINE):
-	@./config_readline readline
 
 # Cleaning
 clean:
@@ -50,8 +47,6 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@rm -rf $(READLINE)
-	@make clean -C readline-8.2 &> /dev/null
 
 # Remaking
 re: clean all
