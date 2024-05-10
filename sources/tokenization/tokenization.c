@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/10 17:33:24 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:51:16 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "utilities.h"
 #include <stdlib.h>
 
-t_token	*ft_new_token(char *value, t_token_type type)
+t_token	*ft_new_token(char *value)
 {
 	t_token *new_token;
 
@@ -22,7 +22,7 @@ t_token	*ft_new_token(char *value, t_token_type type)
 	if (new_token == NULL)
 		return (NULL);
 	new_token->value = value;
-	new_token->type = type;
+	new_token->type = ERROR;
 	new_token->next = NULL;
 	new_token->prev = NULL;
 	return (new_token);
@@ -45,37 +45,50 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 	ptr->next = new_token;
 	new_token->prev = NULL;
 }
-
-void	tokenization(char *command_line, t_token **list_of_tokens)
+void	split_at_tokens(char *command_line, t_token **list_of_tokens)
 {
 	int	i;
 	int	j;
-	t_token_type	current_token_type;
-	t_token			*new_token;
+	int	flag;
+	t_token	*new_token;
 
 	i = 0;
-	current_token_type = get_token_type(command_line, i);
-	while (command_line[i] && ft_isspace(command_line[i]) == 1)
-		i++;
-	if (command_line[i] == '\0')
-		return ;
-	j = i;
+	j = 0;
 	while (command_line[j])
 	{
-		new_token = NULL;
-
-		if (current_token_type != get_token_type(command_line, j))
-		{
-			new_token = ft_new_token(ft_substr(command_line, i, j), current_token_type);
-			if (new_token == NULL)
-				return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
-			ft_add_tokenlist(list_of_tokens, new_token);
-			i = j;
-			current_token_type = get_token_type(command_line, j);
-		}
-		else
+		flag = 0;
+		while (command_line[j] && ft_isspace(command_line[j]) == 1)
 			j++;
+		i = j;
+		if (command_line[j] && command_line[j] == '\"')
+			flag = 1;
+		printf("\n===\n");
+		while (flag == 0 && command_line[j] && ft_isspace(command_line[j]) == 0)
+		{
+			printf("%c", command_line[j]);
+			j++;
+		}
+		printf("\n");
+		while (flag == 1 && command_line[j] && command_line[j] != '\"')
+			j++;
+		if (command_line[j] && command_line[j] == '\"')
+			flag = 2;
+		if (flag == 1)
+		{
+			printf("\nCHES PAKE\n");
+			return ;
+		}
+		new_token = ft_new_token(ft_substr(command_line, i, j));
+		if (new_token == NULL)
+			return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+		ft_add_token_to_list(list_of_tokens, new_token);
+		i = j;
 	}
+}
+
+void	tokenization(char *command_line, t_token **list_of_tokens)
+{
+	split_at_tokens(command_line, list_of_tokens);
 }
 
 t_token_type	get_token_type(char *command_line, int i)

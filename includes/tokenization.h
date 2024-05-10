@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/10 15:53:02 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:34:52 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ struct s_token
 };
 
 void			tokenization(char *command_line, t_token **list_of_tokens);
-void			ft_add_tokenlist(t_token **list_of_tokens, t_token *new_token);
+void			ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token);
 t_token_type	get_token_type(char *command_line, int ind);
-t_token			*ft_new_token(char *value, t_token_type type);
+t_token			*ft_new_token(char *value);
 
 #endif

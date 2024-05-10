@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/10 12:40:08 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:40:08 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,31 @@ void	print_token_list(t_token *token_list)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*substr;
-	unsigned int	s_len;
-	unsigned int	substr_len;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
 	if (s == NULL)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (s_len < start)
-		substr_len = 0;
-	else if (s_len < len)
-		substr_len = s_len;
+		return ("");
+	if (len <= ft_strlen(s))
+		str = (char *) malloc(sizeof(char) * (len + 1));
 	else
-		substr_len = len;
-	substr = (char *)malloc(substr_len + 1);
-	if (substr == NULL)
+		str = (char *) malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
 		return (NULL);
-	s += start;
-	substr[substr_len] = '\0';
-	while (substr_len--)
-		substr[substr_len] = s[substr_len];
-	return (substr);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
 }
 
 size_t	ft_strlen(const char *s)
