@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utilities_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/10 11:49:50 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:40:08 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tokenization.h"
-#include "../../includes/utils.h"
-#include <stdio.h>
-#include <stdlib.h> // TEXAPOXEL HEADER FILE-I MEJ!!!
+#include "tokenization.h"
+#include "utilities.h"
+ // TEXAPOXEL HEADER FILE-I MEJ!!!
 
 int	ft_isalpha(int c)
 {
@@ -71,7 +70,27 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len])
 		len++;
 	return (len);
+}
+
+void	ft_token_list_clear(t_token **lst)
+{
+	t_token	*t;
+	t_token	*l;
+
+	if (!lst)
+		return ;
+	l = *lst;
+	while (l)
+	{
+		t = l->next;
+		free(l->value);
+		free(l);
+		l = t;
+	}
+	*lst = NULL;
 }

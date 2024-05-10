@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/09 21:26:07 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:40:47 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef UTILITIES_H
+# define UTILITIES_H
 
-#include <stdio.h>
+# include "minishell.h"
+# include "tokenization.h"
 
 int			ft_isalpha(int c);
 int			ft_isspace(char c);
 void		print_token_list(t_token *token_list);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *s);
+void		ft_token_list_clear(t_token **lst);
+
 #endif

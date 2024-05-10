@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/09 20:18:02 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:15:26 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stdlib.h>
+#include "../readline/include/readline/readline.h"
+#include "../readline/include/readline/history.h"
 
 #endif

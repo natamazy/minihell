@@ -6,15 +6,13 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/10 12:01:53 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:42:01 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/tokenization.h"
-#include "../includes/utils.h"
-#include "../readline/include/readline/readline.h"
-#include "../readline/include/readline/history.h"
+#include "minishell.h"
+#include "tokenization.h"
+#include "utilities.h"
 
 int	main(void)
 {
@@ -31,6 +29,6 @@ int	main(void)
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}
-			
+	ft_token_list_clear(&token_list);
 	}
 }

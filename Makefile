@@ -13,7 +13,9 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes -g3 -fsanitize=address
 LIB_PATH = readline/lib
 
 # Headers
-HEADERS = includes/minishell.h
+HEADERS = 	includes/minishell.h \
+			includes/tokenization.h \
+			includes/utilities.h
 
 # Source directory
 SRCS_DIR = sources/
@@ -22,15 +24,15 @@ OBJS_DIR = objects/
 
 # Source file names
 SRCS_NAME = minishell.c \
-			tokenization/*.c\
-			utilities/*.c
+			tokenization/tokenization.c \
+			utilities/utilities_1.c
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(LIBFT) $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(LIB_PATH)
