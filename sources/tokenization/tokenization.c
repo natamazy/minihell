@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/10 22:51:16 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 14:21:00 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,25 @@ void	split_at_tokens(char *command_line, t_token **list_of_tokens)
 			j++;
 		i = j;
 		if (command_line[j] && command_line[j] == '\"')
-			flag = 1;
-		printf("\n===\n");
-		while (flag == 0 && command_line[j] && ft_isspace(command_line[j]) == 0)
 		{
-			printf("%c", command_line[j]);
+			flag = 1;
 			j++;
 		}
-		printf("\n");
+		while (flag == 0 && command_line[j] && ft_isspace(command_line[j]) == 0)
+			j++;
 		while (flag == 1 && command_line[j] && command_line[j] != '\"')
 			j++;
 		if (command_line[j] && command_line[j] == '\"')
+		{
 			flag = 2;
+			j++;
+		}
 		if (flag == 1)
 		{
-			printf("\nCHES PAKE\n");
+			printf("\nCHES PAKE\n"); // quoty pakac chexnii depqy
 			return ;
 		}
-		new_token = ft_new_token(ft_substr(command_line, i, j));
+		new_token = ft_new_token(ft_substr(command_line, i, j - i));
 		if (new_token == NULL)
 			return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
 		ft_add_token_to_list(list_of_tokens, new_token);

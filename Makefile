@@ -7,7 +7,7 @@ READLINE = readline
 # Compilator
 CC = cc
 # Compilator flags
-CFLAGS = -Wall -Wextra -Werror -Iincludes -g3 -fsanitize=address
+CFLAGS = -Iincludes -g 
 
 # Libraries
 LIB_PATH = readline/lib
