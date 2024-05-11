@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/11 14:21:00 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:42:58y natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 	while (ptr && ptr->next)
 		ptr = ptr->next;
 	ptr->next = new_token;
-	new_token->prev = NULL;
+	new_token->prev = ptr;
 }
-void	split_at_tokens(char *command_line, t_token **list_of_tokens)
+
+void	split_by_spaces(char *command_line, t_token **list_of_tokens)
 {
 	int	i;
 	int	j;
@@ -87,9 +88,91 @@ void	split_at_tokens(char *command_line, t_token **list_of_tokens)
 	}
 }
 
+void	split_by_operators(t_token **list_of_tokens)
+{
+	t_token	*current_token;
+	t_token	*new_token;
+	t_token	*next_node;
+	int		op_len;
+	int		i;
+	int		non_op_start;
+	int		is_op;
+
+	if (!list_of_tokens)
+		return ;
+	current_token = *list_of_tokens;
+	while (current_token != NULL)
+	{
+		is_op = 0;
+		i = 0;
+		non_op_start = i;
+		while (current_token->value[i])
+		{
+			char c = current_token->value[i];
+			op_len = ft_is_operator(current_token->value, i);
+			if (op_len > 0)
+			{
+				is_op = 1;
+				if (i - non_op_start > 0) // in case if there is non operator symbols BEFORE operator
+				{
+					new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
+					if (new_token == NULL)
+						return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+					if (current_token->prev != NULL)
+						current_token->prev->next = new_token;
+					else
+						*list_of_tokens = new_token;
+					new_token->next = current_token;
+					new_token->prev = current_token->prev;
+					current_token->prev = new_token;
+				}
+				new_token = ft_new_token(ft_substr(current_token->value, i, op_len));
+				if (new_token == NULL)
+					return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+				if (current_token->prev != NULL)
+					current_token->prev->next = new_token;
+				else
+					*list_of_tokens = new_token;
+				new_token->next = current_token;
+				new_token->prev = current_token->prev;
+				current_token->prev = new_token;
+				i += op_len;
+				non_op_start = i;
+			}
+			else
+				i++;
+		}
+		if (i - non_op_start > 0 && is_op == 1) // in case if there is non operator symbols AFTER operator
+		{
+			new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
+			if (new_token == NULL)
+				return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+			if (current_token->prev != NULL)
+				current_token->prev->next = new_token;
+			else
+				*list_of_tokens = new_token;
+			new_token->next = current_token;
+			new_token->prev = current_token->prev;
+			current_token->prev = new_token;
+		}
+		next_node = current_token->next;
+		if (is_op != 0)
+		{
+			if (current_token->prev != NULL)
+				current_token->prev->next = current_token->next;
+			if (current_token->next)
+				current_token->next->prev = current_token->prev;
+			free(current_token->value);
+			free(current_token);
+		}
+		current_token = next_node;
+	}
+}
+
 void	tokenization(char *command_line, t_token **list_of_tokens)
 {
-	split_at_tokens(command_line, list_of_tokens);
+	split_by_spaces(command_line, list_of_tokens);
+	split_by_operators(list_of_tokens);
 }
 
 t_token_type	get_token_type(char *command_line, int i)

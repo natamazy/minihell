@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/10 12:40:47 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:09:44 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void		print_token_list(t_token *token_list);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *s);
 void		ft_token_list_clear(t_token **lst);
+int			ft_is_operator(char *s, int i);
 
 #endif

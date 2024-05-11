@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/10 22:40:08 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:30:07 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 int	ft_isalpha(int c)
 {
 	return (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'));
+}
+
+int	ft_is_operator(char *s, int i)
+{
+	int	op_len;
+
+	if (s[i] == '|' || s[i] == '&' || s[i] == '>' || s[i] == '<')
+	{
+		if (s[i + 1] && s[i] == s[i + 1])
+			op_len = 2;
+		else
+			op_len = 1;
+	}
+	else
+		op_len = 0;
+	return (op_len);
 }
 
 int	ft_isspace(char c)
@@ -31,9 +47,9 @@ void	print_token_list(t_token *token_list)
 		return ;
 	while (token_list)
 	{
-		printf("type: %d | [%s]", token_list->type, token_list->value);
+		printf("\n(%d)[%s]\n[%p]\n[%p]\n[%p]\n", token_list->type, token_list->value, token_list->prev, token_list, token_list->next);
 		if (token_list && token_list->next)
-			printf(" -> ");
+			printf("\n");
 		else
 			printf("\n");
 		token_list = token_list->next;
