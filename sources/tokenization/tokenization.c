@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/11 18:42:58y natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:30:20 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 t_token	*ft_new_token(char *value)
 {
-	t_token *new_token;
+	t_token	*new_token;
 
 	new_token = malloc(sizeof(t_token));
 	if (new_token == NULL)
@@ -48,9 +48,9 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 
 void	split_by_spaces(char *command_line, t_token **list_of_tokens)
 {
-	int	i;
-	int	j;
-	int	flag;
+	int		i;
+	int		j;
+	int		flag;
 	t_token	*new_token;
 
 	i = 0;
@@ -82,7 +82,8 @@ void	split_by_spaces(char *command_line, t_token **list_of_tokens)
 		}
 		new_token = ft_new_token(ft_substr(command_line, i, j - i));
 		if (new_token == NULL)
-			return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+			return ;// knereq der error handling chka
+					//mer kodum dra hamar hl@ vor senc
 		ft_add_token_to_list(list_of_tokens, new_token);
 		i = j;
 	}
@@ -97,6 +98,7 @@ void	split_by_operators(t_token **list_of_tokens)
 	int		i;
 	int		non_op_start;
 	int		is_op;
+	char	c;
 
 	if (!list_of_tokens)
 		return ;
@@ -108,12 +110,12 @@ void	split_by_operators(t_token **list_of_tokens)
 		non_op_start = i;
 		while (current_token->value[i])
 		{
-			char c = current_token->value[i];
+			c = current_token->value[i];
 			op_len = ft_is_operator(current_token->value, i);
 			if (op_len > 0)
 			{
 				is_op = 1;
-				if (i - non_op_start > 0) // in case if there is non operator symbols BEFORE operator
+				if (i - non_op_start > 0)// in case if there is non operator symbols BEFORE operator
 				{
 					new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
 					if (new_token == NULL)

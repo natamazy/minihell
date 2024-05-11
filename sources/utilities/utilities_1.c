@@ -6,13 +6,13 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/11 20:30:07 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:22:24 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 #include "utilities.h"
- // TEXAPOXEL HEADER FILE-I MEJ!!!
+// TEXAPOXEL HEADER FILE-I MEJ!!!
 
 int	ft_isalpha(int c)
 {
@@ -47,7 +47,8 @@ void	print_token_list(t_token *token_list)
 		return ;
 	while (token_list)
 	{
-		printf("\n(%d)[%s]\n[%p]\n[%p]\n[%p]\n", token_list->type, token_list->value, token_list->prev, token_list, token_list->next);
+		printf("\n(%d)[%s]\n[%p]\n[%p]\n[%p]\n", token_list->type,
+			token_list->value, token_list->prev, token_list, token_list->next);
 		if (token_list && token_list->next)
 			printf("\n");
 		else
