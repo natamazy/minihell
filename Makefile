@@ -7,7 +7,7 @@ READLINE = readline
 # Compilator
 CC = cc
 # Compilator flags
-INC_DIRS = -Iincludes -I$(READLINE)/include
+INC_DIRS = -I./includes -I./$(READLINE)/include
 CFLAGS = $(INC_DIRS) #-g3 -fsanitize=address 
 # Libraries
 LIB_PATH = readline/lib
