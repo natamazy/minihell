@@ -7,8 +7,8 @@ READLINE = readline
 # Compilator
 CC = cc
 # Compilator flags
-CFLAGS = -Iincludes #-g3 -fsanitize=address 
-
+INC_DIRS = -Iincludes -I$(READLINE)/include
+CFLAGS = $(INC_DIRS) #-g3 -fsanitize=address 
 # Libraries
 LIB_PATH = readline/lib
 
@@ -54,10 +54,11 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	rm -rf $(READLINE)
+	rm -rf $(OBJS_DIR)
 	make clean -C readline-8.2
 
 # Remaking
-re: clean all # when the readline issues are resolved, replace "clean" with "fclean".
+re: fclean all
 
 
 # PHONY files
