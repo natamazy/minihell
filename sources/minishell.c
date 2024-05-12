@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/11 20:29:51 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:18:15 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(void)
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}
-	ft_token_list_clear(&token_list);
+		ft_token_list_clear(&token_list);
 	}
 }

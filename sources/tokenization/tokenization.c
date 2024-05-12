@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/11 21:30:20 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:24:02 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,47 +46,40 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 	new_token->prev = ptr;
 }
 
-void	split_by_spaces(char *command_line, t_token **list_of_tokens)
+void	create_and_add_to_list(t_token **token_list, char *start, int len)
 {
-	int		i;
-	int		j;
-	int		flag;
 	t_token	*new_token;
 
-	i = 0;
-	j = 0;
-	while (command_line[j])
+	new_token = ft_new_token(ft_substr(start, 0, len));
+	if (new_token == NULL)
+		return ; // knereq der error handling chka
+				//mer kodum dra hamar hl@ vor senc
+	ft_add_token_to_list(token_list, new_token);
+}
+
+void	split_by_spaces(char *cmd_line, t_token **token_list)
+{
+	int		i;
+	int		start;
+	int		quote;
+
+	i = -1;
+	quote = CLOSED;
+	start = 0;
+	while (cmd_line[++i])
 	{
-		flag = 0;
-		while (command_line[j] && ft_isspace(command_line[j]) == 1)
-			j++;
-		i = j;
-		if (command_line[j] && command_line[j] == '\"')
+		if (ft_isspace(cmd_line[i]) == 1)
 		{
-			flag = 1;
-			j++;
+			if (quote == CLOSED && i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
+				create_and_add_to_list(token_list, cmd_line + start, i - start);
+			if (quote == CLOSED)
+				start = i + 1;
 		}
-		while (flag == 0 && command_line[j] && ft_isspace(command_line[j]) == 0)
-			j++;
-		while (flag == 1 && command_line[j] && command_line[j] != '\"')
-			j++;
-		if (command_line[j] && command_line[j] == '\"')
-		{
-			flag = 2;
-			j++;
-		}
-		if (flag == 1)
-		{
-			printf("\nCHES PAKE\n"); // quoty pakac chexnii depqy
-			return ;
-		}
-		new_token = ft_new_token(ft_substr(command_line, i, j - i));
-		if (new_token == NULL)
-			return ;// knereq der error handling chka
-					//mer kodum dra hamar hl@ vor senc
-		ft_add_token_to_list(list_of_tokens, new_token);
-		i = j;
+		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
+			quote = !quote;
 	}
+	if (i - start > 0)
+		create_and_add_to_list(token_list, cmd_line + start, i - start);
 }
 
 void	split_by_operators(t_token **list_of_tokens)
@@ -115,7 +108,7 @@ void	split_by_operators(t_token **list_of_tokens)
 			if (op_len > 0)
 			{
 				is_op = 1;
-				if (i - non_op_start > 0)// in case if there is non operator symbols BEFORE operator
+				if (i - non_op_start > 0) // in case if there is non operator symbols BEFORE operator
 				{
 					new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
 					if (new_token == NULL)
@@ -171,10 +164,12 @@ void	split_by_operators(t_token **list_of_tokens)
 	}
 }
 
-void	tokenization(char *command_line, t_token **list_of_tokens)
+void	tokenization(char *command_line, t_token **token_list)
 {
-	split_by_spaces(command_line, list_of_tokens);
-	split_by_operators(list_of_tokens);
+	split_by_spaces(command_line, token_list);
+	//TODO: add one new spliting level by quotation marks
+	// print_token_list(*token_list);
+	split_by_operators(token_list);
 }
 
 t_token_type	get_token_type(char *command_line, int i)

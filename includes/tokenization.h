@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/10 22:34:52 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:11:55 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ struct s_token
 	t_token			*prev;
 };
 
+enum e_quote
+{
+	OPENED,
+	CLOSED
+};
 void			tokenization(char *command_line, t_token **list_of_tokens);
 void			ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token);
 t_token_type	get_token_type(char *command_line, int ind);
