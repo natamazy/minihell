@@ -32,7 +32,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(NAME)
+all: $(READLINE) $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(LIB_PATH)
@@ -43,15 +43,22 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)/utilities
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
+# Configuring readline
+$(READLINE):
+	./config_readline readline
+
 # Cleaning
 clean:
 	@$(RM) $(OBJS)
 
 fclean: clean
 	@$(RM) $(NAME)
+	rm -rf $(READLINE)
+	make clean -C readline-8.2
 
 # Remaking
-re: clean all
+re: clean all # when the readline issues are resolved, replace "clean" with "fclean".
+
 
 # PHONY files
 .PHONY: all clean fclean re
