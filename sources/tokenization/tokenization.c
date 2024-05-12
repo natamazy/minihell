@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/12 18:24:02 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:50:17 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,55 +82,64 @@ void	split_by_spaces(char *cmd_line, t_token **token_list)
 		create_and_add_to_list(token_list, cmd_line + start, i - start);
 }
 
-void	split_by_operators(t_token **list_of_tokens)
+t_token	*go_to_next(t_token *current_token, int need_to_del)
 {
-	t_token	*current_token;
-	t_token	*new_token;
 	t_token	*next_node;
+
+	next_node = current_token->next;
+	if (need_to_del == 1)
+	{
+		if (current_token->prev != NULL)
+			current_token->prev->next = current_token->next;
+		if (current_token->next)
+			current_token->next->prev = current_token->prev;
+		free(current_token->value);
+		free(current_token);
+	}
+	return (next_node);
+}
+
+void	add_new_token_before(t_token **tokens_list, t_token *cur_token, char *value)
+{
+	t_token	*new_token;
+
+	new_token = ft_new_token(value);
+	if (new_token == NULL)
+		return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+	if (cur_token->prev != NULL)
+		cur_token->prev->next = new_token;
+	else
+		*tokens_list = new_token;
+	new_token->next = cur_token;
+	new_token->prev = cur_token->prev;
+	cur_token->prev = new_token;
+}
+
+void	split_by_operators(t_token **tokens_list)
+{
+	t_token	*cur_token;
 	int		op_len;
 	int		i;
 	int		non_op_start;
 	int		is_op;
-	char	c;
 
-	if (!list_of_tokens)
+	if (!tokens_list)
 		return ;
-	current_token = *list_of_tokens;
-	while (current_token != NULL)
+	cur_token = *tokens_list;
+	while (cur_token != NULL)
 	{
 		is_op = 0;
 		i = 0;
 		non_op_start = i;
-		while (current_token->value[i])
+		while (cur_token->value[i])
 		{
-			c = current_token->value[i];
-			op_len = ft_is_operator(current_token->value, i);
+			op_len = ft_is_operator(cur_token->value, i);
 			if (op_len > 0)
 			{
 				is_op = 1;
 				if (i - non_op_start > 0) // in case if there is non operator symbols BEFORE operator
-				{
-					new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
-					if (new_token == NULL)
-						return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
-					if (current_token->prev != NULL)
-						current_token->prev->next = new_token;
-					else
-						*list_of_tokens = new_token;
-					new_token->next = current_token;
-					new_token->prev = current_token->prev;
-					current_token->prev = new_token;
-				}
-				new_token = ft_new_token(ft_substr(current_token->value, i, op_len));
-				if (new_token == NULL)
-					return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
-				if (current_token->prev != NULL)
-					current_token->prev->next = new_token;
-				else
-					*list_of_tokens = new_token;
-				new_token->next = current_token;
-				new_token->prev = current_token->prev;
-				current_token->prev = new_token;
+					add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, i, op_len));
 				i += op_len;
 				non_op_start = i;
 			}
@@ -138,29 +147,8 @@ void	split_by_operators(t_token **list_of_tokens)
 				i++;
 		}
 		if (i - non_op_start > 0 && is_op == 1) // in case if there is non operator symbols AFTER operator
-		{
-			new_token = ft_new_token(ft_substr(current_token->value, non_op_start, i - non_op_start));
-			if (new_token == NULL)
-				return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
-			if (current_token->prev != NULL)
-				current_token->prev->next = new_token;
-			else
-				*list_of_tokens = new_token;
-			new_token->next = current_token;
-			new_token->prev = current_token->prev;
-			current_token->prev = new_token;
-		}
-		next_node = current_token->next;
-		if (is_op != 0)
-		{
-			if (current_token->prev != NULL)
-				current_token->prev->next = current_token->next;
-			if (current_token->next)
-				current_token->next->prev = current_token->prev;
-			free(current_token->value);
-			free(current_token);
-		}
-		current_token = next_node;
+			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+		cur_token = go_to_next(cur_token, is_op);
 	}
 }
 
@@ -172,45 +160,45 @@ void	tokenization(char *command_line, t_token **token_list)
 	split_by_operators(token_list);
 }
 
-t_token_type	get_token_type(char *command_line, int i)
-{
-	if (!command_line || i < 0)
-		return (ERROR);
-	if (command_line[i] && command_line[i] == '|')
-	{
-		if (command_line[i + 1] && command_line[i + 1] == '|')
-		{
-			i++;
-			return (D_PIPE);
-		}
-		return (S_PIPE);
-	}
-	if (command_line[i] && command_line[i] == '&')
-	{
-		if (command_line[i + 1] && command_line[i + 1] == '&')
-		{
-			i++;
-			return (D_AND);
-		}
-		return (S_AND);
-	}
-	if (command_line[i] && command_line[i] == '<')
-	{
-		if (command_line[i + 1] && command_line[i + 1] == '<')
-		{
-			i++;
-			return (L_D_REDIR);
-		}
-		return (L_S_REDIR);
-	}
-	if (command_line[i] && command_line[i] == '>')
-	{
-		if (command_line[i + 1] && command_line[i + 1] == '>')
-		{
-			i++;
-			return (R_D_REDIR);
-		}
-		return (R_S_REDIR);
-	}
-	return (ERROR);
-}
+// t_token_type	get_token_type(char *command_line, int i)
+// {
+// 	if (!command_line || i < 0)
+// 		return (ERROR);
+// 	if (command_line[i] && command_line[i] == '|')
+// 	{
+// 		if (command_line[i + 1] && command_line[i + 1] == '|')
+// 		{
+// 			i++;
+// 			return (D_PIPE);
+// 		}
+// 		return (S_PIPE);
+// 	}
+// 	if (command_line[i] && command_line[i] == '&')
+// 	{
+// 		if (command_line[i + 1] && command_line[i + 1] == '&')
+// 		{
+// 			i++;
+// 			return (D_AND);
+// 		}
+// 		return (S_AND);
+// 	}
+// 	if (command_line[i] && command_line[i] == '<')
+// 	{
+// 		if (command_line[i + 1] && command_line[i + 1] == '<')
+// 		{
+// 			i++;
+// 			return (L_D_REDIR);
+// 		}
+// 		return (L_S_REDIR);
+// 	}
+// 	if (command_line[i] && command_line[i] == '>')
+// 	{
+// 		if (command_line[i + 1] && command_line[i + 1] == '>')
+// 		{
+// 			i++;
+// 			return (R_D_REDIR);
+// 		}
+// 		return (R_S_REDIR);
+// 	}
+// 	return (ERROR);
+// }
