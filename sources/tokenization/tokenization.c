@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/13 12:58:46 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:37:04 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ void	procces_one_token(t_token *cur_token, t_token **tokens_list, int *is_op)
 		else
 			i++;
 	}
+	if (i - non_op_start > 0 && *is_op == 1)
+			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
 }
 
 // line 145, 154 / in case if there is non operator symbols BEFORE operator

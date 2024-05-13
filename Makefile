@@ -9,7 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g #-fsanitize=address
 
 # Libraries
 LIBS_DIR = libraries
@@ -36,7 +36,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 # Compilation process
-all: $(READLINE) $(NAME)
+all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH)
@@ -48,7 +48,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 # Configuring readline
-$(READLINE):
+$(LIBS_DIR)/$(READLINE):
 	./$(LIBS_DIR)/config_readline readline
 
 # Cleaning
