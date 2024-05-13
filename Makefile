@@ -6,11 +6,14 @@ READLINE = readline
 
 # Compilator
 CC = cc
+
 # Compilator flags
-INC_DIRS = -I./includes -I./$(READLINE)/include
-CFLAGS = $(INC_DIRS) #-g3 -fsanitize=address 
+INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address
+
 # Libraries
-LIB_PATH = readline/lib
+LIBS_DIR = libraries
+READLINE_LIB_PATH = $(LIBS_DIR)/readline/lib
 
 # Headers
 HEADERS = 	includes/minishell.h \
@@ -19,6 +22,7 @@ HEADERS = 	includes/minishell.h \
 
 # Source directory
 SRCS_DIR = sources/
+
 # Objects directory
 OBJS_DIR = objects/
 
@@ -35,7 +39,7 @@ OBJS_NAME = $(SRCS_NAME:.c=.o)
 all: $(READLINE) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(LIB_PATH)
+	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)
@@ -45,17 +49,18 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 
 # Configuring readline
 $(READLINE):
-	./config_readline readline
+	./$(LIBS_DIR)/config_readline readline
 
 # Cleaning
 clean:
 	@$(RM) $(OBJS)
 
+# Force cleaning
 fclean: clean
 	@$(RM) $(NAME)
-	rm -rf $(READLINE)
+	rm -rf $(LIBS_DIR)/$(READLINE)
 	rm -rf $(OBJS_DIR)
-	make clean -C readline-8.2
+	make clean -C $(LIBS_DIR)/readline-8.2
 
 # Remaking
 re: fclean all

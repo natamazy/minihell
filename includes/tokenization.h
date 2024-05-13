@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/12 18:11:55 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:19:22 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ enum e_quote
 	OPENED,
 	CLOSED
 };
-void			tokenization(char *command_line, t_token **list_of_tokens);
-void			ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token);
-t_token_type	get_token_type(char *command_line, int ind);
+void			tokenization(char *cmd_line, t_token **tokens_list);
+void			ft_add_token_to_list(t_token **tokens_list, t_token *new_token);
+t_token_type	get_token_type(char *cmd_line, int ind);
 t_token			*ft_new_token(char *value);
 
 #endif
