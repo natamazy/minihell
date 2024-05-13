@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/12 18:16:04 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:11:27 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	print_token_list(t_token *token_list)
 		return ;
 	while (token_list)
 	{
-		printf("\033[0;030m(%d)\033[0;032m[%s]\033[0m", token_list->type, token_list->value);
+		printf("\033[0;030m(%d)\033[0;032m[%s]\033[0m",
+			token_list->type, token_list->value);
 		if (token_list && token_list->next)
 			printf("\033[0;036m -> \033[0m");
 		else

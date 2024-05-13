@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/12 20:50:17 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:58:46 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 	new_token->prev = ptr;
 }
 
+// line 56
+// knereq der error handling chka
+// mer kodum dra hamar hl@ vor senc
 void	create_and_add_to_list(t_token **token_list, char *start, int len)
 {
 	t_token	*new_token;
 
 	new_token = ft_new_token(ft_substr(start, 0, len));
 	if (new_token == NULL)
-		return ; // knereq der error handling chka
-				//mer kodum dra hamar hl@ vor senc
+		return ;
 	ft_add_token_to_list(token_list, new_token);
 }
 
@@ -99,13 +101,15 @@ t_token	*go_to_next(t_token *current_token, int need_to_del)
 	return (next_node);
 }
 
-void	add_new_token_before(t_token **tokens_list, t_token *cur_token, char *value)
+// line 112 / knereq der error handling chka mer kodum dra hamar hl@ vor senc
+void	add_new_token_before(t_token **tokens_list,
+	t_token *cur_token, char *value)
 {
 	t_token	*new_token;
 
 	new_token = ft_new_token(value);
 	if (new_token == NULL)
-		return ; // knereq der error handling chka mer kodum dra hamar hl@ vor senc
+		return ;
 	if (cur_token->prev != NULL)
 		cur_token->prev->next = new_token;
 	else
@@ -115,48 +119,55 @@ void	add_new_token_before(t_token **tokens_list, t_token *cur_token, char *value
 	cur_token->prev = new_token;
 }
 
+void	procces_one_token(t_token *cur_token, t_token **tokens_list, int *is_op)
+{
+	int	i;
+	int	op_len;
+	int	non_op_start;
+
+	i = 0;
+	non_op_start = i;
+	while (cur_token->value[i])
+	{
+		op_len = ft_is_operator(cur_token->value, i);
+		if (op_len > 0)
+		{
+			*is_op = 1;
+			if (i - non_op_start > 0)
+				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, i, op_len));
+			i += op_len;
+			non_op_start = i;
+			if (i - non_op_start > 0 && *is_op == 1)
+				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+		}
+		else
+			i++;
+	}
+}
+
+// line 145, 154 / in case if there is non operator symbols BEFORE operator
 void	split_by_operators(t_token **tokens_list)
 {
 	t_token	*cur_token;
-	int		op_len;
-	int		i;
-	int		non_op_start;
 	int		is_op;
 
+	is_op = 0;
 	if (!tokens_list)
 		return ;
 	cur_token = *tokens_list;
 	while (cur_token != NULL)
 	{
-		is_op = 0;
-		i = 0;
-		non_op_start = i;
-		while (cur_token->value[i])
-		{
-			op_len = ft_is_operator(cur_token->value, i);
-			if (op_len > 0)
-			{
-				is_op = 1;
-				if (i - non_op_start > 0) // in case if there is non operator symbols BEFORE operator
-					add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
-				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, i, op_len));
-				i += op_len;
-				non_op_start = i;
-			}
-			else
-				i++;
-		}
-		if (i - non_op_start > 0 && is_op == 1) // in case if there is non operator symbols AFTER operator
-			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+		procces_one_token(cur_token, tokens_list, &is_op);
 		cur_token = go_to_next(cur_token, is_op);
 	}
 }
 
+//TODO: add one new spliting level by quotation marks
+// print_token_list(*token_list);
 void	tokenization(char *command_line, t_token **token_list)
 {
 	split_by_spaces(command_line, token_list);
-	//TODO: add one new spliting level by quotation marks
-	// print_token_list(*token_list);
 	split_by_operators(token_list);
 }
 
