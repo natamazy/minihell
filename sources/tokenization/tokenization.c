@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/14 16:28:26 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:26:30 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	quote_handling(int *i, int *j, char *cmd_line)
 	return (1);
 }
 
-void	split_by_spaces(char *cmd_line, t_token **token_list)
+void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 {
 	int		i;
 	int		j;
@@ -83,7 +83,7 @@ void	split_by_spaces(char *cmd_line, t_token **token_list)
 		if (ft_isspace(cmd_line[i]) == 1)
 		{
 			if (i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
-				create_and_add_to_list(token_list, cmd_line + start, i - start);
+				create_and_add_to_list(tokens_list, cmd_line + start, i - start);
 			start = i + 1;
 		}
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
@@ -91,7 +91,7 @@ void	split_by_spaces(char *cmd_line, t_token **token_list)
 		i++;
 	}
 	if (i - start > 0)
-		create_and_add_to_list(token_list, cmd_line + start, i - start);
+		create_and_add_to_list(tokens_list, cmd_line + start, i - start);
 }
 
 t_token	*go_to_next(t_token *current_token, int need_to_del)
@@ -175,53 +175,54 @@ void	split_by_operators(t_token **tokens_list)
 	}
 }
 
-//TODO: add one new spliting level by quotation marks
-// print_token_list(*token_list);
-void	tokenization(char *command_line, t_token **token_list)
+void set_tokens(t_token *tokens_list)
 {
-	split_by_spaces(command_line, token_list);
-	split_by_operators(token_list);
+	t_token	*cur_token;
+
+	cur_token = tokens_list;
+	while (cur_token != NULL)
+	{
+		cur_token->type = get_token_type(cur_token->value, 0);
+		cur_token = cur_token->next;	
+	}
 }
 
-// t_token_type	get_token_type(char *command_line, int i)
-// {
-// 	if (!command_line || i < 0)
-// 		return (ERROR);
-// 	if (command_line[i] && command_line[i] == '|')
-// 	{
-// 		if (command_line[i + 1] && command_line[i + 1] == '|')
-// 		{
-// 			i++;
-// 			return (D_PIPE);
-// 		}
-// 		return (S_PIPE);
-// 	}
-// 	if (command_line[i] && command_line[i] == '&')
-// 	{
-// 		if (command_line[i + 1] && command_line[i + 1] == '&')
-// 		{
-// 			i++;
-// 			return (D_AND);
-// 		}
-// 		return (S_AND);
-// 	}
-// 	if (command_line[i] && command_line[i] == '<')
-// 	{
-// 		if (command_line[i + 1] && command_line[i + 1] == '<')
-// 		{
-// 			i++;
-// 			return (L_D_REDIR);
-// 		}
-// 		return (L_S_REDIR);
-// 	}
-// 	if (command_line[i] && command_line[i] == '>')
-// 	{
-// 		if (command_line[i + 1] && command_line[i + 1] == '>')
-// 		{
-// 			i++;
-// 			return (R_D_REDIR);
-// 		}
-// 		return (R_S_REDIR);
-// 	}
-// 	return (ERROR);
-// }
+//TODO: add one new spliting level by quotation marks
+// print_token_list(*token_list);
+void	tokenization(char *command_line, t_token **tokens_list)
+{
+	split_by_spaces(command_line, tokens_list);
+	split_by_operators(tokens_list);
+	set_tokens(*tokens_list);
+}
+
+t_token_type	get_token_type(char *s, int i)
+{
+	if (!s || i < 0)
+		return (ERROR);
+	if (s[i] == '|')
+	{
+		if (s[i + 1] && s[i] == s[i + 1])
+			return (D_PIPE);
+		return (S_PIPE);
+	}
+	else if (s[i] == '&')
+	{
+		if (s[i + 1] && s[i] == s[i + 1])
+			return (D_AND);
+		return (ERROR);
+	}
+	else if (s[i] == '>')
+	{
+		if (s[i + 1] && s[i] == s[i + 1])
+			return (APPEND_REDIR);
+		return (OUT_REDIR);
+	}
+	else if (s[i] == '<')
+	{
+		if (s[i + 1] && s[i] == s[i + 1])
+			return (HERE_DOC);
+		return (IN_REDIR);
+	}
+	return (ERROR);
+}

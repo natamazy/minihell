@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/13 12:11:27 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:27:10 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,46 @@ int	ft_isspace(char c)
 		|| c == '\v' || c == '\f' || c == '\r');
 }
 
+char	*str_type(int token_type)
+{
+	if (token_type == 0)
+		return ("WORD");
+	else if (token_type == 1)
+		return ("S_PIPE");
+	else if (token_type == 2)
+		return ("D_PIPE");
+	else if (token_type == 3)
+		return ("S_AND");
+	else if (token_type == 4)
+		return ("D_AND");
+	else if (token_type == 5)
+		return ("O_D_QUOTE");
+	else if (token_type == 6)
+		return ("C_D_QUOTE");
+	else if (token_type == 7)
+		return ("O_S_QUOTE");
+	else if (token_type == 8)
+		return ("C_S_QUOTE");
+	else if (token_type == 9)
+		return ("IN_REDIR");
+	else if (token_type == 10)
+		return ("OUT_REDIR");
+	else if (token_type == 11)
+		return ("HERE_DOC");
+	else if (token_type == 12)
+		return ("APPEND_REDIR");
+	else
+		return ("ERROR");
+}
+
 void	print_token_list(t_token *token_list)
 {
 	if (!token_list)
 		return ;
 	while (token_list)
 	{
-		printf("\033[0;030m(%d)\033[0;032m[%s]\033[0m",
-			token_list->type, token_list->value);
+		printf("\033[0;030m%s(\033[0;032m%s)\033[0m",
+			str_type(token_list->type), token_list->value);
 		if (token_list && token_list->next)
 			printf("\033[0;036m -> \033[0m");
 		else

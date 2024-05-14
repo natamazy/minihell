@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/14 16:16:09 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:26:11 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ O_D_QUOTE - "
 C_D_QUOTE - "
 O_S_QUOTE - '
 C_S_QUOTE - '
-L_S_REDIR - <
-R_S_REDIR - >
-L_D_REDIR - <<
-R_D_REDIR - >>
+IN_REDIR - <
+OUT_REDIR - >
+HERE_DOC - <<
+APPEND_REDIR - >>
 ERROR
 */
 typedef enum e_token_type
@@ -42,10 +42,10 @@ typedef enum e_token_type
 	C_D_QUOTE,
 	O_S_QUOTE,
 	C_S_QUOTE,
-	L_S_REDIR,
-	R_S_REDIR,
-	L_D_REDIR,
-	R_D_REDIR,
+	IN_REDIR,
+	OUT_REDIR,
+	HERE_DOC,
+	APPEND_REDIR,
 	ERROR,
 }	t_token_type;
 
