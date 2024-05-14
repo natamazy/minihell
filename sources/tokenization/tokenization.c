@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/13 14:37:04 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:05:27 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,29 @@ void	create_and_add_to_list(t_token **token_list, char *start, int len)
 void	split_by_spaces(char *cmd_line, t_token **token_list)
 {
 	int		i;
+	int		j;
 	int		start;
-	int		quote;
 
-	i = -1;
-	quote = CLOSED;
+	i = 0;
 	start = 0;
-	while (cmd_line[++i])
+	while (cmd_line[i])
 	{
 		if (ft_isspace(cmd_line[i]) == 1)
 		{
-			if (quote == CLOSED && i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
+			if (i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
 				create_and_add_to_list(token_list, cmd_line + start, i - start);
-			if (quote == CLOSED)
-				start = i + 1;
+			start = i + 1;
 		}
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
-			quote = !quote;
+		{
+			j = i;
+			i++;
+			while (cmd_line[i] && (cmd_line[j] != cmd_line[i]))
+				i++;
+			if (cmd_line[i] == '\0')
+				exit(printf("Syntax error ches pake ay es tipin ara ---%c---\n", cmd_line[j]));
+		}
+		i++;
 	}
 	if (i - start > 0)
 		create_and_add_to_list(token_list, cmd_line + start, i - start);
@@ -145,7 +151,7 @@ void	procces_one_token(t_token *cur_token, t_token **tokens_list, int *is_op)
 			i++;
 	}
 	if (i - non_op_start > 0 && *is_op == 1)
-			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+		add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
 }
 
 // line 145, 154 / in case if there is non operator symbols BEFORE operator
