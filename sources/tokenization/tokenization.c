@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/14 15:05:27 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:28:26 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ void	create_and_add_to_list(t_token **token_list, char *start, int len)
 	ft_add_token_to_list(token_list, new_token);
 }
 
+int	quote_handling(int *i, int *j, char *cmd_line)
+{
+	*j = *i;
+	*i = *i + 1;
+	while (cmd_line[*i] && (cmd_line[*j] != cmd_line[*i]))
+		*i = *i + 1;
+	if (cmd_line[*i] == '\0')
+		printf("Syntax error ches pake ay es tipi ->%c<-\n", cmd_line[*j]);
+	return (1);
+}
+
 void	split_by_spaces(char *cmd_line, t_token **token_list)
 {
 	int		i;
@@ -76,14 +87,7 @@ void	split_by_spaces(char *cmd_line, t_token **token_list)
 			start = i + 1;
 		}
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
-		{
-			j = i;
-			i++;
-			while (cmd_line[i] && (cmd_line[j] != cmd_line[i]))
-				i++;
-			if (cmd_line[i] == '\0')
-				exit(printf("Syntax error ches pake ay es tipin ara ---%c---\n", cmd_line[j]));
-		}
+			quote_handling(&i, &j, cmd_line);
 		i++;
 	}
 	if (i - start > 0)
