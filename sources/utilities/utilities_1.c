@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/15 16:21:10 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:07:07 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,29 @@ char	*str_type(int token_type)
 	else if (token_type == 4)
 		return ("D_AND");
 	else if (token_type == 5)
-		return ("O_D_QUOTE");
+		return ("D_QUOTE");
 	else if (token_type == 6)
-		return ("C_D_QUOTE");
+		return ("S_QUOTE");
 	else if (token_type == 7)
-		return ("O_S_QUOTE");
-	else if (token_type == 8)
-		return ("C_S_QUOTE");
-	else if (token_type == 9)
 		return ("IN_REDIR");
-	else if (token_type == 10)
+	else if (token_type == 8)
 		return ("OUT_REDIR");
-	else if (token_type == 11)
+	else if (token_type == 9)
 		return ("HERE_DOC");
-	else if (token_type == 12)
+	else if (token_type == 10)
 		return ("APPEND_REDIR");
-	else if (token_type == 13)
+	else if (token_type == 11)
 		return ("ERROR");
-	else if (token_type == 14)
+	else if (token_type == 12)
 		return ("NONE");
+	else if (token_type == 13)
+		return ("FILEIN");
+	else if (token_type == 14)
+		return ("LIMITER");
+	else if (token_type == 15)
+		return ("FILEOUT");
+	else if (token_type == 16)
+		return ("APPEND_FILEOUT");
 	else
 		return ("\033[0;031mTOKEN_TYPE_NOT_FOUND");
 }
@@ -83,7 +87,7 @@ void	print_token_list(t_token *token_list)
 		return ;
 	while (token_list)
 	{
-		printf("\033[0;036m%s\033[0;032m(%s)\033[0m",
+		printf("\033[0;035m%s\033[0;032m(%s)\033[0m",
 			str_type(token_list->type), token_list->value);
 		if (token_list && token_list->next)
 			printf("\033[0;036m -> \033[0m");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/15 14:44:43 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:05:37 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ S_PIPE - |
 D_PIPE - ||
 S_AND - &
 D_AND - &&
-O_D_QUOTE - "
-C_D_QUOTE - "
-O_S_QUOTE - '
-C_S_QUOTE - '
+D_QUOTE - "
+S_QUOTE - '
 IN_REDIR - <
 OUT_REDIR - >
 HERE_DOC - <<
@@ -39,16 +37,18 @@ typedef enum e_token_type
 	D_PIPE,
 	S_AND,
 	D_AND,
-	O_D_QUOTE,
-	C_D_QUOTE,
-	O_S_QUOTE,
-	C_S_QUOTE,
+	D_QUOTE,
+	S_QUOTE,
 	IN_REDIR,
 	OUT_REDIR,
 	HERE_DOC,
 	APPEND_REDIR,
 	ERROR,
 	NONE,
+	FILEIN,
+	LIMITER,
+	FILEOUT,
+	APPEND_FILEOUT,
 }	t_token_type;
 
 typedef struct s_token_params
