@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/14 21:26:11 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:44:43 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ OUT_REDIR - >
 HERE_DOC - <<
 APPEND_REDIR - >>
 ERROR
+NONE
 */
 typedef enum e_token_type
 {
@@ -47,7 +48,14 @@ typedef enum e_token_type
 	HERE_DOC,
 	APPEND_REDIR,
 	ERROR,
+	NONE,
 }	t_token_type;
+
+typedef struct s_token_params
+{
+	short	cmd_found;
+	short	redir;
+}	t_token_params;
 
 struct s_token
 {

@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/14 21:26:30 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:51:58 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_token	*ft_new_token(char *value)
 	if (new_token == NULL)
 		return (NULL);
 	new_token->value = value;
-	new_token->type = ERROR;
+	new_token->type = NONE;
 	new_token->next = NULL;
 	new_token->prev = NULL;
 	return (new_token);

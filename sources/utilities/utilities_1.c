@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/14 21:27:10 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:46:20 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ char	*str_type(int token_type)
 		return ("HERE_DOC");
 	else if (token_type == 12)
 		return ("APPEND_REDIR");
-	else
+	else if (token_type == 13)
 		return ("ERROR");
+	else if (token_type == 14)
+		return ("NONE");
+	else
+		return ("\033[0;031mTOKEN_TYPE_NOT_FOUND");
 }
 
 void	print_token_list(t_token *token_list)
