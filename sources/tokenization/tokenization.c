@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/15 14:51:58 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:27:17 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,22 @@ void	create_and_add_to_list(t_token **token_list, char *start, int len)
 	ft_add_token_to_list(token_list, new_token);
 }
 
-int	quote_handling(int *i, int *j, char *cmd_line)
+int	quote_handling(int *i, char *cmd_line)
 {
-	*j = *i;
+	int		j;
+
+	j = *i;
 	*i = *i + 1;
-	while (cmd_line[*i] && (cmd_line[*j] != cmd_line[*i]))
+	while (cmd_line[*i] && (cmd_line[j] != cmd_line[*i]))
 		*i = *i + 1;
 	if (cmd_line[*i] == '\0')
-		printf("Syntax error ches pake ay es tipi ->%c<-\n", cmd_line[*j]);
+		printf("Syntax error ches pake ay es tipi ->%c<-\n", cmd_line[j]);
 	return (1);
 }
 
 void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 {
 	int		i;
-	int		j;
 	int		start;
 
 	i = 0;
@@ -87,7 +88,7 @@ void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 			start = i + 1;
 		}
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
-			quote_handling(&i, &j, cmd_line);
+			quote_handling(&i, cmd_line);
 		i++;
 	}
 	if (i - start > 0)
@@ -139,6 +140,8 @@ void	procces_one_token(t_token *cur_token, t_token **tokens_list, int *is_op)
 	non_op_start = i;
 	while (cur_token->value[i])
 	{
+		if (cur_token->value[i] == '\"' || cur_token->value[i] == '\'')
+			quote_handling(&i, cur_token->value);
 		op_len = ft_is_operator(cur_token->value, i);
 		if (op_len > 0)
 		{
