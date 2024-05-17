@@ -29,7 +29,11 @@ OBJS_DIR = objects/
 # Source file names
 SRCS_NAME = minishell.c \
 			tokenization/tokenization.c \
-			utilities/utilities_1.c
+			tokenization/token_type_defining.c \
+			tokenization/tokens_list_utils.c \
+			tokenization/tokens_splitting.c \
+			utilities/utilities_1.c \
+			utilities/utilities_2.c \
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))

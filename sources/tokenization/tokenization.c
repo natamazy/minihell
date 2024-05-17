@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/15 21:00:47 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:47:31 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,7 @@
 #include "utilities.h"
 #include <stdlib.h>
 
-t_token	*ft_new_token(char *value)
-{
-	t_token	*new_token;
-
-	new_token = malloc(sizeof(t_token));
-	if (new_token == NULL)
-		return (NULL);
-	new_token->value = value;
-	new_token->type = NONE;
-	new_token->next = NULL;
-	new_token->prev = NULL;
-	return (new_token);
-}
-
-void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
-{
-	t_token	*ptr;
-
-	if (list_of_tokens == NULL || new_token == NULL)
-		return ;
-	if (*list_of_tokens == NULL)
-	{
-		*list_of_tokens = new_token;
-		return ;
-	}
-	ptr = *list_of_tokens;
-	while (ptr && ptr->next)
-		ptr = ptr->next;
-	ptr->next = new_token;
-	new_token->prev = ptr;
-}
-
-// line 56
-// knereq der error handling chka
-// mer kodum dra hamar hl@ vor senc
-void	create_and_add_to_list(t_token **token_list, char *start, int len)
-{
-	t_token	*new_token;
-
-	new_token = ft_new_token(ft_substr(start, 0, len));
-	if (new_token == NULL)
-		return ;
-	ft_add_token_to_list(token_list, new_token);
-}
-
-int	quote_handling(int *i, char *cmd_line)
+int	quote_handling(int *i, char *cmd_line, int print)
 {
 	int		j;
 
@@ -67,32 +22,9 @@ int	quote_handling(int *i, char *cmd_line)
 	*i = *i + 1;
 	while (cmd_line[*i] && (cmd_line[j] != cmd_line[*i]))
 		*i = *i + 1;
-	if (cmd_line[*i] == '\0')
+	if (cmd_line[*i] == '\0' && print)
 		printf("Syntax error ches pake ay es tipi ->%c<-\n", cmd_line[j]);
 	return (1);
-}
-
-void	split_by_spaces(char *cmd_line, t_token **tokens_list)
-{
-	int		i;
-	int		start;
-
-	i = 0;
-	start = 0;
-	while (cmd_line[i])
-	{
-		if (ft_isspace(cmd_line[i]) == 1)
-		{
-			if (i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
-				create_and_add_to_list(tokens_list, cmd_line + start, i - start);
-			start = i + 1;
-		}
-		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
-			quote_handling(&i, cmd_line);
-		i++;
-	}
-	if (i - start > 0)
-		create_and_add_to_list(tokens_list, cmd_line + start, i - start);
 }
 
 t_token	*go_to_next(t_token *current_token, int need_to_del)
@@ -112,96 +44,33 @@ t_token	*go_to_next(t_token *current_token, int need_to_del)
 	return (next_node);
 }
 
-// line 112 / knereq der error handling chka mer kodum dra hamar hl@ vor senc
-void	add_new_token_before(t_token **tokens_list,
-	t_token *cur_token, char *value)
+void	procces_one_token(t_token *cur, t_token **tl, int *is_op, int i)
 {
-	t_token	*new_token;
-
-	new_token = ft_new_token(value);
-	if (new_token == NULL)
-		return ;
-	if (cur_token->prev != NULL)
-		cur_token->prev->next = new_token;
-	else
-		*tokens_list = new_token;
-	new_token->next = cur_token;
-	new_token->prev = cur_token->prev;
-	cur_token->prev = new_token;
-}
-
-void	procces_one_token(t_token *cur_token, t_token **tokens_list, int *is_op)
-{
-	int	i;
 	int	op_len;
-	int	non_op_start;
+	int	tok_s;
 
-	i = 0;
-	non_op_start = i;
-	while (cur_token->value[i])
+	tok_s = i;
+	while (cur->value[i])
 	{
-		if (cur_token->value[i] == '\"' || cur_token->value[i] == '\'')
-			quote_handling(&i, cur_token->value);
-		op_len = ft_is_operator(cur_token->value, i);
+		if (cur->value[i] == '\"' || cur->value[i] == '\'')
+			quote_handling(&i, cur->value, 1);
+		op_len = ft_is_operator(cur->value, i);
 		if (op_len > 0)
 		{
 			*is_op = 1;
-			if (i - non_op_start > 0)
-				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
-			add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, i, op_len));
+			if (i - tok_s > 0)
+				add_new_bef(tl, cur, ft_substr(cur->value, tok_s, i - tok_s));
+			add_new_bef(tl, cur, ft_substr(cur->value, i, op_len));
 			i += op_len;
-			non_op_start = i;
-			if (i - non_op_start > 0 && *is_op == 1)
-				add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
+			tok_s = i;
+			if (i - tok_s > 0 && *is_op == 1)
+				add_new_bef(tl, cur, ft_substr(cur->value, tok_s, i - tok_s));
 		}
 		else
 			i++;
 	}
-	if (i - non_op_start > 0 && *is_op == 1)
-		add_new_token_before(tokens_list, cur_token, ft_substr(cur_token->value, non_op_start, i - non_op_start));
-}
-
-// line 145, 154 / in case if there is non operator symbols BEFORE operator
-void	split_by_operators(t_token **tokens_list)
-{
-	t_token	*cur_token;
-	int		is_op;
-
-	is_op = 0;
-	if (!tokens_list)
-		return ;
-	cur_token = *tokens_list;
-	while (cur_token != NULL)
-	{
-		procces_one_token(cur_token, tokens_list, &is_op);
-		cur_token = go_to_next(cur_token, is_op);
-	}
-}
-
-void	set_tokens(t_token *tokens_list)
-{
-	t_token			*cur_token;
-	t_token_params	params;
-
-	params.cmd_found = 0;
-	params.redir = 0;
-	cur_token = tokens_list;
-	while (cur_token != NULL)
-	{
-		cur_token->type = get_token_type(cur_token->value, 0);
-		if (cur_token->prev != NULL && cur_token->type == WORD && ft_is_operator(cur_token->prev->value, 0) > 0)
-		{
-			if (cur_token->prev->type == IN_REDIR)
-				cur_token->type = FILEIN;
-			if (cur_token->prev->type == HERE_DOC)
-				cur_token->type = LIMITER;
-			if (cur_token->prev->type == OUT_REDIR)
-				cur_token->type = FILEOUT;
-			if (cur_token->prev->type == APPEND_REDIR)
-				cur_token->type = APPEND_FILEOUT;
-		}
-		cur_token = cur_token->next;
-	}
+	if (i - tok_s > 0 && *is_op == 1)
+		add_new_bef(tl, cur, ft_substr(cur->value, tok_s, i - tok_s));
 }
 
 //TODO: add one new spliting level by quotation marks
@@ -211,36 +80,4 @@ void	tokenization(char *command_line, t_token **tokens_list)
 	split_by_spaces(command_line, tokens_list);
 	split_by_operators(tokens_list);
 	set_tokens(*tokens_list);
-}
-
-t_token_type	get_token_type(char *s, int i)
-{
-	if (!s || i < 0)
-		return (ERROR);
-	if (s[i] == '|')
-	{
-		if (s[i + 1] && s[i] == s[i + 1])
-			return (D_PIPE);
-		return (S_PIPE);
-	}
-	else if (s[i] == '&')
-	{
-		if (s[i + 1] && s[i] == s[i + 1])
-			return (D_AND);
-		return (ERROR);
-	}
-	else if (s[i] == '>')
-	{
-		if (s[i + 1] && s[i] == s[i + 1])
-			return (APPEND_REDIR);
-		return (OUT_REDIR);
-	}
-	else if (s[i] == '<')
-	{
-		if (s[i + 1] && s[i] == s[i + 1])
-			return (HERE_DOC);
-		return (IN_REDIR);
-	}
-	else
-		return (WORD);
 }
