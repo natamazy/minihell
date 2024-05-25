@@ -49,7 +49,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/tokenization
 	@mkdir -p $(OBJS_DIR)/utilities
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Configuring readline
 $(LIBS_DIR)/$(READLINE):
@@ -62,7 +62,7 @@ clean:
 # Force cleaning
 fclean: clean
 	@$(RM) $(NAME)
-	rm -rf $(LIBS_DIR)/$(READLINE)
+	# rm -rf $(LIBS_DIR)/$(READLINE)
 	rm -rf $(OBJS_DIR)
 	make clean -C $(LIBS_DIR)/readline-8.2
 

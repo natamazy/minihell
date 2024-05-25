@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 16:58:53 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:08:32 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ struct s_token
 	t_token			*next;
 	t_token			*prev;
 };
+
+typedef struct s_shell
+{
+	char	**envr;
+}	t_shell;
 
 void			set_tokens(t_token *tokens_list);
 t_token_type	get_token_type_util(char *s, int i);

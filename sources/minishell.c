@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/12 18:18:15 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:08:53 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "tokenization.h"
 #include "utilities.h"
 
-int	main(void)
+int	main(int argc, char *argv, char **env)
 {
 	t_token	*token_list;
 	char	*cmd_line;
@@ -30,5 +30,7 @@ int	main(void)
 			add_history(cmd_line);
 		}
 		ft_token_list_clear(&token_list);
+		free(cmd_line);
 	}
+	rl_clear_history();
 }
