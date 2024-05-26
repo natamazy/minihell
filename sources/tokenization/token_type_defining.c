@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:45:28 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 15:46:20 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/26 19:16:38 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@
 void	set_tokens(t_token *tokens_list)
 {
 	t_token			*cur_token;
-	t_token_params	params;
 
-	params.cmd_found = 0;
-	params.redir = 0;
 	cur_token = tokens_list;
 	while (cur_token != NULL)
 	{

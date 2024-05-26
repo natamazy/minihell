@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/18 15:08:32 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/26 19:28:20 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ typedef enum e_token_type
 	APPEND_FILEOUT,
 }	t_token_type;
 
-typedef struct s_token_params
-{
-	short	cmd_found;
-	short	redir;
-}	t_token_params;
-
 struct s_token
 {
 	t_token_type	type;
@@ -66,11 +60,6 @@ struct s_token
 	t_token			*next;
 	t_token			*prev;
 };
-
-typedef struct s_shell
-{
-	char	**envr;
-}	t_shell;
 
 void			set_tokens(t_token *tokens_list);
 t_token_type	get_token_type_util(char *s, int i);
