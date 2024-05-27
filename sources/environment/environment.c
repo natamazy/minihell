@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:23:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/27 14:26:22 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:48:52 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*find_value(char	*full_key_val)
 	j = ++i;
 	while (full_key_val[j] != '\0')
 		j++;
-	new_val = malloc((j - i) * sizeof(char));
+	new_val = malloc((j - i + 1) * sizeof(char));
 	if (!new_val)
 		return (NULL);
 	j = 0;
@@ -86,4 +86,28 @@ t_env_elem	*init_env(char	**env)
 		i++;
 	}
 	return (temp_env_elem.next);
+}
+
+void	check_env(t_shell	*shell)
+{
+	t_env_elem	*temp;
+
+	temp = shell->envr;
+	while (temp)
+	{
+		if (ft_strcmp(temp->key, "PATH") == 0)
+		{
+			printf("---%s---\n", temp->key);
+			return ;
+		}
+		temp = temp->next;
+	}
+	temp = NULL;
+	temp = malloc(sizeof(t_env_elem));
+	if (!temp)
+		return ;
+	temp->key = "PATH";
+	temp->value = "";
+	temp->next = shell->envr;
+	shell->envr = temp;
 }

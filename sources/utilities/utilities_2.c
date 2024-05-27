@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:59:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 16:58:41 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:40:08 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,14 @@ void	ft_token_list_clear(t_token **lst)
 		l = t;
 	}
 	*lst = NULL;
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }
