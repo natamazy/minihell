@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/26 21:06:41 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:21:09 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	
 	shell = malloc(sizeof(shell));
-	init_env(env, shell->envr);
+	shell->envr = init_env(env);
+	while (shell->envr)
+	{
+		printf("%s=%s\n", shell->envr->key, shell->envr->value);
+		shell->envr = shell->envr->next;
+	}
 	
 	token_list = NULL;
 	while (1)

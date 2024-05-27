@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:23:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/26 21:27:27 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:26:22 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,24 @@ char	*find_value(char	*full_key_val)
 	return (new_val);
 }
 
-void	init_env(char	**env, char	***new_env)
+t_env_elem	*init_env(char	**env)
 {
-	int	env_var_count;
+	int			i;
+	t_env_elem	*new_env;
+	t_env_elem	temp_env_elem;
 
-	env_var_count = 0;
-	while (env[env_var_count] != NULL)
-		env_var_count++;
-	new_env = malloc((env_var_count + 1) * sizeof(char **));
-	if (!new_env)
-		return ;
-	env_var_count = 0;
-	while (env[env_var_count] != NULL)
+	i = 0;
+	new_env = &temp_env_elem;
+	while (env[i] != NULL)
 	{
-		new_env[env_var_count] = malloc(2 * sizeof(char *));
-		new_env[env_var_count][KEY] = find_key(env[env_var_count]);
-		new_env[env_var_count][VALUE] = find_value(env[env_var_count]);
-		printf("OUR | key '%s', value '%s'\n", new_env[env_var_count][KEY], new_env[env_var_count][VALUE]);
-		env_var_count++;
+		new_env->next = malloc(sizeof(t_env_elem));
+		if (!new_env->next)
+			return (NULL);
+		new_env->next->key = find_key(env[i]);
+		new_env->next->value = find_value(env[i]);
+		new_env->next->next = NULL;
+		new_env = new_env->next;
+		i++;
 	}
-	env[env_var_count] = NULL;
+	return (temp_env_elem.next);
 }

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/26 20:57:18 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:17:34 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *s);
 void		ft_token_list_clear(t_token **lst);
 int			ft_is_operator(char *s, int i);
-void		init_env(char	**env, char	***new_env);
+t_env_elem	*init_env(char	**env);
 
 #endif
