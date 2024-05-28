@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/27 17:44:37 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:33:16 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int			ft_is_operator(char *s, int i);
 t_env_elem	*init_env(char **env);
 void		check_env(t_shell *shell);
 int			ft_strcmp(char *s1, char *s2);
+char		*find_key(char	*full_key_val);
+char		*find_value(char	*full_key_val);
 
 #endif

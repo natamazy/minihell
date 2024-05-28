@@ -6,13 +6,14 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/27 17:44:23 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:35:58 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenization.h"
 #include "utilities.h"
+#include "builtin.h"
 
 int	main(int argc, char **argv, char **env)
 {
@@ -28,12 +29,8 @@ int	main(int argc, char **argv, char **env)
 	shell->envr = init_env(env);
 	check_env(shell);
 
-	while (shell->envr)
-	{
-		printf("%s=%s\n", shell->envr->key, shell->envr->value);
-		shell->envr = shell->envr->next;
-	}
-
+	// export_no_option(shell->envr);
+	// export(shell, "a");
 	token_list = NULL;
 	while (1)
 	{

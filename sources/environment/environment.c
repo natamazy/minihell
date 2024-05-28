@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:23:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/27 17:48:52 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:26:04 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ void	check_env(t_shell	*shell)
 	while (temp)
 	{
 		if (ft_strcmp(temp->key, "PATH") == 0)
-		{
-			printf("---%s---\n", temp->key);
 			return ;
-		}
 		temp = temp->next;
 	}
 	temp = NULL;
