@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/28 10:35:58 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:21:40 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	main(int argc, char **argv, char **env)
 	shell->envr = init_env(env);
 	check_env(shell);
 
-	// export_no_option(shell->envr);
-	// export(shell, "a");
+	export_no_option(shell->envr);
 	token_list = NULL;
 	while (1)
 	{

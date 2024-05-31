@@ -35,6 +35,7 @@ SRCS_NAME = minishell.c \
 			tokenization/tokens_splitting.c \
 			utilities/utilities_1.c \
 			utilities/utilities_2.c \
+			utilities/utilities_3.c \
 			environment/environment.c \
 			builtin/export.c
 
