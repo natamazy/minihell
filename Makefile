@@ -19,7 +19,8 @@ READLINE_LIB_PATH = $(LIBS_DIR)/readline/lib
 HEADERS = 	includes/minishell.h \
 			includes/tokenization.h \
 			includes/utilities.h \
-			includes/builtin.h
+			includes/builtin.h \
+			includes/syntaxer.h
 
 # Source directory
 SRCS_DIR = sources/
@@ -33,6 +34,7 @@ SRCS_NAME = minishell.c \
 			tokenization/token_type_defining.c \
 			tokenization/tokens_list_utils.c \
 			tokenization/tokens_splitting.c \
+			syntaxer/validation.c \
 			utilities/utilities_1.c \
 			utilities/utilities_2.c \
 			utilities/utilities_3.c \
@@ -55,6 +57,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)/utilities
 	@mkdir -p $(OBJS_DIR)/environment
 	@mkdir -p $(OBJS_DIR)/builtin
+	@mkdir -p $(OBJS_DIR)/syntaxer
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Configuring readline

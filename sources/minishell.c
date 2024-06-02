@@ -6,13 +6,14 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/28 17:21:40 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:08:21 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenization.h"
 #include "utilities.h"
+#include "syntaxer.h"
 #include "builtin.h"
 
 int	main(int argc, char **argv, char **env)
@@ -37,6 +38,8 @@ int	main(int argc, char **argv, char **env)
 		if (cmd_line && *cmd_line)
 		{
 			tokenization(cmd_line, &token_list);
+			if (syntax_validator(token_list) == 2)
+				printf("AAAAAAAAAAAAAAAAA\n");
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}
