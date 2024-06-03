@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/28 15:12:59 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:11:58 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void		check_env(t_shell *shell);
 int			ft_strcmp(char *s1, char *s2);
 char		*find_key(char	*full_key_val);
 char		*find_value(char	*full_key_val);
+char		*ft_strjoin(char const *s1, char const *s2, char sep);
 void		ft_env_elem_sort(t_env_elem **begin_list, int (*cmp)());
+int			ft_lstsize(t_env_elem *lst);
 
 #endif

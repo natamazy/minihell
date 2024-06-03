@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:52 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/28 15:10:37 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:11:45 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_env_elem	*merge_sort(t_env_elem *begin_list, int (*cmp)())
 	t_env_elem	*left;
 	t_env_elem	*right;
 	t_env_elem	*pre_right;
-	int		list_size;
+	int			list_size;
 
 	list_size = ft_env_elem_size(begin_list);
 	if (begin_list == NULL || list_size < 2)
@@ -91,4 +91,48 @@ t_env_elem	*merge_sort(t_env_elem *begin_list, int (*cmp)())
 void	ft_env_elem_sort(t_env_elem **begin_list, int (*cmp)())
 {
 	*begin_list = merge_sort(*begin_list, cmp);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2, char sep)
+{
+	char	*r_s;
+	size_t	i;
+	size_t	j;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	r_s = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (!r_s)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		r_s[j++] = s1[i];
+		i++;
+	}
+	r_s[j++] = sep;
+	i = 0;
+	while (s2[i])
+	{
+		r_s[j++] = s2[i];
+		i++;
+	}
+	r_s[j] = '\0';
+	return (r_s);
+}
+
+int	ft_lstsize(t_env_elem *lst)
+{
+	int		i;
+	t_env_elem	*current;
+
+	i = 0;
+	current = lst;
+	while (current)
+	{
+		i++;
+		current = current->next;
+	}
+	return (i);
 }

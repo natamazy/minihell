@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/03 17:14:45 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:17:10 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ int	main(int argc, char **argv, char **env)
 
 	export_no_option(shell->envr);
 	token_list = NULL;
+	
+	char	**test = env_list_to_array(shell->envr);
+	int L = 0;
+	while (test[L] != NULL)
+	{
+		printf("CHAR** - %s\n", test[L]);
+		L++;
+	}
+	
 	while (1)
 	{
 		cmd_line = readline("MINISHELL HOPAR:");
