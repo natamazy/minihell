@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/02 19:08:21 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:14:45 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			tokenization(cmd_line, &token_list);
 			if (syntax_validator(token_list) == 2)
-				printf("AAAAAAAAAAAAAAAAA\n");
+				printf("EROR HAPPENED, not definied yet\n");
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}

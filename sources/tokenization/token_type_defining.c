@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:45:28 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/26 19:16:38 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:13:26 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_token_type	get_token_type_util(char *s, int i)
 	{
 		if (s[i + 1] && s[i] == s[i + 1])
 			return (D_AND);
-		return (ERROR);
+		return (S_AND);
 	}
 	else if (s[i] == '>')
 	{

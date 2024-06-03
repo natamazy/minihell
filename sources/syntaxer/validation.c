@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 18:11:04 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:31 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:14:31 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,37 @@
 #include "tokenization.h"
 #include "utilities.h"
 
-int	syntax_validator(t_token	*token_list)
+int	is_ctrl_op(t_token	*token)
 {
-	while (token_list != NULL)
+	if (token->type == S_PIPE || token->type == D_PIPE || token->type == S_AND || token->type == D_AND)
+		return (1);
+	return (0);
+}
+
+int	is_permited(t_token	*token)
+{
+	if (token->type == D_PIPE || token->type == S_AND || token->type == D_AND)
+		return (1);
+	return (0);
+}
+
+int	syntax_validator(t_token	*t_l)
+{
+	while (t_l != NULL)
 	{
-		if (token_list->type == D_PIPE)
-			return (2); // syntax error type
-		else if (token_list->type == S_PIPE && \
-			(token_list->next && ft_is_operator(token_list->value, 0)))
+		if (t_l->type == OUT_REDIR || t_l->type == IN_REDIR || t_l->type == APPEND_REDIR || t_l->type == HERE_DOC)
+		{
+			if (t_l->next == NULL)
+				return (2);
+			if (t_l->next->type == FILEOUT || t_l->next->type == FILEIN || t_l->next->type == APPEND_FILEOUT || t_l->next->type == LIMITER)
+				return (0);
 			return (2);
-		else if ((token_list->type == OUT_REDIR || token_list->type == IN_REDIR)
-			&& token_list->next && (token_list->next->type != FILEIN || token_list->next->type != FILEOUT))
+		}
+		if (t_l->type == S_PIPE && is_ctrl_op(t_l->next))
 			return (2);
-		token_list = token_list->next;
+		if (is_permited(t_l))
+			return (2);
+		t_l = t_l->next;
 	}
 	return (0);
 }
