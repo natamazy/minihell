@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/04 16:33:41 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:10:50 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 		}
 		cmd_args[len] = NULL;
 		ft_lstadd_back(shell, ft_lstnew(cmd_args));
-		temp = temp2;
+		temp = temp2->next;
 	}
 }
