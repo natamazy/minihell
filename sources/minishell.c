@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/03 22:17:10 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:37:38 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "utilities.h"
 #include "syntaxer.h"
 #include "builtin.h"
+#include "executor.h"
 
 int	main(int argc, char **argv, char **env)
 {
@@ -26,20 +27,15 @@ int	main(int argc, char **argv, char **env)
 	if (argc > 1)
 		return (1);
 	
-	shell = malloc(sizeof(shell));
+	shell = malloc(sizeof(t_shell));
 	shell->envr = init_env(env);
+	shell->cmds = NULL;
 	check_env(shell);
 
 	export_no_option(shell->envr);
 	token_list = NULL;
 	
-	char	**test = env_list_to_array(shell->envr);
-	int L = 0;
-	while (test[L] != NULL)
-	{
-		printf("CHAR** - %s\n", test[L]);
-		L++;
-	}
+	char	*test[] = {"PATH=/usr/bin:/bin:/usr/sbin:/sbin", "x=12", NULL};
 	
 	while (1)
 	{
@@ -49,6 +45,8 @@ int	main(int argc, char **argv, char **env)
 			tokenization(cmd_line, &token_list);
 			if (syntax_validator(token_list) == 2)
 				printf("EROR HAPPENED, not definied yet\n");
+			token_to_cmds(shell, token_list);
+			execve(shell->cmds->cmd_path, shell->cmds->cmd_args, test);
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/02 18:08:05 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:39:32 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_cmd
 	int		outfile;
 	char	*cmd_path;
 	char	**cmd_args;
+	t_cmd	*next;
 }	t_cmd;
 
 typedef struct s_env_elem
@@ -39,6 +40,7 @@ typedef struct s_env_elem
 typedef struct s_shell
 {
 	t_env_elem	*envr;
+	t_cmd		*cmds;
 }	t_shell;
 
 #endif
