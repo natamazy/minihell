@@ -1,1 +1,1 @@
-ls -a | cat -e
+"aaa$USER b"

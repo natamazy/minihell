@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:23:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/03 22:16:49 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:26:29 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**env_list_to_array(t_env_elem *temp)
 	i = 0;
 	while (i < len)
 	{
-		env[i] = ft_strjoin(temp->key, temp->value, '=');
+		env[i] = ft_strjoin(temp->key, temp->value, "=");
 		temp = temp->next;
 		i++;
 	}

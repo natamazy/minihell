@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/05 14:30:15 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:30:33 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	main(int argc, char **argv, char **env)
 			tokenization(cmd_line, &token_list);
 			if (syntax_validator(token_list) == 2)
 				printf("EROR HAPPENED, not definied yet\n");
+			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
+			execve(shell->cmds->cmd_path, shell->cmds->cmd_args, test);
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}

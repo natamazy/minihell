@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/05 14:30:20 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:41:17 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 			temp = temp2->next;
 		else
 			temp = temp2;
-		printf("alo\n");
 	}
 }

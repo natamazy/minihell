@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:07:52 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/03 22:11:45 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:24:57 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_env_elem_sort(t_env_elem **begin_list, int (*cmp)())
 	*begin_list = merge_sort(*begin_list, cmp);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2, char sep)
+char	*ft_strjoin(char const *s1, char const *s2, char *sep)
 {
 	char	*r_s;
 	size_t	i;
@@ -111,7 +111,7 @@ char	*ft_strjoin(char const *s1, char const *s2, char sep)
 		r_s[j++] = s1[i];
 		i++;
 	}
-	r_s[j++] = sep;
+	r_s[j++] = *sep;
 	i = 0;
 	while (s2[i])
 	{
