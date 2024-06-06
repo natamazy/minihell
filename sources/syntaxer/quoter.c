@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/05 21:36:52 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:22:26 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,32 @@
 #include "tokenization.h"
 #include "utilities.h"
 
-char	*str_joiner(char const *s1, char const *s2, char const *s3)
+char	*join(char const *s1, char const *s2)
 {
-	char	*str1;
+	char	*r_s;
+	size_t	i;
+	size_t	j;
 
-	printf("-----------%s-%s-%s------------\n", s1, s2, s3);
-	str1 = ft_strjoin(s1, s2, "");
-	return (ft_strjoin(str1, s3, ""));
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	r_s = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!r_s)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		r_s[j++] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		r_s[j++] = s2[i];
+		i++;
+	}
+	r_s[j] = '\0';
+	return (r_s);
 }
 
 char	*get_var_in_env(t_env_elem *envr, char *var)
@@ -57,7 +76,7 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 	char *var = get_var_in_env(envr, ft_substr(str, start + 1, *i - start - 1));
 	char *r_part = ft_substr(str, *i, len - *i);
 	free(str);
-	return (str_joiner(l_part, var, r_part));
+	return (join(join(l_part, var), r_part));
 }
 
 void	dollar_opener(t_token *token, int len, t_env_elem *envr)
@@ -73,7 +92,7 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 		if (is_dquote == 0 && str[i] == '\'')
 			is_squote = !is_squote;
 		if (is_squote == 0 && str[i] == '$')
-			str = agvanistan(str, &i, len, envr);
+			token->value = agvanistan(str, &i, len, envr);
 		i++;
 	}
 }
