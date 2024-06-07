@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 16:05:34 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:50:54 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,49 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	token->value = str;
 }
 
+int	remove_extra_quotes(t_token *token, int len)
+{
+	int l;
+	int r;
+	char	quote_type;
+
+	l = 0;
+	r = 0;
+	quote_type = 0;
+	if (token == NULL || token->value == NULL)
+		return (-1);
+	while (token->value[r])
+	{
+		if (token->value[r] == '"' || token->value[r] == '\'')
+		{
+			if (quote_type == 0)
+				quote_type = token->value[r++];
+			if (quote_type == token->value[r])
+			{
+				r++;
+				quote_type = 0;	
+				continue;
+			}
+		}
+		token->value[l] = token->value[r];
+		l++;
+		r++;
+	}
+	token->value[l] = '\0';
+	// Datark texera mnum toxic heto vor@ chi karox ogtagorcvel cragri yndackum ays funkciayi kanchic heto
+	return (0);
+}
+
 void	expander(t_token *tokens, t_env_elem *envr)
 {
 	while (tokens)
 	{
 		if (tokens->type == WORD)
+		{
 			dollar_opener(tokens, ft_strlen(tokens->value), envr);
+			if (remove_extra_quotes(tokens, ft_strlen(tokens->value)) == -1)
+				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
+		}
 		tokens = tokens->next;
 	}
 }

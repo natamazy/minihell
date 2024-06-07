@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 15:58:47 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:52:11 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv, char **env)
 	// export_no_option(shell->envr);
 	token_list = NULL;
 	
-	char	*test[] = {"PATH=/usr/bin:/bin:/usr/sbin:/sbin", "x=12", NULL};
 	
 	while (1)
 	{
@@ -47,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 				printf("EROR HAPPENED, not definied yet\n");
 			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
-			execve(shell->cmds->cmd_path, shell->cmds->cmd_args, test);
+			execve(shell->cmds->cmd_path, shell->cmds->cmd_args, env);
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}
