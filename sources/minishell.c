@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 10:28:58 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:58:47 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 	shell->cmds = NULL;
 	check_env(shell);
 
-	export_no_option(shell->envr);
+	// export_no_option(shell->envr);
 	token_list = NULL;
 	
 	char	*test[] = {"PATH=/usr/bin:/bin:/usr/sbin:/sbin", "x=12", NULL};

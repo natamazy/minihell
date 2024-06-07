@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 10:22:26 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:05:34 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,47 +44,53 @@ char	*join(char const *s1, char const *s2)
 
 char	*get_var_in_env(t_env_elem *envr, char *var)
 {
+	if (var != NULL)
+		free(var);
+	if (var[0] == '\0')
+		return ("$");
 	while (envr)
 	{
 		if (ft_strcmp(var, envr->key) == 0)
 		{
 			if (envr->value == NULL)
-			{
-				free(var);
 				return ("");
-			}
 			else
-			{
-				free(var);
 				return (envr->value);
-			}
 		}
 		envr = envr->next;
 	}
-	free(var);
 	return ("");
-}	
+}
 
 char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 {
-	char	*l_part = ft_substr(str, 0, *i);
+	char	*l_part;
+	char	*r_part;
+	char	*var;
 	int		start;
-	
+
+	l_part = ft_substr(str, 0, *i);
 	start = *i;
-	while (str[*i] && ft_isspace(str[*i]) == 0)
+	while (str[*i] && ft_isspace(str[*i]) == 0 && \
+		str[*i] != '"' && str[*i] != '\'')
 		(*i)++;
-	char *var = get_var_in_env(envr, ft_substr(str, start + 1, *i - start - 1));
-	char *r_part = ft_substr(str, *i, len - *i);
+	var = get_var_in_env(envr, ft_substr(str, start + 1, *i - start - 1));
+	r_part = ft_substr(str, *i, len - *i);
 	free(str);
 	return (join(join(l_part, var), r_part));
 }
 
 void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 {
-	char	*str = token->value;
-	int i = 0;
-	int is_dquote = 0;
-	int is_squote = 0;
+	char	*str;
+	int		i;
+	int		is_dquote;
+	int		is_squote;
+
+	i = 0;
+	is_dquote = 0;
+	is_squote = 0;
+	str = token->value;
 	while (str[i])
 	{
 		if (str[i] == '\"')
@@ -92,9 +98,10 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 		if (is_dquote == 0 && str[i] == '\'')
 			is_squote = !is_squote;
 		if (is_squote == 0 && str[i] == '$')
-			token->value = agvanistan(str, &i, len, envr);
+			str = agvanistan(str, &i, len, envr);
 		i++;
 	}
+	token->value = str;
 }
 
 void	expander(t_token *tokens, t_env_elem *envr)

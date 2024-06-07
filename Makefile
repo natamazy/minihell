@@ -9,7 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra $(INC_DIRS) -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 #-fsanitize=address
 
 # Libraries
 LIBS_DIR = libraries
@@ -40,6 +40,7 @@ SRCS_NAME = minishell.c \
 			utilities/utilities_1.c \
 			utilities/utilities_2.c \
 			utilities/utilities_3.c \
+			utilities/utilities_4.c \
 			environment/environment.c \
 			builtin/export.c \
 			executor/executor.c
