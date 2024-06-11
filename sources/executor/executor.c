@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 17:33:59 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:37:47 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ void	token_to_cmds_helper1(int *len, t_token *t2, char **cm, t_token **t)
 		*len = 0;
 		while (t2 != NULL && t2->type != S_PIPE)
 		{
-			cm[*len] = t2->value;
+			if (t2->type == WORD)
+			{
+				cm[*len] = t2->value;
+				(*len)++;
+			}
 			t2 = t2->next;
-			(*len)++;
 		}
 		cm[*len] = NULL;
 	}
@@ -80,8 +83,9 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 		temp2 = temp;
 		while (temp2 != NULL && temp2->type != S_PIPE)
 		{
+			if (temp2->type == WORD)
+				len++;
 			temp2 = temp2->next;
-			len++;
 		}
 		temp2 = temp;
 		cmd_args = malloc(sizeof(char *) * (len + 1));

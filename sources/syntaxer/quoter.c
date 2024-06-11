@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/07 19:50:54 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:42:54 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	token->value = str;
 }
 
-int	remove_extra_quotes(t_token *token, int len)
+int	remove_extra_quotes(t_token *token)
 {
-	int l;
-	int r;
+	int		l;
+	int		r;
 	char	quote_type;
 
 	l = 0;
@@ -124,8 +124,8 @@ int	remove_extra_quotes(t_token *token, int len)
 			if (quote_type == token->value[r])
 			{
 				r++;
-				quote_type = 0;	
-				continue;
+				quote_type = 0;
+				continue ;
 			}
 		}
 		token->value[l] = token->value[r];
@@ -144,7 +144,7 @@ void	expander(t_token *tokens, t_env_elem *envr)
 		if (tokens->type == WORD)
 		{
 			dollar_opener(tokens, ft_strlen(tokens->value), envr);
-			if (remove_extra_quotes(tokens, ft_strlen(tokens->value)) == -1)
+			if (remove_extra_quotes(tokens) == -1)
 				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
 		}
 		tokens = tokens->next;
