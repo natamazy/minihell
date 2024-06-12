@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/04 13:36:23 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:21:32 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define TOKENIZATION_H
 
 # include <unistd.h>
+# include <fcntl.h>
+
+# define INPUT 0
+# define TRUNC 1
+# define APPEND 2
 
 typedef struct s_token	t_token;
 
@@ -60,6 +65,13 @@ struct s_token
 	t_token			*next;
 	t_token			*prev;
 };
+
+typedef struct s_fds
+{
+	int	infd;
+	int	outfd;
+	int	second_case;
+}	t_fds;
 
 t_token_type	get_token_type(char *s, int i);
 t_token_type	get_token_type_util(char *s, int i);

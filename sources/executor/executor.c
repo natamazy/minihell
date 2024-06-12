@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/11 11:37:47 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:52:53 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_cmd	*ft_lstnew(char **cmd_args)
 		return (NULL);
 	new_node->cmd_args = cmd_args;
 	new_node->cmd_path = cmd_args[0];
+	new_node->infile = 0;
+	new_node->outfile = 1;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -67,32 +69,76 @@ void	token_to_cmds_helper1(int *len, t_token *t2, char **cm, t_token **t)
 	}
 }
 
+int	open_file(char *file_name, int type)
+{
+	int	fd;
+
+	fd = -1;
+	if (type == INPUT)
+	{
+		fd = open(file_name, O_RDONLY);
+		if (fd < 0)
+			fd = -2;
+	}
+	else if (type == TRUNC)
+		fd = open(file_name, O_CREAT, 0644);
+	else if (type == APPEND)
+		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fd > 2)
+		return (fd);
+	if (fd == -1)
+	{
+		printf("minihell: %s: Permission denied\n", file_name);
+		exit(1);
+	}
+	if (fd == -2)
+	{
+		printf("minihell: %s: No such file or directory\n", file_name);
+		exit(1);
+	}
+	return (-1);
+}
+
+void	token_to_cmds_helper(t_token *temp2, int *len, t_fds *fds)
+{
+		// here doc openy pti ashxatcne heredocy trmp fayl bace mejy gre fdn veradardzne
+		// args (char *lim);
+		// if (temp2->type == HERE_DOC)
+		// 	fds.infd = here_doc_open(temp2->next->value);
+		if (temp2->type == IN_REDIR)
+			fds->infd = open_file(temp2->next->value, INPUT);
+		if (temp2->type == OUT_REDIR)
+			fds->outfd = open_file(temp2->next->value, TRUNC);
+		if (temp2->type == APPEND_REDIR)
+			fds->outfd = open_file(temp2->next->value, APPEND);
+		if (temp2->type == WORD)
+		(*len)++;
+}
+
 void	token_to_cmds(t_shell *shell, t_token *tokens)
 {
 	int		len;
 	char	**cmd_args;
 	t_token	*temp;
 	t_token	*temp2;
-	int		second_case;
+	t_fds	fds;
 
-	second_case = -1;
+	fds.second_case = -1;
 	temp = tokens;
-	while (temp)
+	while (temp != NULL)
 	{
 		len = 0;
 		temp2 = temp;
 		while (temp2 != NULL && temp2->type != S_PIPE)
 		{
-			if (temp2->type == WORD)
-				len++;
+			token_to_cmds_helper(temp2, &len, &fds);
 			temp2 = temp2->next;
 		}
-		temp2 = temp;
 		cmd_args = malloc(sizeof(char *) * (len + 1));
 		if (!cmd_args)
 			return ;
-		token_to_cmds_helper1(&len, temp2, cmd_args, NULL);
+		token_to_cmds_helper1(&len, temp, cmd_args, NULL);
 		ft_lstadd_back(shell, ft_lstnew(cmd_args));
-		token_to_cmds_helper1(&second_case, temp2, NULL, &temp);
+		token_to_cmds_helper1(&fds.second_case, temp2, NULL, &temp);
 	}
 }
