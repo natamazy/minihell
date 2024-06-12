@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/11 11:42:54 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:08:52 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,17 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	token->value = str;
 }
 
+void	remove_empty_fields(t_token *token, int empty_fields)
+{
+	char	*tmp;
+
+	if (empty_fields < 0)
+		return ;
+	tmp = ft_strdup(token->value);
+	free(token->value);
+	token->value = tmp;	
+}
+
 int	remove_extra_quotes(t_token *token)
 {
 	int		l;
@@ -133,7 +144,7 @@ int	remove_extra_quotes(t_token *token)
 		r++;
 	}
 	token->value[l] = '\0';
-	// Datark texera mnum toxic heto vor@ chi karox ogtagorcvel cragri yndackum ays funkciayi kanchic heto
+	remove_empty_fields(token, l - r);
 	return (0);
 }
 

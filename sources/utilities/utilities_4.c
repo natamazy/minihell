@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:06:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/06 16:07:13 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:14:09 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,22 @@ int	ft_lstsize(t_env_elem *lst)
 		current = current->next;
 	}
 	return (i);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*res;
+	int		i;
+
+	res = (char *) malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }

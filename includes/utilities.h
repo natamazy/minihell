@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/06 10:18:07 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:18:58 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int			ft_isspace(char c);
 int			ft_lstsize(t_env_elem *lst);
 int			ft_is_operator(char *s, int i);
 int			ft_strcmp(char *s1, char *s2);
+char		*ft_strdup(const char *s1);
 
 #endif
