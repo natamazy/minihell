@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/13 16:39:18 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:15:46 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "minishell.h"
 #include "tokenization.h"
+#include "utilities.h"
 
 t_cmd	*ft_lstnew(char **cmd_args)
 {
@@ -99,12 +100,53 @@ int	open_file(char *file_name, int type)
 	return (-1);
 }
 
+void	here_doc_write(int tmp_file_fd, char *lim)
+{
+	char	*buff;
+	int		buff_size;
+
+	while (1)
+	{
+		buff = readline("\033[0;033m> \033[0m");
+		buff_size = ft_strlen(buff);
+		if (buff == NULL || ft_strcmp(buff, lim) == 0)
+		{
+			free(buff);
+			break ;
+		}
+		write(tmp_file_fd, buff, buff_size);
+		free(buff);
+		buff = NULL;
+	}
+	close(tmp_file_fd);
+}
+
+int		here_doc_open(char *lim)
+{
+	int	fd;
+
+	fd = open(HERE_DOC_FILE, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (fd == -1)
+		return (-1);
+	close(fd);
+	fd = open(HERE_DOC_FILE, O_WRONLY | O_APPEND);
+	if (fd == -1)
+		return (-1);
+	here_doc_write(fd, lim);
+	close(fd);
+	fd = open(HERE_DOC_FILE, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	printf("HERE_DOC_FD:%d\n", fd);
+	return (fd);
+}
+
 void	token_to_cmds_helper(t_token *temp2, int *len, t_fds *fds)
 {
 	// here doc openy pti ashxatcne heredocy trmp fayl bace mejy gre fdn veradardzne
 	// args (char *lim);
-	// if (temp2->type == HERE_DOC)
-	// 	fds.infd = here_doc_open(temp2->next->value);
+	if (temp2->type == HERE_DOC)
+		fds->infd = here_doc_open(temp2->next->value);
 	if (temp2->type == IN_REDIR)
 		fds->infd = open_file(temp2->next->value, INPUT);
 	if (temp2->type == OUT_REDIR)

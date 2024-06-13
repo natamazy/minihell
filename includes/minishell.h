@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/12 11:39:23 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:46:14 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+
+# define HERE_DOC_FILE "hd_tmp_file"
 
 typedef struct s_env_elem	t_env_elem;
 typedef struct s_cmd		t_cmd;
