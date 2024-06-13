@@ -9,7 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g#3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g#3 -fsanitize=address
 
 # Libraries
 LIBS_DIR = libraries

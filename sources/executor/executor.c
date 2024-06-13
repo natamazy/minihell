@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/12 13:52:53 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:39:18 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,17 @@ int	open_file(char *file_name, int type)
 
 void	token_to_cmds_helper(t_token *temp2, int *len, t_fds *fds)
 {
-		// here doc openy pti ashxatcne heredocy trmp fayl bace mejy gre fdn veradardzne
-		// args (char *lim);
-		// if (temp2->type == HERE_DOC)
-		// 	fds.infd = here_doc_open(temp2->next->value);
-		if (temp2->type == IN_REDIR)
-			fds->infd = open_file(temp2->next->value, INPUT);
-		if (temp2->type == OUT_REDIR)
-			fds->outfd = open_file(temp2->next->value, TRUNC);
-		if (temp2->type == APPEND_REDIR)
-			fds->outfd = open_file(temp2->next->value, APPEND);
-		if (temp2->type == WORD)
+	// here doc openy pti ashxatcne heredocy trmp fayl bace mejy gre fdn veradardzne
+	// args (char *lim);
+	// if (temp2->type == HERE_DOC)
+	// 	fds.infd = here_doc_open(temp2->next->value);
+	if (temp2->type == IN_REDIR)
+		fds->infd = open_file(temp2->next->value, INPUT);
+	if (temp2->type == OUT_REDIR)
+		fds->outfd = open_file(temp2->next->value, TRUNC);
+	if (temp2->type == APPEND_REDIR)
+		fds->outfd = open_file(temp2->next->value, APPEND);
+	if (temp2->type == WORD)
 		(*len)++;
 }
 
