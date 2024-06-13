@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/12 15:08:52 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:49:13 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 		(*i)++;
 	var = get_var_in_env(envr, ft_substr(str, start + 1, *i - start - 1));
 	r_part = ft_substr(str, *i, len - *i);
+	*i = start + ft_strlen(var);
 	free(str);
 	return (join(join(l_part, var), r_part));
 }
