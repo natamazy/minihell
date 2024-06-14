@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/13 16:58:21 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:53:41 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 #include "minishell.h"
 #include "utilities.h"
 
+void	create_copy_helper(t_env_elem **head, t_env_elem **current_new,
+							t_env_elem **current_orig, t_env_elem **new_head)
+{
+	if (*head == NULL)
+		return ;
+	*new_head = malloc(sizeof(t_env_elem));
+	if (*new_head == NULL)
+		return ;
+	(*new_head)->key = ft_strdup((*head)->key);
+	(*new_head)->value = ft_strdup((*head)->value);
+	(*new_head)->next = NULL;
+	*current_new = *new_head;
+	*current_orig = (*head)->next;
+}
+
 t_env_elem	*create_copy(t_env_elem *head)
 {
 	t_env_elem	*current_new;
 	t_env_elem	*current_orig;
 	t_env_elem	*new_head;
 
-	if (head == NULL)
-		return (NULL);
-	new_head = malloc(sizeof(t_env_elem));
-	if (new_head == NULL)
-		return (NULL);
-	new_head->key = ft_strdup(head->key);
-	new_head->value = ft_strdup(head->value);
-	new_head->next = NULL;
-	current_new = new_head;
-	current_orig = head->next;
+	create_copy_helper(&head, &current_new, &current_orig, &new_head);
 	while (current_orig != NULL)
 	{
 		current_new->next = malloc(sizeof(t_env_elem));
@@ -106,22 +112,42 @@ int	is_there_eq_sign(char *str)
 	return (0);
 }
 
+void	export_helper_1(char **key, char **value, char *var)
+{
+	if (is_there_eq_sign(var) == 1)
+	{
+		*key = find_key(var);
+		*value = find_value(var);
+	}
+	else
+	{
+		*key = ft_strdup(var);
+		*value = NULL;
+	}
+}
+
+void	export_helper_2(t_env_elem **temp, char *key, char *value)
+{
+	(*temp)->next = malloc(sizeof(t_env_elem));
+	if (!(*temp)->next)
+		return ;
+	(*temp) = (*temp)->next;
+	(*temp)->key = ft_strdup(key);
+	if (value != NULL)
+		(*temp)->value = ft_strdup(value);
+	else
+		(*temp)->value = "\0";
+	(*temp)->next = NULL;
+	(*temp) = (*temp)->next;
+}
+
 void	export(t_shell *shell, char *var)
 {
 	t_env_elem	*temp;
 	char		*key;
 	char		*value;
 
-	if (is_there_eq_sign(var) == 1)
-	{
-		key = find_key(var);
-		value = find_value(var);
-	}
-	else
-	{
-		key = ft_strdup(var);
-		value = NULL;
-	}
+	export_helper_1(&key, &value, var);
 	temp = shell->envr;
 	while (temp != NULL)
 	{
@@ -136,17 +162,7 @@ void	export(t_shell *shell, char *var)
 		}
 		else if (temp->next == NULL)
 		{
-			temp->next = malloc(sizeof(t_env_elem));
-			if (!temp->next)
-				return ;
-			temp = temp->next;
-			temp->key = ft_strdup(key);
-			if (value != NULL)
-				temp->value = ft_strdup(value);
-			else
-				temp->value = "\0";
-			temp->next = NULL;
-			temp = temp->next;
+			export_helper_2(&temp, key, value);
 			break ;
 		}
 		temp = temp->next;

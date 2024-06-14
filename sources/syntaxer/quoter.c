@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/13 18:49:13 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:06:31 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,13 @@ void	remove_empty_fields(t_token *token, int empty_fields)
 		return ;
 	tmp = ft_strdup(token->value);
 	free(token->value);
-	token->value = tmp;	
+	token->value = tmp;
 }
 
-int	remove_extra_quotes(t_token *token)
+int	remove_extra_quotes(t_token *token, int l, int r)
 {
-	int		l;
-	int		r;
 	char	quote_type;
 
-	l = 0;
-	r = 0;
 	quote_type = 0;
 	if (token == NULL || token->value == NULL)
 		return (-1);
@@ -156,7 +152,7 @@ void	expander(t_token *tokens, t_env_elem *envr)
 		if (tokens->type == WORD)
 		{
 			dollar_opener(tokens, ft_strlen(tokens->value), envr);
-			if (remove_extra_quotes(tokens) == -1)
+			if (remove_extra_quotes(tokens, 0, 0) == -1)
 				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
 		}
 		tokens = tokens->next;

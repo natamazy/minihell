@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 08:39:49 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:00:27 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,33 +76,27 @@ void	token_to_cmds_helper1(int *len, t_token *t2, char **cm, t_token **t)
 	}
 }
 
-int	open_file(char *file_name, int type)
+int	open_file(char *fn, int type)
 {
 	int	fd;
 
 	fd = -1;
 	if (type == INPUT)
 	{
-		fd = open(file_name, O_RDONLY);
+		fd = open(fn, O_RDONLY);
 		if (fd < 0)
 			fd = -2;
 	}
 	else if (type == TRUNC)
-		fd = open(file_name, O_CREAT, 0644);
+		fd = open(fn, O_CREAT, 0644);
 	else if (type == APPEND)
-		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		fd = open(fn, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd > 2)
 		return (fd);
 	if (fd == -1)
-	{
-		printf("minihell: %s: Permission denied\n", file_name);
-		exit(1);
-	}
+		return (printf("minihell: %s: Permission denied\n", fn), 1);
 	if (fd == -2)
-	{
-		printf("minihell: %s: No such file or directory\n", file_name);
-		exit(1);
-	}
+		return (printf("minihell: %s: No such file or directory\n", fn), 1);
 	return (-1);
 }
 
@@ -128,7 +122,7 @@ void	here_doc_write(int tmp_file_fd, char *lim)
 	close(tmp_file_fd);
 }
 
-int		here_doc_open(char *lim)
+int	here_doc_open(char *lim)
 {
 	int	fd;
 
@@ -150,8 +144,6 @@ int		here_doc_open(char *lim)
 
 void	token_to_cmds_helper(t_token *temp2, int *len, t_fds *fds)
 {
-	// here doc openy pti ashxatcne heredocy trmp fayl bace mejy gre fdn veradardzne
-	// args (char *lim);
 	if (temp2->type == HERE_DOC)
 		fds->infd = here_doc_open(temp2->next->value);
 	if (temp2->type == IN_REDIR)
