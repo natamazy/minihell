@@ -37,13 +37,16 @@ SRCS_NAME = minishell.c \
 			tokenization/tokens_splitting.c \
 			syntaxer/validation.c \
 			syntaxer/quoter.c \
+			syntaxer/quoter_2.c \
 			utilities/utilities_1.c \
 			utilities/utilities_2.c \
 			utilities/utilities_3.c \
 			utilities/utilities_4.c \
 			environment/environment.c \
 			builtin/export.c \
-			executor/executor.c
+			builtin/export_2.c \
+			executor/executor.c \
+			executor/tokens_to_cmds.c
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
