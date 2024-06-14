@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/13 21:15:46 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/14 08:39:49 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "tokenization.h"
 #include "utilities.h"
 
-t_cmd	*ft_lstnew(char **cmd_args)
+t_cmd	*ft_lstnew(char **cmd_args, t_fds *fds)
 {
 	t_cmd	*new_node;
 
@@ -24,8 +24,14 @@ t_cmd	*ft_lstnew(char **cmd_args)
 		return (NULL);
 	new_node->cmd_args = cmd_args;
 	new_node->cmd_path = cmd_args[0];
-	new_node->infile = 0;
-	new_node->outfile = 1;
+	if (fds->infd > 2)
+		new_node->infile = fds->infd;
+	else
+		new_node->infile = 0;
+	if (fds->outfd > 2)
+		new_node->outfile = fds->outfd;
+	else
+		new_node->outfile = 1;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -115,6 +121,7 @@ void	here_doc_write(int tmp_file_fd, char *lim)
 			break ;
 		}
 		write(tmp_file_fd, buff, buff_size);
+		write(tmp_file_fd, "\n", 1);
 		free(buff);
 		buff = NULL;
 	}
@@ -157,6 +164,13 @@ void	token_to_cmds_helper(t_token *temp2, int *len, t_fds *fds)
 		(*len)++;
 }
 
+void	init_fds(t_fds *fds)
+{
+	fds->infd = 0;
+	fds->outfd = 1;
+	fds->second_case = -1;
+}
+
 void	token_to_cmds(t_shell *shell, t_token *tokens)
 {
 	int		len;
@@ -165,7 +179,7 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 	t_token	*temp2;
 	t_fds	fds;
 
-	fds.second_case = -1;
+	init_fds(&fds);
 	temp = tokens;
 	while (temp != NULL)
 	{
@@ -180,7 +194,8 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 		if (!cmd_args)
 			return ;
 		token_to_cmds_helper1(&len, temp, cmd_args, NULL);
-		ft_lstadd_back(shell, ft_lstnew(cmd_args));
+		ft_lstadd_back(shell, ft_lstnew(cmd_args, &fds));
 		token_to_cmds_helper1(&fds.second_case, temp2, NULL, &temp);
 	}
+	system("leaks minishell");
 }

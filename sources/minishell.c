@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/13 21:23:55 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/14 08:39:39 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	main(int argc, char **argv, char **env)
 				printf("EROR HAPPENED, not definied yet\n");
 			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
+			printf("%d\n", shell->cmds->infile);
+			printf("%d\n", shell->cmds->outfile);
 			// printf("CMD:%s\nARGS: ", shell->cmds->cmd_path);
 			// 	for (int i = 0; shell->cmds->cmd_args[i]; i++)
 			// 		printf("'%s'",shell->cmds->cmd_args[i]);
