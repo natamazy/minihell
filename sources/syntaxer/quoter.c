@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/15 17:35:26 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/15 22:54:15 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*join(char const *s1, char const *s2)
 
 char	*get_var_in_env(t_env_elem *envr, char *var)
 {
-	if (var != NULL)
-		free(var);
+	// if (var != NULL)
+	// 	free(var);
 	if (var[0] == '\0')
 		return ("$");
 	while (envr)

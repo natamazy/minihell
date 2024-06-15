@@ -9,7 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) #-Wno-deprecated-non-prototype -g#3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 -fsanitize=address #-Wno-deprecated-non-prototype 
 
 # Libraries
 LIBS_DIR = libraries
@@ -21,7 +21,8 @@ HEADERS = 	includes/minishell.h \
 			includes/utilities.h \
 			includes/builtin.h \
 			includes/syntaxer.h \
-			includes/executor.h
+			includes/executor.h \
+			includes/pipex.h
 
 # Source directory
 SRCS_DIR = sources/
@@ -42,13 +43,19 @@ SRCS_NAME = minishell.c \
 			utilities/utilities_2.c \
 			utilities/utilities_3.c \
 			utilities/utilities_4.c \
+			utilities/utilities_5.c \
+			utilities/pipex_utils1.c \
+			utilities/split.c \
 			environment/environment.c \
 			builtin/export.c \
 			builtin/export_2.c \
 			builtin/pwd.c \
-			builtin/echo.c \
 			executor/executor.c \
-			executor/tokens_to_cmds.c
+			executor/tokens_to_cmds.c \
+			pipex/pipex.c \
+			pipex/pipes.c \
+			pipex/processes.c
+			
 
 # Objects file names
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
@@ -68,6 +75,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR)/builtin
 	@mkdir -p $(OBJS_DIR)/syntaxer
 	@mkdir -p $(OBJS_DIR)/executor
+	@mkdir -p $(OBJS_DIR)/pipex
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Configuring readline
