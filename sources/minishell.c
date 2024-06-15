@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 18:32:05 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:33:06 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ int	main(int argc, char **argv, char **env)
 			// 	cmd = cmd->next;
 			// }
 			// execve(shell->cmds->cmd_path, shell->cmds->cmd_args, env);
-			if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
-				pwd(shell->cmds->outfile);
+			// if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
+			// 	pwd(shell->cmds->outfile);
+			if (ft_strcmp(shell->cmds->cmd_path, "echo") == 0)
+				echo(shell->cmds->cmd_args, shell->cmds->outfile);
 			// close(shell->cmds->outfile);
 			print_token_list(token_list);
 			add_history(cmd_line);
