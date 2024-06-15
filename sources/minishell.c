@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/15 16:33:06 by natamazy         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/15 15:23:27 by aggrigor         ###   ########.fr       */
+>>>>>>> ca2cb47c8dda552f3d64cc6d1e26421eee6406ec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +68,8 @@ int	main(int argc, char **argv, char **env)
 				printf("EROR HAPPENED, not definied yet\n");
 			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
-			printf("%d\n", shell->cmds->infile);
-			printf("%d\n", shell->cmds->outfile);
+			printf("%d\n", shell->cmds->input);
+			printf("%d\n", shell->cmds->output);
 			// printf("CMD:%s\nARGS: ", shell->cmds->cmd_path);
 			// 	for (int i = 0; shell->cmds->cmd_args[i]; i++)
 			// 		printf("'%s'",shell->cmds->cmd_args[i]);
@@ -79,10 +83,15 @@ int	main(int argc, char **argv, char **env)
 			// 	cmd = cmd->next;
 			// }
 			// execve(shell->cmds->cmd_path, shell->cmds->cmd_args, env);
+<<<<<<< HEAD
 			// if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
 			// 	pwd(shell->cmds->outfile);
 			if (ft_strcmp(shell->cmds->cmd_path, "echo") == 0)
 				echo(shell->cmds->cmd_args, shell->cmds->outfile);
+=======
+			if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
+				pwd(shell->cmds->output);
+>>>>>>> ca2cb47c8dda552f3d64cc6d1e26421eee6406ec
 			// close(shell->cmds->outfile);
 			print_token_list(token_list);
 			add_history(cmd_line);
