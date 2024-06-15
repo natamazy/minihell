@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 18:32:05 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:23:27 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	main(int argc, char **argv, char **env)
 				printf("EROR HAPPENED, not definied yet\n");
 			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
-			printf("%d\n", shell->cmds->infile);
-			printf("%d\n", shell->cmds->outfile);
+			printf("%d\n", shell->cmds->input);
+			printf("%d\n", shell->cmds->output);
 			// printf("CMD:%s\nARGS: ", shell->cmds->cmd_path);
 			// 	for (int i = 0; shell->cmds->cmd_args[i]; i++)
 			// 		printf("'%s'",shell->cmds->cmd_args[i]);
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 			// }
 			// execve(shell->cmds->cmd_path, shell->cmds->cmd_args, env);
 			if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
-				pwd(shell->cmds->outfile);
+				pwd(shell->cmds->output);
 			// close(shell->cmds->outfile);
 			print_token_list(token_list);
 			add_history(cmd_line);

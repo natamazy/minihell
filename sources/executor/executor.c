@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 18:31:44 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:22:46 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_cmd	*ft_lstnew(char **cmd_args, t_fds *fds)
 	new_node->cmd_args = cmd_args;
 	new_node->cmd_path = cmd_args[0];
 	if (fds->infd > 2)
-		new_node->infile = fds->infd;
+		new_node->input = fds->infd;
 	else
-		new_node->infile = 0;
+		new_node->input = 0;
 	if (fds->outfd > 2)
-		new_node->outfile = fds->outfd;
+		new_node->output = fds->outfd;
 	else
-		new_node->outfile = 1;
+		new_node->output = 1;
 	new_node->next = NULL;
 	return (new_node);
 }

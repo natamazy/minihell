@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:57:23 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:21:13 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_cmd		t_cmd;
 
 typedef struct s_cmd
 {
-	int		infile;
-	int		outfile;
+	int		input;
+	int		output;
 	char	*cmd_path;
 	char	**cmd_args;
 	t_cmd	*next;
