@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 15:54:17 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:32:05 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int argc, char **argv, char **env)
 	// export_no_option(shell->envr);
 	token_list = NULL;
 	
-	
 	while (1)
 	{
 		cmd_line = readline("MINISHELL HOPAR:");
@@ -80,6 +79,9 @@ int	main(int argc, char **argv, char **env)
 			// 	cmd = cmd->next;
 			// }
 			// execve(shell->cmds->cmd_path, shell->cmds->cmd_args, env);
+			if (ft_strcmp(shell->cmds->cmd_path, "pwd") == 0)
+				pwd(shell->cmds->outfile);
+			// close(shell->cmds->outfile);
 			print_token_list(token_list);
 			add_history(cmd_line);
 		}

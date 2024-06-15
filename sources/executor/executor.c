@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:41:14 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:31:44 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	open_file(char *fn, int type)
 			fd = -2;
 	}
 	else if (type == TRUNC)
-		fd = open(fn, O_CREAT, 0644);
+		fd = open(fn, O_CREAT | O_WRONLY, 0644);
 	else if (type == APPEND)
 		fd = open(fn, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd > 2)

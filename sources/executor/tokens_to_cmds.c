@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:35:40 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:39:15 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:09:51 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,4 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 		ft_lstadd_back(shell, ft_lstnew(cmd_args, &fds));
 		token_to_cmds_helper1(&fds.second_case, temp2, NULL, &temp);
 	}
-	system("leaks minishell");
 }

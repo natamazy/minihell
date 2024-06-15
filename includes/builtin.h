@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:50 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:17:26 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:04:59 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ void		print_env(t_env_elem *envr);
 int			is_there_eq_sign(char *str);
 
 char	**env_list_to_array(t_env_elem *temp);
+
+void	pwd(int fdtowrite);
 
 #endif

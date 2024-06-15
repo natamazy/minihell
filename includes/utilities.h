@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/14 17:22:10 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:07:20 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char		*get_var_in_env(t_env_elem *envr, char *var);
 char		*agvanistan(char *str, int *i, int len, t_env_elem *envr);
 void		dollar_opener(t_token *token, int len, t_env_elem *envr);
 void		remove_empty_fields(t_token *token, int empty_fields);
-
+void		ft_putstr_fd(char const *s, int fd);
 
 #endif

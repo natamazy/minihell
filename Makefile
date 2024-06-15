@@ -45,6 +45,7 @@ SRCS_NAME = minishell.c \
 			environment/environment.c \
 			builtin/export.c \
 			builtin/export_2.c \
+			builtin/pwd.c \
 			executor/executor.c \
 			executor/tokens_to_cmds.c
 
