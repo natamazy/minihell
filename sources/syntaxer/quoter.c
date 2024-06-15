@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:18:40 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/15 17:35:26 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	str = token->value;
 	while (str[i])
 	{
-		if (str[i] == '\"')
+		if (is_squote == 0 && str[i] == '\"')
 			is_dquote = !is_dquote;
 		if (is_dquote == 0 && str[i] == '\'')
 			is_squote = !is_squote;
