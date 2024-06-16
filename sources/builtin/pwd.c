@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "utilities.h"
 
-void	pwd(int fdtowrite)
+void	pwd(int fdtowrite, int *is_builtin)
 {
 	char	path[PATH_MAX];
 
@@ -25,4 +25,5 @@ void	pwd(int fdtowrite)
 	}
 	ft_putstr_fd(path, fdtowrite);
 	ft_putstr_fd("\n", fdtowrite);
+	*is_builtin = 1;
 }

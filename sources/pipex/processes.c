@@ -12,6 +12,7 @@
 
 #include "pipex.h"
 #include "minishell.h"
+#include "utilities.h"
 #include "builtin.h"
 
 void	wait_processes(t_pipex *pipex)
@@ -27,6 +28,21 @@ void	wait_processes(t_pipex *pipex)
 		}
 		i++;
 	}
+}
+
+int	run_builtins(t_env_elem *envp, t_cmd *cmd)
+{
+	int	is_builtin;
+
+	is_builtin = 0;
+	if (ft_strcmp(cmd->cmd_path, "env") == 0 )
+		print_env(envp, &is_builtin);
+	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0)
+		pwd(cmd->output, &is_builtin);
+	// to be continued
+	if (is_builtin == 1)
+		exit(0);
+	return (0);
 }
 
 void	create_processes(t_pipex *pipex)
@@ -46,6 +62,7 @@ void	create_processes(t_pipex *pipex)
 		{
 			dups(pipex, cmd);
 			config_cmd(pipex, cmd);
+			run_builtins(pipex->envp, cmd);
 			if (execve(cmd->cmd_path, cmd->cmd_args,
 			env_list_to_array(pipex->envp)) == -1)
 			{
@@ -55,5 +72,4 @@ void	create_processes(t_pipex *pipex)
 		cmd = cmd->next;
 		i++;
 	}
-	
 }

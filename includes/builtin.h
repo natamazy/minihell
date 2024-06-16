@@ -18,7 +18,7 @@
 void	export_with_option(t_shell *shell, char *var);
 void	unset(t_shell *shell, char *key_to_unset);
 void	export_no_option(t_env_elem *envr);
-void	print_env(t_env_elem *envr);
+void		print_env(t_env_elem *envr, int *is_builtin);
 
 t_env_elem	*create_copy(t_env_elem *head);
 void		create_copy_helper(t_env_elem **head, t_env_elem **current_new,
@@ -29,11 +29,10 @@ void		export_with_option(t_shell *shell, char *var);
 void		unset(t_shell *shell, char *key_to_unset);
 void		export_no_option(t_env_elem *envr);
 void		free_list(t_env_elem *head);
-void		print_env(t_env_elem *envr);
 int			is_there_eq_sign(char *str);
 
 char	**env_list_to_array(t_env_elem *temp);
 
-void	pwd(int fdtowrite);
+void	pwd(int fdtowrite, int *is_builtin);
 
 #endif

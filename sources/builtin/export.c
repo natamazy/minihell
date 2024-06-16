@@ -85,7 +85,7 @@ void	export_no_option(t_env_elem *envr)
 	temp = NULL;
 }
 
-void	print_env(t_env_elem *envr)
+void	print_env(t_env_elem *envr, int *is_builtin)
 {
 	t_env_elem	*temp;
 
@@ -96,4 +96,5 @@ void	print_env(t_env_elem *envr)
 			printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
+	*is_builtin = 1;
 }
