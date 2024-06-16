@@ -50,10 +50,10 @@ void	clear_cmds(t_shell *shell)
 	cmd = shell->cmds;
 	while (cmd != NULL)
 	{
-		// if (cmd->cmd_args != NULL)
-		// 	free_matrix(cmd->cmd_args);
-		if (cmd->cmd_path != NULL)
+		if (cmd->cmd_path != NULL && cmd->cmd_path != cmd->cmd_args[0])
 			free(cmd->cmd_path);
+		if (cmd->cmd_args != NULL)
+			free_matrix(cmd->cmd_args);
 		if (cmd->input != 0)
 			close(cmd->input);
 		if (cmd->output != 1)
@@ -70,7 +70,8 @@ void	free_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-	while (matrix[i])
+
+	while (matrix && matrix[i])
 	{
 		free(matrix[i]);
 		i++;

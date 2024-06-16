@@ -54,22 +54,24 @@ int	main(int argc, char **argv, char **env)
 	// printf("\n\n\n");
 	// export_no_option(shell->envr);
 	token_list = NULL;
-	
-	while (1)
+
+	while (cmd_line)
 	{
 		cmd_line = readline("MINISHELL HOPAR:");
 		if (cmd_line && *cmd_line)
 		{
+			add_history(cmd_line);
 			tokenization(cmd_line, &token_list);
 			if (syntax_validator(token_list) == 2)
 				printf("EROR HAPPENED, not definied yet\n");
 			expander(token_list, shell->envr);
 			token_to_cmds(shell, token_list);
+			ft_token_list_clear(&token_list);
 			run_cmds(shell);
+			clear_cmds(shell);
 
+			free(cmd_line);
 		}
-		ft_token_list_clear(&token_list);
-		free(cmd_line);
 	}
 	rl_clear_history();
 }

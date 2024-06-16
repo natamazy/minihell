@@ -9,7 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 -fsanitize=address #-Wno-deprecated-non-prototype 
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address #-Wno-deprecated-non-prototype 
 
 # Libraries
 LIBS_DIR = libraries
@@ -64,6 +64,9 @@ OBJS_NAME = $(SRCS_NAME:.c=.o)
 # Compilation process
 all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
+linux_minishell: $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE)
+
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH)
 
@@ -89,6 +92,7 @@ clean:
 # Force cleaning
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) linux_minishell
 	rm -rf $(LIBS_DIR)/$(READLINE)
 	rm -rf $(OBJS_DIR)
 	make clean -C $(LIBS_DIR)/readline-8.2

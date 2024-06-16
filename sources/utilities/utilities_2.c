@@ -81,7 +81,6 @@ void	ft_token_list_clear(t_token **lst)
 	while (l)
 	{
 		t = l->next;
-		free(l->value);
 		free(l);
 		l = t;
 	}

@@ -109,7 +109,7 @@ void	remove_empty_fields(t_token *token, int empty_fields)
 {
 	char	*tmp;
 
-	if (empty_fields < 0)
+	if (empty_fields <= 0)
 		return ;
 	tmp = ft_strdup(token->value);
 	free(token->value);
