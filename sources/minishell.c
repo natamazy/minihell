@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 11:29:35 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:16:56 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "builtin.h"
 #include "executor.h"
 #include "pipex.h"
+
+int	CMD_EXIT_CODE = 0;
 
 char	*read_all(int fd)
 {

@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 15:24:09 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:14:26 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntaxer.h"
 #include "tokenization.h"
 #include "utilities.h"
+
+extern int CMD_EXIT_CODE;
 
 char	*join(char const *s1, char const *s2)
 {
@@ -42,13 +44,40 @@ char	*join(char const *s1, char const *s2)
 	return (r_s);
 }
 
-char	*get_var_in_env(t_env_elem *envr, char *var)
+char	*expand_cpecial_var(t_env_elem *envr, char *var, int is_var)
 {
-	// if (var != NULL)
-	// 	free(var);
-	// New function to expand ~ $
-	if (var[0] == '\0')
-		return ("$");
+	char	*result;
+
+	result = NULL;
+	if (is_var == 0 && ft_strcmp(var, "~") == 0)
+		return (get_var_in_env(envr, "HOME", 1));
+	else if (var[0] == '\0')
+	{
+		result = ft_strdup("$");
+		// if (result == NULL)
+		// 	perror_exit();
+	}
+	else if (ft_strcmp(var, "?") == 0)
+	{
+		result = ft_itoa(CMD_EXIT_CODE);
+		// if (result == NULL)
+		// 	perror_exit();
+	}
+	return (result);
+}
+
+char	*get_var_in_env(t_env_elem *envr, char *var, int is_var)
+{
+	char	*result;
+
+	if (var == NULL)
+		return (NULL);
+	result = expand_cpecial_var(envr, var, is_var);
+
+	// New function to expand ~, $, ?, <empty_var>
+
+	if (result != NULL)
+		return (result);
 	while (envr)
 	{
 		if (ft_strcmp(var, envr->key) == 0)
@@ -69,17 +98,30 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 	char	*r_part;
 	char	*var;
 	int		start;
+	char	*search;
 
 	l_part = ft_substr(str, 0, *i);
 	start = *i;
 	while (str[*i] && ft_isspace(str[*i]) == 0 && \
 		str[*i] != '"' && str[*i] != '\'')
 		(*i)++;
-	var = get_var_in_env(envr, ft_substr(str, start + 1, *i - start - 1)); // ft_substr arandzin popoxakanov vorpeszi pahenq or fri anenq
+	search = ft_substr(str, start + 1, *i - start - 1);
+	var = get_var_in_env(envr, search, 1); // ft_substr arandzin popoxakanov vorpeszi pahenq or fri anenq
 	r_part = ft_substr(str, *i, len - *i);
 	*i = start + ft_strlen(var);
-	free(str);
-	return (join(join(l_part, var), r_part)); // hanel joiny returnic u free anel var y u lpart and r part
+	// navsyaki stugel vor NULL chlinelu depqum free anel
+
+	char *tmp;
+	char *res;
+	tmp = join(l_part, var);
+	// free(l_part);
+	// free(var);
+	// free(str);
+	// free(search);
+	res = join(tmp, r_part);
+	// free(tmp);
+	// free(r_part);
+	return (res); // hanel joiny returnic u free anel var y u lpart and r part
 }
 
 void	dollar_opener(t_token *token, int len, t_env_elem *envr)

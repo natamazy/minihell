@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 12:11:19 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:06:49 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		check_env(t_shell *shell);
 char		*find_key(char *full_key_val);
 char		*find_value(char *full_key_val);
 char		*join(char const *s1, char const *s2);
-char		*get_var_in_env(t_env_elem *envr, char *var);
+char		*get_var_in_env(t_env_elem *envr, char *var, int is_var);
 char		*agvanistan(char *str, int *i, int len, t_env_elem *envr);
 void		dollar_opener(t_token *token, int len, t_env_elem *envr);
 void		remove_empty_fields(t_token *token, int empty_fields);
@@ -57,6 +57,11 @@ void		ft_putstr_fd(char const *s, int fd);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 void		clear_cmds(t_shell *shell);
 void		free_matrix(char **matrix);
+
+// utilities_6.c
+size_t		count_num_len(long long int k);
+void		int_to_str(long long int k, size_t num_len, char *str_num);
+char		*ft_itoa(int n);
 
 // split.c
 char		**ft_split(char const *s, char c);

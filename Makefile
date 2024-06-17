@@ -44,6 +44,7 @@ SRCS_NAME = minishell.c \
 			utilities/utilities_3.c \
 			utilities/utilities_4.c \
 			utilities/utilities_5.c \
+			utilities/utilities_6.c \
 			utilities/pipex_utils1.c \
 			utilities/split.c \
 			environment/environment.c \
