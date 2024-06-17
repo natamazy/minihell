@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/15 22:59:14 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:29:35 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int	main(int argc, char **argv, char **env)
 	// printf("\n\n\n");
 	// export_no_option(shell->envr);
 	token_list = NULL;
+	cmd_line = "";
 
 	while (cmd_line)
 	{
-		cmd_line = readline("MINISHELL HOPAR:");
+		cmd_line = readline("\e[1;34mMINISHELL HOPAR: \e[0m");
 		if (cmd_line && *cmd_line)
 		{
 			add_history(cmd_line);

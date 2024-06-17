@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:10:06 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:27:06 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:54:05 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	close_pipes(t_pipex *pipex)
 		i++;
 	}
 }
-
 
 void	dups(t_pipex *pipex, t_cmd *cmd)
 {

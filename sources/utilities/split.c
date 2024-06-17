@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:52:19 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:18:57 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:55:15 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "utilities.h"
+
 static size_t	count_words(char const *s, char sep)
 {
 	unsigned int	words_count;

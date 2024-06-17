@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:06:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/15 15:22:07 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:52:10 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_lstsize(t_env_elem *lst)
 int	count_cmds(t_cmd *cmds)
 {
 	int			i;
-	t_cmd	*current;
+	t_cmd		*current;
 
 	i = 0;
 	current = cmds;

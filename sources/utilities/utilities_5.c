@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_5.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:09:26 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:49:31 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:51:53 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	free_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-
 	while (matrix && matrix[i])
 	{
 		free(matrix[i]);
