@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:46:29 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:11:19 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			ft_strcmp(char *s1, char *s2);
 int			ft_env_elem_size(t_env_elem *begin_list);
 t_env_elem	*ft_env_elem_at(t_env_elem *begin_list, unsigned int nbr);
 t_env_elem	*ft_merge_sorted_list(t_env_elem *left, t_env_elem *right,
-			int (*cmp)());
+				int (*cmp)());
 t_env_elem	*merge_sort(t_env_elem *begin_list, int (*cmp)());
 void		ft_env_elem_sort(t_env_elem **begin_list, int (*cmp)());
 
@@ -59,6 +59,6 @@ void		clear_cmds(t_shell *shell);
 void		free_matrix(char **matrix);
 
 // split.c
-char	**ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c);
 
 #endif

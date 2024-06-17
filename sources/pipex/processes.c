@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 11:56:07 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:08:17 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	run_builtins(t_env_elem *envp, t_cmd *cmd)
 		print_env(envp, &is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0)
 		pwd(cmd->output, &is_builtin);
+	// else if (ft_strcmp(cmd->cmd_path, "export" == 0)
 	// to be continued
 	if (is_builtin == 1)
 		exit(0);

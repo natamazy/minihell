@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/12 12:21:32 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:11:08 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,12 @@ void			split_by_operators(t_token **tokens_list);
 void			tokenization(char *cmd_line, t_token **tokens_list);
 void			split_by_spaces(char *cmd_line, t_token **tokens_list);
 void			ft_add_token_to_list(t_token **tokens_list, t_token *new_token);
-void			procces_one_token(t_token *cur, t_token **tl, int *is_op, int i);
-void			create_and_add_to_list(t_token **token_list, char *start, int len);
-void			add_new_bef(t_token **tokens_list, t_token *cur_token, char *value);
+void			procces_one_token(t_token *cur, t_token **tl,
+					int *is_op, int i);
+void			create_and_add_to_list(t_token **token_list,
+					char *start, int len);
+void			add_new_bef(t_token **tokens_list,
+					t_token *cur_token, char *value);
 
 char			*str_type(int token_type);
 char			*ft_substr(char const *s, unsigned int start, size_t len);

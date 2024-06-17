@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:39:28 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:45:59 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:10:38 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@
 
 typedef struct s_pipex
 {
-	int		(*pipes)[2];
-	int		cmd_cnt;
-	t_cmd	*cmds;
+	int			(*pipes)[2];
+	int			cmd_cnt;
+	t_cmd		*cmds;
 	t_env_elem	*envp;
 }	t_pipex;
 
-int run_cmds(t_shell *shell);
+int		run_cmds(t_shell *shell);
 
 //pipes.c
 void	init_pipes(t_pipex *pipex);
