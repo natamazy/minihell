@@ -6,10 +6,11 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:14:06 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:00:35 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
 #include "builtin.h"
 #include "minishell.h"
 #include "utilities.h"
@@ -57,14 +58,14 @@ void	export_helper_2(t_env_elem **temp, char *key, char *value)
 	(*temp) = (*temp)->next;
 }
 
-void	export_with_option(t_shell *shell, char *var)
+void	export_with_option(t_pipex *pipex, char *var)
 {
 	t_env_elem	*temp;
 	char		*key;
 	char		*value;
 
 	export_helper_1(&key, &value, var);
-	temp = shell->envr;
+	temp = pipex->envp;
 	while (temp != NULL)
 	{
 		if (ft_strcmp(temp->key, key) == 0)

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 12:08:17 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:20:55 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ void	wait_processes(t_pipex *pipex)
 	}
 }
 
-int	run_builtins(t_env_elem *envp, t_cmd *cmd)
+int	run_builtins(t_pipex *pipex, t_cmd *cmd)
 {
 	int	is_builtin;
 
 	is_builtin = 0;
 	if (ft_strcmp(cmd->cmd_path, "env") == 0)
-		print_env(envp, &is_builtin);
+		print_env(pipex->envp, &is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0)
 		pwd(cmd->output, &is_builtin);
-	// else if (ft_strcmp(cmd->cmd_path, "export" == 0)
+	else if (ft_strcmp(cmd->cmd_path, "cd") == 0)
+		cd(pipex->cmds->cmd_args[1], pipex, &is_builtin);
 	// to be continued
 	if (is_builtin == 1)
 		exit(0);
@@ -63,12 +64,10 @@ void	create_processes(t_pipex *pipex)
 		{
 			dups(pipex, cmd);
 			config_cmd(pipex, cmd);
-			run_builtins(pipex->envp, cmd);
+			run_builtins(pipex, cmd);
 			if (execve(cmd->cmd_path, cmd->cmd_args,
 					env_list_to_array(pipex->envp)) == -1)
-			{
 				perror_exit(EXECVE_ERR, pipex);
-			}
 		}
 		cmd = cmd->next;
 		i++;
