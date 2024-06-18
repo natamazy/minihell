@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 14:13:10 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:20:09 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 		return (get_var_in_env(envr, "HOME", 1));
 	else if (var[0] == '\0')
 	{
-		printf("AAAAAAAA");
 		result = ft_strdup("$");
 		// if (result == NULL)
 		// 	perror_exit();
@@ -103,15 +102,12 @@ char	*merge_string(char *l_part, char *var, char *r_part)
 	char	*tmp;
 	char	*res;
 
-	printf("L:'%s'\nV:'%s'\nR:'%s'\n", l_part, var, r_part);
 	tmp = join(l_part, var);
 	free(l_part);
 	free(var);
 	res = join(tmp, r_part);
 	free(tmp);
 	free(r_part);
-	printf("\nSTR:'%s'\n", res);
-
 	return (res);
 }
 
@@ -124,17 +120,16 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 	char	*search;
 
 	l_part = ft_substr(str, 0, *i);
-	start = *i;
+	start = (*i)++;
 	while (str[*i] && ft_isspace(str[*i]) == 0 && \
-		str[*i] != '"' && str[*i] != '\'')
+		str[*i] != '"' && str[*i] != '\'' && str[*i] != '$')
 		(*i)++;
 	search = ft_substr(str, start + 1, *i - start - 1);
-	var = get_var_in_env(envr, search, 1); // ft_substr arandzin popoxakanov vorpeszi pahenq or fri anenq
+	var = get_var_in_env(envr, search, 1);
 	r_part = ft_substr(str, *i, len - *i);
 	*i = start + ft_strlen(var);
-	// navsyaki stugel vor NULL chlinelu depqum free anel
 	free(str);
-	return (merge_string(l_part, var, r_part)); // hanel joiny returnic u free anel var y u lpart and r part
+	return (merge_string(l_part, var, r_part));
 }
 
 void	dollar_opener(t_token *token, int len, t_env_elem *envr)
@@ -148,7 +143,7 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	is_dquote = 0;
 	is_squote = 0;
 	str = token->value;
-	while (str && str[i])
+	while (str && str[i] != '\0')
 	{
 		if (is_squote == 0 && str[i] == '\"')
 			is_dquote = !is_dquote;
@@ -157,6 +152,7 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 		if (is_squote == 0 && str[i] == '$')
 		{
 			str = agvanistan(str, &i, len, envr);
+			continue ;
 		}
 		// stugenq ete verjnakany datarka jnjel node y
 		i++;

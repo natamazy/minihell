@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 14:00:09 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:21:07 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	expander(t_token *tokens, t_env_elem *envr)
 			old_len = ft_strlen(tokens->value);
 			dollar_opener(tokens, old_len, envr);
 			// if (old_len > 0 && ft_strlen(tokens->value) == 0)
-			
 			if (remove_extra_quotes(tokens, 0, 0) == -1)
 				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
 		}

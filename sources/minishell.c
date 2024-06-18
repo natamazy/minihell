@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 10:58:40 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:38:47 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	main(int argc, char **argv, char **env)
 			ft_token_list_clear(&token_list);
 			run_cmds(shell);
 			clear_cmds(shell);
-
 			free(cmd_line);
 		}
 	}
