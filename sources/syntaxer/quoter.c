@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 19:14:26 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:06:52 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "tokenization.h"
 #include "utilities.h"
 
-extern int CMD_EXIT_CODE;
+extern int	g_exit_status;
 
 char	*join(char const *s1, char const *s2)
 {
@@ -59,7 +59,7 @@ char	*expand_cpecial_var(t_env_elem *envr, char *var, int is_var)
 	}
 	else if (ft_strcmp(var, "?") == 0)
 	{
-		result = ft_itoa(CMD_EXIT_CODE);
+		result = ft_itoa(g_exit_status);
 		// if (result == NULL)
 		// 	perror_exit();
 	}
@@ -73,9 +73,7 @@ char	*get_var_in_env(t_env_elem *envr, char *var, int is_var)
 	if (var == NULL)
 		return (NULL);
 	result = expand_cpecial_var(envr, var, is_var);
-
 	// New function to expand ~, $, ?, <empty_var>
-
 	if (result != NULL)
 		return (result);
 	while (envr)

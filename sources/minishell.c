@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 18:16:56 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:58:40 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "executor.h"
 #include "pipex.h"
 
-int	CMD_EXIT_CODE = 0;
+int	g_exit_status = 0;
 
 char	*read_all(int fd)
 {
@@ -32,6 +32,19 @@ char	*read_all(int fd)
 	int readed = read(fd, buff, 1000000);
 	buff[readed] = '\0';
 	return (buff);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		*((unsigned char *)s + i) = c;
+		i++;
+	}
+	return (s);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -48,18 +61,13 @@ int	main(int argc, char **argv, char **env)
 	shell->envr = init_env(env);
 	shell->cmds = NULL;
 	check_env(shell);
-	// print_env(shell->envr);
-	// export(shell, "x=ALO");
-	// export(shell, "x=BLO");
-	// unset(shell, "xxxx");
-	// print_env(shell->envr);
-	// printf("\n\n\n");
-	// export_no_option(shell->envr);
 	token_list = NULL;
 	cmd_line = "";
 
 	while (cmd_line)
 	{
+		set_signal(0, signal_handler_int);
+		set_signal(1, signal_handler_quit);
 		cmd_line = readline("\e[1;34mMINISHELL HOPAR: \e[0m");
 		if (cmd_line && *cmd_line)
 		{
@@ -76,5 +84,6 @@ int	main(int argc, char **argv, char **env)
 			free(cmd_line);
 		}
 	}
+	printf("exit\n");
 	rl_clear_history();
 }

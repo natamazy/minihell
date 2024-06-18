@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 18:16:49 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:56:44 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <termios.h>
+# include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
 

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:50 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 20:01:17 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:57:43 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,10 @@ char		**env_list_to_array(t_env_elem *temp);
 void		pwd(int fdtowrite, int *is_builtin);
 
 void		cd(char *path, t_pipex *pipex, int *is_builtin);
+
+int			is_numeric(const char *str);
+void		len_error(const char *str, unsigned long long nbr);
+int			ft_latoi(const char *str);
+void		built_exit(t_cmd *cmd);
 
 #endif
