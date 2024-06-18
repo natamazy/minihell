@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 10:52:38 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 10:52:41 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:26:28 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	len_error(const char *str, unsigned long long nbr)
 	if (nbr > (unsigned long long)LLONG_MAX + 1)
 	{
 		printf("minishell: exit: %s: numeric argument required\n", str);
-		g_exit_status = 2;
-		exit(g_exit_status);
+		g_exit_status = 255;
+		exit (g_exit_status);
 	}
 }
 
@@ -88,7 +88,7 @@ void	built_exit(t_cmd *cmd)
 		{
 			printf("minishell: exit: %s: numeric argument required\n",
 				cmd->cmd_args[1]);
-			g_exit_status = 2;
+			g_exit_status = 255;
 		}
 	}
 	if (g_exit_status < 0)
