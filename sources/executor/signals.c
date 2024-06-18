@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 10:53:01 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 11:05:27 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:17:23 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	signal_handler_quit(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	rl_cleanup_after_signal();
-	exit(g_exit_status);
 }
 
 void	ignore_sigquit(void)
