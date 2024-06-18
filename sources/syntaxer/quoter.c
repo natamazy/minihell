@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 11:06:52 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:13:10 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,24 @@ char	*join(char const *s1, char const *s2)
 	return (r_s);
 }
 
-char	*expand_cpecial_var(t_env_elem *envr, char *var, int is_var)
+// New function to expand ~, $, ?, <empty_var>
+char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 {
 	char	*result;
 
 	result = NULL;
-	if (is_var == 0 && ft_strcmp(var, "~") == 0)
+	if (is_var == 1 && var == NULL)
+	{
+		result = malloc(sizeof(char));
+		// if (result == NULL)
+		// 	perror_exit();
+		result[0] = '\0';
+	}
+	else if (is_var == 0 && ft_strcmp(var, "~") == 0)
 		return (get_var_in_env(envr, "HOME", 1));
 	else if (var[0] == '\0')
 	{
+		printf("AAAAAAAA");
 		result = ft_strdup("$");
 		// if (result == NULL)
 		// 	perror_exit();
@@ -72,8 +81,7 @@ char	*get_var_in_env(t_env_elem *envr, char *var, int is_var)
 
 	if (var == NULL)
 		return (NULL);
-	result = expand_cpecial_var(envr, var, is_var);
-	// New function to expand ~, $, ?, <empty_var>
+	result = expand_special_var(envr, var, is_var);
 	if (result != NULL)
 		return (result);
 	while (envr)
@@ -81,13 +89,30 @@ char	*get_var_in_env(t_env_elem *envr, char *var, int is_var)
 		if (ft_strcmp(var, envr->key) == 0)
 		{
 			if (envr->value == NULL)
-				return ("");
+				return (expand_special_var(envr, NULL, 1));
 			else
 				return (ft_strdup(envr->value));
 		}
 		envr = envr->next;
 	}
-	return ("");
+	return (expand_special_var(envr, NULL, 1));
+}
+
+char	*merge_string(char *l_part, char *var, char *r_part)
+{
+	char	*tmp;
+	char	*res;
+
+	printf("L:'%s'\nV:'%s'\nR:'%s'\n", l_part, var, r_part);
+	tmp = join(l_part, var);
+	free(l_part);
+	free(var);
+	res = join(tmp, r_part);
+	free(tmp);
+	free(r_part);
+	printf("\nSTR:'%s'\n", res);
+
+	return (res);
 }
 
 char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
@@ -108,18 +133,8 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 	r_part = ft_substr(str, *i, len - *i);
 	*i = start + ft_strlen(var);
 	// navsyaki stugel vor NULL chlinelu depqum free anel
-
-	char *tmp;
-	char *res;
-	tmp = join(l_part, var);
-	// free(l_part);
-	// free(var);
-	// free(str);
-	// free(search);
-	res = join(tmp, r_part);
-	// free(tmp);
-	// free(r_part);
-	return (res); // hanel joiny returnic u free anel var y u lpart and r part
+	free(str);
+	return (merge_string(l_part, var, r_part)); // hanel joiny returnic u free anel var y u lpart and r part
 }
 
 void	dollar_opener(t_token *token, int len, t_env_elem *envr)
@@ -133,15 +148,17 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 	is_dquote = 0;
 	is_squote = 0;
 	str = token->value;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (is_squote == 0 && str[i] == '\"')
 			is_dquote = !is_dquote;
 		if (is_dquote == 0 && str[i] == '\'')
 			is_squote = !is_squote;
 		if (is_squote == 0 && str[i] == '$')
+		{
 			str = agvanistan(str, &i, len, envr);
-		// vor stugenq ete verjnakany datarka jnjel node y
+		}
+		// stugenq ete verjnakany datarka jnjel node y
 		i++;
 	}
 	token->value = str;
