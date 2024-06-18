@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:08:47 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 13:24:19 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:33:17 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	check_and_export(t_pipex *pipex, char *pwd_to_set, char *pwd, int i)
 	if (!pwd_to_set)
 		return (1);
 	export_with_option(pipex, pwd_to_set);
+	free (pwd_to_set);
 	return (0);
 }
 
@@ -71,7 +72,7 @@ void	cd(char *path, t_pipex *pipex, int *is_builtin)
 	if (chdir(modified_cmd) == -1)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", modified_cmd);
-		exit(1);
+		exit (1);
 	}
 	pwd_to_set = NULL;
 	if (check_and_export(pipex, pwd_to_set, old_pwd, 0) == 1)
@@ -80,5 +81,7 @@ void	cd(char *path, t_pipex *pipex, int *is_builtin)
 	free(pwd_to_set);
 	if (check_and_export(pipex, pwd_to_set, new_pwd, 1) == 1)
 		return ;
+	if (path && path[0] == '~')
+		free(modified_cmd);
 	*is_builtin = 1;
 }

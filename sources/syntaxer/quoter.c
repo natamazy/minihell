@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 15:20:09 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:50:03 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 		(*i)++;
 	search = ft_substr(str, start + 1, *i - start - 1);
 	var = get_var_in_env(envr, search, 1);
+	free (search);
 	r_part = ft_substr(str, *i, len - *i);
 	*i = start + ft_strlen(var);
 	free(str);
@@ -154,7 +155,6 @@ void	dollar_opener(t_token *token, int len, t_env_elem *envr)
 			str = agvanistan(str, &i, len, envr);
 			continue ;
 		}
-		// stugenq ete verjnakany datarka jnjel node y
 		i++;
 	}
 	token->value = str;

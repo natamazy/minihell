@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 20:00:35 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:15:32 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,24 @@ void	export_helper_1(char **key, char **value, char *var)
 	}
 }
 
-void	export_helper_2(t_env_elem **temp, char *key, char *value)
+void	export_helper_2(t_env_elem **temp, char *key, char *value, int flag)
 {
-	(*temp)->next = malloc(sizeof(t_env_elem));
-	if (!(*temp)->next)
-		return ;
-	(*temp) = (*temp)->next;
-	(*temp)->key = ft_strdup(key);
-	if (value != NULL)
-		(*temp)->value = ft_strdup(value);
-	else
-		(*temp)->value = "\0";
-	(*temp)->next = NULL;
-	(*temp) = (*temp)->next;
+	if (flag == 1)
+	{
+		(*temp)->next = malloc(sizeof(t_env_elem));
+		if (!(*temp)->next)
+			return ;
+		(*temp) = (*temp)->next;
+		(*temp)->key = ft_strdup(key);
+		if (value != NULL)
+			(*temp)->value = ft_strdup(value);
+		else
+			(*temp)->value = "\0";
+		(*temp)->next = NULL;
+		(*temp) = (*temp)->next;
+	}
+	free(value);
+	free(key);
 }
 
 void	export_with_option(t_pipex *pipex, char *var)
@@ -75,11 +80,12 @@ void	export_with_option(t_pipex *pipex, char *var)
 				temp->value = NULL;
 			else
 				temp->value = ft_strdup(value);
+			export_helper_2(NULL, NULL, NULL, 0);
 			return ;
 		}
 		else if (temp->next == NULL)
 		{
-			export_helper_2(&temp, key, value);
+			export_helper_2(&temp, key, value, 1);
 			break ;
 		}
 		temp = temp->next;
