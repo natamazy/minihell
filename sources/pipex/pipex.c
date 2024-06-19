@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:25 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 22:45:20 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 00:48:34 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	run_cmds(t_shell *shell)
 	t_pipex	pipex;
 
 	init_pipex(shell, &pipex);
-	init_pipes(&pipex);
+	if (pipex.cmd_cnt > 1)
+		init_pipes(&pipex);
 	create_processes(&pipex);
 	close_pipes(&pipex);
 	wait_processes(&pipex);

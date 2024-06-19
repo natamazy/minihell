@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 16:26:46 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 01:58:44 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	open_file(char *fn, int type)
 			fd = -2;
 	}
 	else if (type == TRUNC)
-		fd = open(fn, O_CREAT | O_WRONLY, 0644);
+		fd = open(fn, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == APPEND)
 		fd = open(fn, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd > 2)
@@ -82,7 +82,7 @@ void	here_doc_write(int tmp_file_fd, char *lim)
 
 	while (1)
 	{
-		buff = readline("\033[0;033m> \033[0m");
+		buff = readline("\033[0;032m> \033[0m");
 		buff_size = ft_strlen(buff);
 		if (buff == NULL || ft_strcmp(buff, lim) == 0)
 		{
@@ -113,6 +113,5 @@ int	here_doc_open(char *lim)
 	fd = open(HERE_DOC_FILE, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	printf("HERE_DOC_FD:%d\n", fd);
 	return (fd);
 }

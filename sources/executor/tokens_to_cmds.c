@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_cmds.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:35:40 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 18:09:51 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 01:58:58 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 			return ;
 		token_to_cmds_helper1(&len, temp, cmd_args, NULL);
 		ft_lstadd_back(shell, ft_lstnew(cmd_args, &fds));
+		fds.infd = 0;
 		token_to_cmds_helper1(&fds.second_case, temp2, NULL, &temp);
 	}
 }

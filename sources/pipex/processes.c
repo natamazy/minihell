@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 23:28:54 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 01:40:41 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	wait_processes(t_pipex *pipex)
 
 void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int is_in_fork)
 {
-	if (ft_strcmp(cmd->cmd_path, "env") == 0)
+	if (ft_strcmp(cmd->cmd_path, "env") == 0 && is_in_fork == 1)
 		g_exit_status = print_env(pipex->envp, is_builtin);
-	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0)
+	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0 && is_in_fork == 1)
 		g_exit_status = pwd(STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "cd") == 0)
 		g_exit_status = cd(pipex->cmds->cmd_args[1], pipex, is_builtin);
-	else if (ft_strcmp(cmd->cmd_path, "echo") == 0)
+	else if (ft_strcmp(cmd->cmd_path, "echo") == 0 && is_in_fork == 1)
 		g_exit_status = echo(cmd->cmd_args, STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "export") == 0)
 		g_exit_status = export(pipex, cmd, is_builtin);
