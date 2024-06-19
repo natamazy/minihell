@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:27:06 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 16:09:19 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:09:10 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utilities.h"
 
-void	echo(char **args, int fdtowrite, int *is_builtin)
+int	echo(char **args, int fdtowrite, int *is_builtin)
 {
 	int	newline;
 	int	i;
@@ -34,4 +34,5 @@ void	echo(char **args, int fdtowrite, int *is_builtin)
 	if (newline == 1)
 		write(fdtowrite, "\n", 1);
 	*is_builtin = 1;
+	return (666);
 }

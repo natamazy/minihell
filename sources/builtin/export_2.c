@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 17:15:32 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:39:45 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	export_helper_2(t_env_elem **temp, char *key, char *value, int flag)
 	free(key);
 }
 
-void	export_with_option(t_pipex *pipex, char *var)
+int	export_with_option(t_pipex *pipex, char *var)
 {
 	t_env_elem	*temp;
 	char		*key;
@@ -81,7 +81,7 @@ void	export_with_option(t_pipex *pipex, char *var)
 			else
 				temp->value = ft_strdup(value);
 			export_helper_2(NULL, NULL, NULL, 0);
-			return ;
+			return (666);
 		}
 		else if (temp->next == NULL)
 		{
@@ -90,22 +90,88 @@ void	export_with_option(t_pipex *pipex, char *var)
 		}
 		temp = temp->next;
 	}
+	return (666);
 }
 
-void	unset(t_shell *shell, char *key_to_unset)
+void	unset_helper(t_pipex *pipex, char *key_to_unset)
 {
 	t_env_elem	*temp;
 
-	temp = shell->envr;
+	temp = pipex->envp;
 	while (temp)
 	{
 		if (ft_strcmp(temp->key, key_to_unset) == 0)
 		{
 			free(temp->key);
+			temp->key = NULL;
 			if (temp->value[0] != '\0')
+			{
 				free(temp->value);
-			return ;
+				temp->value = NULL;
+			}
 		}
 		temp = temp->next;
+	}	
+}
+
+int	ft_isalpha_ident(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
+		return (TRUE);
+	return (FALSE);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c > '0' && c < '9')
+		return (TRUE);
+	return (FALSE);
+}
+
+int	ft_isalphadigit(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || (c > '0' && c < '9'))
+		return (TRUE);
+	return (FALSE);
+}
+
+int	is_valid_ident(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str && str[0] && ft_isalpha_ident(str[0]) == FALSE)
+		return (FALSE);
+	i++;
+	while (str && str[i])
+	{
+		if (ft_isalphadigit(str[i]) == FALSE)
+			return (FALSE);
+		i++;
 	}
+	return (TRUE);
+}
+
+int	unset(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
+{
+	int	i;
+	int	err;
+
+	i = 1;
+	err = 0;
+	*is_builtin = 1;
+	while (cmd && cmd->cmd_args && cmd->cmd_args[i])
+	{
+		if (is_valid_ident(cmd->cmd_args[i]) == FALSE)
+		{
+			printf("bash: unset: `%s': not a valid identifier\n", cmd->cmd_args[i]);
+			err = 1;
+			i++;
+			continue ;
+		}
+		else
+			unset_helper(pipex, cmd->cmd_args[i]);
+		i++;
+	}
+	return (err);
 }
