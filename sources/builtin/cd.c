@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:08:47 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 18:33:17 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:09:00 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*modify_cmd(char *path, t_pipex *pipex, int i, int j)
 	return (final);
 }
 
-void	cd(char *path, t_pipex *pipex, int *is_builtin)
+int	cd(char *path, t_pipex *pipex, int *is_builtin)
 {
 	char	old_pwd[PATH_MAX];
 	char	new_pwd[PATH_MAX];
@@ -76,12 +76,13 @@ void	cd(char *path, t_pipex *pipex, int *is_builtin)
 	}
 	pwd_to_set = NULL;
 	if (check_and_export(pipex, pwd_to_set, old_pwd, 0) == 1)
-		return ;
+		return (666);
 	getcwd(new_pwd, PATH_MAX);
 	free(pwd_to_set);
 	if (check_and_export(pipex, pwd_to_set, new_pwd, 1) == 1)
-		return ;
+		return (666);
 	if (path && path[0] == '~')
 		free(modified_cmd);
 	*is_builtin = 1;
+	return (666);
 }

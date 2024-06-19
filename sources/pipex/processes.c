@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 18:15:18 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:46:26 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,19 @@ void	wait_processes(t_pipex *pipex)
 void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int is_in_fork)
 {
 	if (ft_strcmp(cmd->cmd_path, "env") == 0)
-		print_env(pipex->envp, is_builtin);
+		g_exit_status = print_env(pipex->envp, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0)
-		pwd(STDOUT_FILENO, is_builtin);
+		g_exit_status = pwd(STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "cd") == 0)
-		cd(pipex->cmds->cmd_args[1], pipex, is_builtin);
+		g_exit_status = cd(pipex->cmds->cmd_args[1], pipex, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "echo") == 0)
-		echo(cmd->cmd_args, STDOUT_FILENO, is_builtin);
+		g_exit_status = echo(cmd->cmd_args, STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "export") == 0)
-		export(pipex, cmd, is_builtin);
+		g_exit_status = export(pipex, cmd, is_builtin);
+	else if (ft_strcmp(cmd->cmd_path, "unset") == 0)
+		g_exit_status = unset(pipex, cmd, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "exit") == 0)
-		built_exit(cmd, is_builtin, is_in_fork, 0);
-	// to be continued
-	//unset
-	//printf("%d\n", g_exit_status);
+		built_exit(cmd, is_builtin);
 	if (*is_builtin == 1 && is_in_fork == 1)
 		exit(g_exit_status);
 }

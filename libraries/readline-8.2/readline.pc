@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 prefix=/Users/nkarapet/Desktop/minihell/libraries/readline
+=======
+prefix=/Users/natamazy/Desktop/minihell/libraries/readline
+>>>>>>> 5bd3db310e45e040e8cede2d4fee78a538b1eb3a
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
