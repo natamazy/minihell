@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 18:15:24 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:33:49 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ char	*get_cmd_path(char *cmd_name, char **paths, t_pipex *pipex)
 void	config_cmd(t_pipex *pipex, t_cmd *cmd)
 {
 	char	**paths;
+	char	*var;
 
-	// pipex->cmd_args = ft_split(pipex->prog_args[i + 2], ' ');
-	// if (pipex->cmd_args == NULL)
-	// 	perror_exit(MALLOC_ERR, pipex);
-	paths = ft_split(get_var_in_env(pipex->envp, "PATH", 1), ':');
+	var = get_var_in_env(pipex->envp, "PATH", 1);
+	paths = ft_split(var, ':');
+	free(var);
 	cmd->cmd_path = get_cmd_path(cmd->cmd_path, paths, pipex);
 }
 

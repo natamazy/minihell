@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/14 17:14:12 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:29:54 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,6 @@ t_env_elem	*create_copy(t_env_elem *head)
 	return (new_head);
 }
 
-void	free_list(t_env_elem *head)
-{
-	t_env_elem	*temp;
-
-	while (head != NULL)
-	{
-		temp = head;
-		head = head->next;
-		free(temp->key);
-		free(temp->value);
-		free(temp);
-	}
-}
-
 void	export_no_option(t_env_elem *envr)
 {
 	t_env_elem	*temp;
@@ -96,5 +82,14 @@ void	print_env(t_env_elem *envr, int *is_builtin)
 			printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
+	*is_builtin = 1;
+}
+
+void	export(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
+{
+	if (cmd->cmd_args[1] == NULL)
+		export_no_option(pipex->envp);
+	else
+		export_with_option(pipex, cmd->cmd_args[1]);
 	*is_builtin = 1;
 }

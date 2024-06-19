@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 10:52:38 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 16:26:28 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:03:07 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_latoi(const char *str)
 	return (nbr);
 }
 
-void	built_exit(t_cmd *cmd)
+void	built_exit(t_cmd *cmd, int *is_builtin)
 {
 	printf("exit\n");
 	if (cmd->cmd_args[1])
@@ -93,5 +93,5 @@ void	built_exit(t_cmd *cmd)
 	}
 	if (g_exit_status < 0)
 		g_exit_status += 256;
-	exit(g_exit_status);
+	*is_builtin = 1;
 }

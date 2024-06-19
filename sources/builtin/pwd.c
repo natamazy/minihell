@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:56:11 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 14:50:27 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:09:36 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	pwd(int fdtowrite, int *is_builtin)
 {
 	char	path[PATH_MAX];
 
-	// (void) fdtowrite;
-	// printf("PWD_YEEE\n");
 	if (!getcwd(path, PATH_MAX))
 	{
 		ft_putstr_fd("ERROR\n", fdtowrite);

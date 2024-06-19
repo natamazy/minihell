@@ -6,12 +6,13 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:09:26 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/18 20:21:19 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:43:17 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utilities.h"
+#include "builtin.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -80,13 +81,27 @@ void	free_matrix(char **matrix)
 
 int	is_builtin(char *cmd_name)
 {
-	char *builtins[] = {"pwd", "cd", "export", "unset", "exit", "env", "echo", NULL};
-	int i = 0;
-	while (builtins[i] != NULL)
-	{
-		if (ft_strcmp(builtins[i], cmd_name) == 0)
-			return (1);
-		i++;
-	}
+	if (ft_strcmp(cmd_name, "pwd") == 0
+		|| ft_strcmp(cmd_name, "cd") == 0
+		|| ft_strcmp(cmd_name, "export") == 0
+		|| ft_strcmp(cmd_name, "unset") == 0
+		|| ft_strcmp(cmd_name, "exit") == 0
+		|| ft_strcmp(cmd_name, "env") == 0
+		|| ft_strcmp(cmd_name, "echo") == 0)
+		return (1);
 	return (0);
+}
+
+void	free_list(t_env_elem *head)
+{
+	t_env_elem	*temp;
+
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp->key);
+		free(temp->value);
+		free(temp);
+	}
 }

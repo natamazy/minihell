@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:10:06 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/18 20:17:52 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:02:12 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_pipes(t_pipex *pipex)
 	{
 		if (pipe(pipex->pipes[i]) == -1)
 			perror_exit(PIPE_ERR, pipex);
-		if (cur->output == 1)
+		if (cur != NULL && cur->output == 1)
 			cur->output = pipex->pipes[i][1];
 		if (cur->next && cur->next->input == 0)
 			cur->next->input = pipex->pipes[i][0];
