@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 20:58:18 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:17:47 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ int	export_helper_1(char **key, char **value, char *var)
 	else
 	{
 		*key = ft_strdup(var);
-		*value = NULL;
+		*value = ft_strdup("\0");
 	}
 	if (*key && *key != NULL && is_valid_ident(*key) == FALSE)
 	{
 		printf("bash: export: `%s': not a valid identifier\n", *key);
-		if (*key && *key != NULL)
-			free (*key);
+		free (*key);
 		if (*value && *value != NULL)
 			free (*value);
 		return (FALSE);
@@ -131,7 +130,7 @@ void	unset_helper(t_pipex *pipex, char *key_to_unset)
 		{
 			free(temp->key);
 			temp->key = NULL;
-			if (temp->value[0] != '\0')
+			if (temp->value && temp->value[0] != '\0')
 			{
 				free(temp->value);
 				temp->value = NULL;
