@@ -8,9 +8,7 @@ AGVAN:
 TAMAZYAN:
 5. Fix echo echo -nnn -nnnnnnn -nnn -nnnn
 6. Fix export to export all variables : export a=b c=e j=l
-7. Fix unset
 10. FIX EXPORT :::  export: 'f.f=x': not a valid identifier
 11. prosto cd home
 
 MIHRDAR PHILINI:
-8. Fix leaks

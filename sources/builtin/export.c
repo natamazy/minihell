@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 19:23:49 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:39:07 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	export_no_option(t_env_elem *envr)
 	ts = temp;
 	while (ts)
 	{
-		if (ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
+		if (ts->value && ts->value != NULL && ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
 			printf("declare -x %s=\"%s\"\n", ts->key, ts->value);
-		else
+		else if (ts->key && ts->key != NULL)
 			printf("declare -x %s\n", ts->key);
 		ts = ts->next;
 	}

@@ -21,11 +21,7 @@ RL_LIBRARY_VERSION = 8.2
 SHELL = /bin/sh
 RM = rm -f
 
-<<<<<<< HEAD
-prefix = /Users/nkarapet/Desktop/minihell/libraries/readline
-=======
 prefix = /Users/natamazy/Desktop/minihell/libraries/readline
->>>>>>> 5bd3db310e45e040e8cede2d4fee78a538b1eb3a
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -36,11 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-<<<<<<< HEAD
-BUILD_DIR = /Users/nkarapet/Desktop/minihell/libraries/readline-8.2
-=======
 BUILD_DIR = /Users/natamazy/Desktop/minihell/libraries/readline-8.2
->>>>>>> 5bd3db310e45e040e8cede2d4fee78a538b1eb3a
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

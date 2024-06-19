@@ -32,11 +32,7 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-<<<<<<< HEAD
-BUILD_DIR = /Users/nkarapet/Desktop/minihell/libraries/readline-8.2
-=======
 BUILD_DIR = /Users/natamazy/Desktop/minihell/libraries/readline-8.2
->>>>>>> 5bd3db310e45e040e8cede2d4fee78a538b1eb3a
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -56,11 +52,7 @@ SHELL = /bin/sh
 host_os = darwin18.7.0
 host_vendor = apple
 
-<<<<<<< HEAD
-prefix = /Users/nkarapet/Desktop/minihell/libraries/readline
-=======
 prefix = /Users/natamazy/Desktop/minihell/libraries/readline
->>>>>>> 5bd3db310e45e040e8cede2d4fee78a538b1eb3a
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin
