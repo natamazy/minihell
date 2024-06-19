@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 18:15:18 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:58:33 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utilities.h"
 #include "builtin.h"
 
-extern int g_exit_status;
+extern int	g_exit_status;
 
 void	wait_processes(t_pipex *pipex)
 {
@@ -63,7 +63,7 @@ void	run_standard_mode(t_pipex *pipex, t_cmd *cmd)
 
 	pid = fork();
 	if (pid == -1)
-		perror_exit(FORK_ERR, pipex);
+		perror_exit(FORK_ERR, pipex, NULL, 1);
 	if (pid == 0)
 	{
 		is_builtin = 0;
@@ -74,7 +74,7 @@ void	run_standard_mode(t_pipex *pipex, t_cmd *cmd)
 			config_cmd(pipex, cmd);
 			if (execve(cmd->cmd_path, cmd->cmd_args,
 					env_list_to_array(pipex->envp)) == -1)
-				perror_exit(EXECVE_ERR, pipex);
+				perror_exit(EXECVE_ERR, pipex, NULL, 1);
 		}
 	}	
 }

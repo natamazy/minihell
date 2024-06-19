@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:10:06 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 15:02:12 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:47:00 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	init_pipes(t_pipex *pipex)
 
 	pipex->pipes = malloc(sizeof(int [2]) * (pipex->cmd_cnt - 1));
 	if (pipex->pipes == NULL)
-		perror_exit(MALLOC_ERR, pipex);
+		perror_exit(MALLOC_ERR, pipex, NULL, 1);
 	i = 0;
 	cur = pipex->cmds;
 	while (i < pipex->cmd_cnt - 1)
 	{
 		if (pipe(pipex->pipes[i]) == -1)
-			perror_exit(PIPE_ERR, pipex);
+			perror_exit(PIPE_ERR, pipex, NULL, 1);
 		if (cur != NULL && cur->output == 1)
 			cur->output = pipex->pipes[i][1];
 		if (cur->next && cur->next->input == 0)
@@ -54,12 +54,12 @@ void	dups(t_pipex *pipex, t_cmd *cmd)
 	if (cmd->input != 0)
 	{
 		if (dup2(cmd->input, 0) == -1)
-			perror_exit(DUP_ERR, pipex);
+			perror_exit(DUP_ERR, pipex, NULL, 1);
 	}
 	if (cmd->output != 1)
 	{
 		if (dup2(cmd->output, 1) == -1)
-			perror_exit(DUP_ERR, pipex);
+			perror_exit(DUP_ERR, pipex, NULL, 1);
 	}
 	close_pipes(pipex);
 }

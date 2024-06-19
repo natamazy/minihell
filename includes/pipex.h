@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:39:28 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 12:10:38 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:39:46 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	create_processes(t_pipex *pipex);
 char	*find_cmd_in_paths(char *cmd_name, char **paths);
 char	*get_cmd_path(char *cmd_name, char **paths, t_pipex *pipex);
 void	config_cmd(t_pipex *pipex, t_cmd *cmd);
-void	perror_exit(int err_num, t_pipex *pipex);
+void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status);
 
 #endif

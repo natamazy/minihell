@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 19:21:40 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:53:43 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "executor.h"
 #include "pipex.h"
 
-int	g_exit_status;
+int	g_exit_status = 0;
 
 char	*read_all(int fd)
 {
@@ -55,8 +55,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argv;
 	if (argc > 1)
-		return (1);
-	g_exit_status = 0;
+		perror_exit(INVALID_ARG_CNT, NULL, NULL, 1);
 	shell = malloc(sizeof(t_shell));
 	shell->envr = init_env(env);
 	shell->cmds = NULL;

@@ -6,12 +6,14 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 16:33:49 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:59:16 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "utilities.h"
+
+extern int	g_exit_status;
 
 char	*find_cmd_in_paths(char *cmd_name, char **paths)
 {
@@ -31,7 +33,7 @@ char	*find_cmd_in_paths(char *cmd_name, char **paths)
 			break ;
 		if (access(cmd_path, F_OK) == 0 && access(cmd_path, X_OK) == 0)
 			break ;
-		free(cmd_path);
+		free(cmd_path);	
 		cmd_path = cmd_name;
 		i++;
 	}
@@ -51,12 +53,9 @@ char	*get_cmd_path(char *cmd_name, char **paths, t_pipex *pipex)
 	{
 		cmd_path = find_cmd_in_paths(cmd_name, paths);
 		if (cmd_path == NULL)
-			perror_exit(MALLOC_ERR, pipex);
+			perror_exit(MALLOC_ERR, pipex, NULL, 1);
 		else if (cmd_path == cmd_name)
-		{
-			ft_putstr_fd(cmd_path, 2);
-			perror_exit(CMD_NOT_FOUND, pipex);
-		}
+			perror_exit(CMD_NOT_FOUND, pipex, cmd_path, 127);
 	}
 	free_matrix(paths);
 	paths = NULL;
@@ -68,16 +67,41 @@ void	config_cmd(t_pipex *pipex, t_cmd *cmd)
 	char	**paths;
 	char	*var;
 
+	if (cmd->cmd_path && cmd->cmd_path[0] == '\0')
+	{
+		g_exit_status = 111;
+		exit(g_exit_status);
+		printf("DDD\n");
+		perror_exit(CMD_NOT_FOUND, pipex, cmd->cmd_path, 127);
+
+	}
 	var = get_var_in_env(pipex->envp, "PATH", 1);
 	paths = ft_split(var, ':');
 	free(var);
 	cmd->cmd_path = get_cmd_path(cmd->cmd_path, paths, pipex);
 }
 
-void	perror_exit(int err_num, t_pipex *pipex)
+int	p_err(int exit_status, char *s1, char *s2, char *s3)
 {
+	g_exit_status = exit_status;
+	if (s1 != NULL)
+		ft_putstr_fd(s1, 2);
+	if (s2 != NULL)
+		ft_putstr_fd(s2, 2);
+	if (s3 != NULL)
+		ft_putstr_fd(s3, 2);
+	return(exit_status);
+}
+
+void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
+{
+	if (pipex && pipex->pipes != NULL)
+	{
+		free(pipex->pipes);
+		pipex->pipes = NULL;
+	}
 	if (err_num == INVALID_ARG_CNT)
-		ft_putstr_fd("Invalid count of arguments\n", 2);
+		exit(p_err(1, "Invalid count of arguments\n", NULL, NULL));
 	else if (err_num == JOIN_ERR)
 		perror("join failed");
 	else if (err_num == MALLOC_ERR)
@@ -89,11 +113,7 @@ void	perror_exit(int err_num, t_pipex *pipex)
 	else if (err_num == DUP_ERR)
 		perror("dup failed");
 	else if (err_num == CMD_NOT_FOUND)
-		ft_putstr_fd(": Command not found\n", 2);
+		exit(p_err(exit_status, "minishell: ", msg, ": command not found\n"));
 	else if (err_num == EXECVE_ERR)
 		perror("execve failed");
-	if (pipex->pipes != NULL)
-		free(pipex->pipes);
-	pipex->pipes = NULL;
-	exit(EXIT_FAILURE);
 }

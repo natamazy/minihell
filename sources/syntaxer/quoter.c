@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 17:00:05 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:58:21 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 	}
 	else if (ft_strcmp(var, "?") == 0)
 	{
-		// g_exit_status = 255;
+		// g_exit_status = 155;
+		// printf("DDDDDDDDDDDDDDDDDDDDDDD%d\n", g_exit_status);
 		result = ft_itoa(g_exit_status);
 		// if (result == NULL)
 		// 	perror_exit();
