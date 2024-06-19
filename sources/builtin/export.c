@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 20:39:07 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:45:45 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	export(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
 	if (cmd->cmd_args[1] == NULL)
 		exit = export_no_option(pipex->envp);
 	else
-		exit = export_with_option(pipex, cmd->cmd_args[1]);
+		exit = export_final(pipex, cmd->cmd_args);
 	*is_builtin = 1;
 	return (exit);
 }

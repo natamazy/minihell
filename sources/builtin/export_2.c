@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 19:39:45 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:58:18 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "builtin.h"
 #include "minishell.h"
 #include "utilities.h"
+
+int	is_valid_ident(char *str);
 
 int	is_there_eq_sign(char *str)
 {
@@ -29,7 +31,7 @@ int	is_there_eq_sign(char *str)
 	return (0);
 }
 
-void	export_helper_1(char **key, char **value, char *var)
+int	export_helper_1(char **key, char **value, char *var)
 {
 	if (is_there_eq_sign(var) == 1)
 	{
@@ -41,6 +43,16 @@ void	export_helper_1(char **key, char **value, char *var)
 		*key = ft_strdup(var);
 		*value = NULL;
 	}
+	if (*key && *key != NULL && is_valid_ident(*key) == FALSE)
+	{
+		printf("bash: export: `%s': not a valid identifier\n", *key);
+		if (*key && *key != NULL)
+			free (*key);
+		if (*value && *value != NULL)
+			free (*value);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	export_helper_2(t_env_elem **temp, char *key, char *value, int flag)
@@ -69,7 +81,8 @@ int	export_with_option(t_pipex *pipex, char *var)
 	char		*key;
 	char		*value;
 
-	export_helper_1(&key, &value, var);
+	if (export_helper_1(&key, &value, var) == FALSE)
+		return (666);
 	temp = pipex->envp;
 	while (temp != NULL)
 	{
@@ -91,6 +104,20 @@ int	export_with_option(t_pipex *pipex, char *var)
 		temp = temp->next;
 	}
 	return (666);
+}
+
+int	export_final(t_pipex *pipex, char **var)
+{
+	int	i;
+	int	err;
+
+	i = 1;
+	while (var[i] != NULL)
+	{
+		err = export_with_option(pipex, var[i]);
+		i++;
+	}
+	return (err);
 }
 
 void	unset_helper(t_pipex *pipex, char *key_to_unset)
