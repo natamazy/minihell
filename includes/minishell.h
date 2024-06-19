@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 10:56:44 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:59:54 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+
+# define TRUE 11
+# define FALSE 22
 
 # define HERE_DOC_FILE "hd_tmp_file"
 

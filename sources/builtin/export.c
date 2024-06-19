@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 16:29:54 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:45:45 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_env_elem	*create_copy(t_env_elem *head)
 	return (new_head);
 }
 
-void	export_no_option(t_env_elem *envr)
+int	export_no_option(t_env_elem *envr)
 {
 	t_env_elem	*temp;
 	t_env_elem	*ts;
@@ -61,35 +61,40 @@ void	export_no_option(t_env_elem *envr)
 	ts = temp;
 	while (ts)
 	{
-		if (ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
+		if (ts->value && ts->value != NULL && ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
 			printf("declare -x %s=\"%s\"\n", ts->key, ts->value);
-		else
+		else if (ts->key && ts->key != NULL)
 			printf("declare -x %s\n", ts->key);
 		ts = ts->next;
 	}
 	free_list(temp);
 	temp = NULL;
+	return (666);
 }
 
-void	print_env(t_env_elem *envr, int *is_builtin)
+int	print_env(t_env_elem *envr, int *is_builtin)
 {
 	t_env_elem	*temp;
 
 	temp = envr;
 	while (temp)
 	{
-		if (temp->value[0] != '\0' && ft_strlen(temp->key) > 0)
+		if (temp->key && temp->key != NULL && temp->value != NULL && temp->value[0] != '\0' && ft_strlen(temp->key) > 0)
 			printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
 	*is_builtin = 1;
+	return (666);
 }
 
-void	export(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
+int	export(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
 {
+	int	exit;
+
 	if (cmd->cmd_args[1] == NULL)
-		export_no_option(pipex->envp);
+		exit = export_no_option(pipex->envp);
 	else
-		export_with_option(pipex, cmd->cmd_args[1]);
+		exit = export_final(pipex, cmd->cmd_args);
 	*is_builtin = 1;
+	return (exit);
 }

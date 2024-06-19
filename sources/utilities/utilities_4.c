@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:06:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 11:52:10 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:07:42 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*ft_strdup(const char *s1)
 	char	*res;
 	int		i;
 
+	if (!s1 || s1 == NULL)
+		return (NULL);
 	res = (char *) malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!res)
 		return (NULL);
