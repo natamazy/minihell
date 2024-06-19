@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 16:35:39 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:21:40 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "executor.h"
 #include "pipex.h"
 
-int	g_exit_status = 0;
+int	g_exit_status;
 
 char	*read_all(int fd)
 {
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	if (argc > 1)
 		return (1);
-	
+	g_exit_status = 0;
 	shell = malloc(sizeof(t_shell));
 	shell->envr = init_env(env);
 	shell->cmds = NULL;
@@ -75,10 +75,13 @@ int	main(int argc, char **argv, char **env)
 			tokenization(cmd_line, &token_list);
 			if (syntax_validator(token_list) == 2)
 				printf("EROR HAPPENED, not definied yet\n");
-			expander(token_list, shell->envr);
-			token_to_cmds(shell, token_list);
-			ft_token_list_clear(&token_list);
-			run_cmds(shell);
+			expander(token_list, shell->envr, &token_list);
+			if (token_list)
+			{
+				token_to_cmds(shell, token_list);
+				ft_token_list_clear(&token_list);
+				run_cmds(shell);
+			}
 			clear_cmds(shell);
 		}
 		free(cmd_line);
