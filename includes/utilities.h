@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 18:06:49 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:08:31 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		ft_putstr_fd(char const *s, int fd);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 void		clear_cmds(t_shell *shell);
 void		free_matrix(char **matrix);
+int			is_builtin(char *cmd_name);
 
 // utilities_6.c
 size_t		count_num_len(long long int k);

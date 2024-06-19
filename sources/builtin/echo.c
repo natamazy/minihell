@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 17:56:11 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 14:50:27 by aggrigor         ###   ########.fr       */
+/*   Created: 2024/06/15 16:27:06 by natamazy          #+#    #+#             */
+/*   Updated: 2024/06/18 20:37:13 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utilities.h"
 
-void	pwd(int fdtowrite, int *is_builtin)
+void	echo(char **args, int fdtowrite, int *is_builtin)
 {
-	char	path[PATH_MAX];
+	int	newline;
+	int	i;
 
-	// (void) fdtowrite;
-	// printf("PWD_YEEE\n");
-	if (!getcwd(path, PATH_MAX))
+	newline = 1;
+	i = 0;
+	while (args && args[i])
 	{
-		ft_putstr_fd("ERROR\n", fdtowrite);
-		return ;
+		if (i > 0)
+		{
+			if (ft_strcmp("-n", args[i]) == 0)
+				newline = 0;
+			else
+				ft_putstr_fd(args[i], fdtowrite);
+		}
+		i++;
 	}
-	ft_putstr_fd(path, fdtowrite);
-	ft_putstr_fd("\n", fdtowrite);
+	if (newline == 1)
+		write(fdtowrite, "\n", 1);
 	*is_builtin = 1;
 }

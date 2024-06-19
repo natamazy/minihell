@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:09:26 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 18:03:46 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:21:19 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+}
+
+int	is_builtin(char *cmd_name)
+{
+	char *builtins[] = {"pwd", "cd", "export", "unset", "exit", "env", "echo", NULL};
+	int i = 0;
+	while (builtins[i] != NULL)
+	{
+		if (ft_strcmp(builtins[i], cmd_name) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
 }

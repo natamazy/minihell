@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:50 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 17:15:42 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:31:06 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int			is_numeric(const char *str);
 void		len_error(const char *str, unsigned long long nbr);
 int			ft_latoi(const char *str);
 void		built_exit(t_cmd *cmd);
+void		echo(char **args, int fdtowrite, int *is_builtin);
 
 #endif
