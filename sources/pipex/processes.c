@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 19:46:26 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:58:30 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int is_in_fork)
 	else if (ft_strcmp(cmd->cmd_path, "unset") == 0)
 		g_exit_status = unset(pipex, cmd, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "exit") == 0)
-		built_exit(cmd, is_builtin);
+		built_exit(cmd, is_builtin, is_in_fork, 0);
 	if (*is_builtin == 1 && is_in_fork == 1)
 		exit(g_exit_status);
 }
