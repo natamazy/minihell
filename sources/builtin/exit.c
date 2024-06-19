@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 10:52:38 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 17:03:07 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:21:58 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	len_error(const char *str, unsigned long long nbr)
 {
 	if (nbr > (unsigned long long)LLONG_MAX + 1)
 	{
-		printf("minishell: exit: %s: numeric argument required\n", str);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		g_exit_status = 255;
 		exit (g_exit_status);
 	}
@@ -72,26 +74,31 @@ int	ft_latoi(const char *str)
 	return (nbr);
 }
 
-void	built_exit(t_cmd *cmd, int *is_builtin)
+void	built_exit(t_cmd *cmd, int *is_builtin, int is_in_fork, int print)
 {
-	printf("exit\n");
+	if (is_in_fork != 1)
+		printf("exit\n");
 	if (cmd->cmd_args[1])
 	{
 		if (cmd->cmd_args[2])
 		{
-			printf("minishell: exit: too many arguments\n");
+			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 			g_exit_status = 1;
+			print = 1;
 		}
 		else if (is_numeric(cmd->cmd_args[1]))
 			g_exit_status = (ft_latoi(cmd->cmd_args[1]) % 256);
 		else
 		{
-			printf("minishell: exit: %s: numeric argument required\n",
-				cmd->cmd_args[1]);
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(cmd->cmd_args[1], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
 			g_exit_status = 255;
 		}
 	}
 	if (g_exit_status < 0)
 		g_exit_status += 256;
 	*is_builtin = 1;
+	if (print != 1)
+		exit(g_exit_status);
 }

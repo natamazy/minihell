@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/18 16:38:15 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:24:31 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,32 @@ int	remove_extra_quotes(t_token *token, int l, int r)
 	return (0);
 }
 
-void	expander(t_token *tokens, t_env_elem *envr)
+void	remove_empty_tokens(t_token **tokens, t_token **list)
 {
-	int	old_len;
+	t_token	*remove;
+
+	remove = *tokens;
+	if ((*tokens)->prev)
+	{
+		(*tokens)->prev->next = (*tokens)->next;
+		if ((*tokens)->next)
+			(*tokens)->next->prev = (*tokens)->prev;
+		(*tokens) = (*tokens)->next;
+	}
+	else
+	{
+		*tokens = (*tokens)->next;
+		(*list) = *tokens;
+		if (*tokens)
+			(*tokens)->prev = NULL;
+	}
+	free(remove->value);
+	free(remove);
+}
+
+void	expander(t_token *tokens, t_env_elem *envr, t_token **list)
+{
+	int		old_len;
 
 	while (tokens)
 	{
@@ -53,7 +76,11 @@ void	expander(t_token *tokens, t_env_elem *envr)
 		{
 			old_len = ft_strlen(tokens->value);
 			dollar_opener(tokens, old_len, envr);
-			// if (old_len > 0 && ft_strlen(tokens->value) == 0)
+			if (tokens->value[0] == '\0')
+			{
+				remove_empty_tokens(&tokens, list);
+				continue ;
+			}
 			if (remove_extra_quotes(tokens, 0, 0) == -1)
 				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
 		}
