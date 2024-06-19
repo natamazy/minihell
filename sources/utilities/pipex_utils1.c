@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 21:59:16 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:27:10 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,7 @@ void	config_cmd(t_pipex *pipex, t_cmd *cmd)
 	char	*var;
 
 	if (cmd->cmd_path && cmd->cmd_path[0] == '\0')
-	{
-		g_exit_status = 111;
-		exit(g_exit_status);
-		printf("DDD\n");
 		perror_exit(CMD_NOT_FOUND, pipex, cmd->cmd_path, 127);
-
-	}
 	var = get_var_in_env(pipex->envp, "PATH", 1);
 	paths = ft_split(var, ':');
 	free(var);
