@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 22:17:47 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:09:49 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ void	export_helper_2(t_env_elem **temp, char *key, char *value, int flag)
 	free(key);
 }
 
+void	put_value(t_env_elem **temp, char **key, char **value)
+{
+	free((*temp)->value);
+	if (*value == NULL || *value[0] == '\0')
+		(*temp)->value = NULL;
+	else
+		(*temp)->value = ft_strdup(*value);
+	export_helper_2(NULL, *key, *value, 0);
+}
+
 int	export_with_option(t_pipex *pipex, char *var)
 {
 	t_env_elem	*temp;
@@ -81,19 +91,14 @@ int	export_with_option(t_pipex *pipex, char *var)
 	char		*value;
 
 	if (export_helper_1(&key, &value, var) == FALSE)
-		return (666);
+		return (1);
 	temp = pipex->envp;
 	while (temp != NULL)
 	{
 		if (ft_strcmp(temp->key, key) == 0)
 		{
-			free(temp->value);
-			if (value == NULL || value[0] == '\0')
-				temp->value = NULL;
-			else
-				temp->value = ft_strdup(value);
-			export_helper_2(NULL, NULL, NULL, 0);
-			return (666);
+			put_value(&temp, &key, &value);
+			return (0);
 		}
 		else if (temp->next == NULL)
 		{
@@ -102,7 +107,7 @@ int	export_with_option(t_pipex *pipex, char *var)
 		}
 		temp = temp->next;
 	}
-	return (666);
+	return (0);
 }
 
 int	export_final(t_pipex *pipex, char **var)
