@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 23:09:49 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 00:25:37 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,13 @@ int	export_with_option(t_pipex *pipex, char *var)
 	{
 		if (ft_strcmp(temp->key, key) == 0)
 		{
-			put_value(&temp, &key, &value);
+			if (value == NULL || value[0] == '\0')
+			{
+				free(key);
+				free(value);
+			}
+			else
+				put_value(&temp, &key, &value);
 			return (0);
 		}
 		else if (temp->next == NULL)
@@ -118,6 +124,13 @@ int	export_final(t_pipex *pipex, char **var)
 	i = 1;
 	while (var[i] != NULL)
 	{
+		if (var && var[i] && var[i][0] && var[i][0] == '=')
+		{
+			printf("bash: unset: `%s': not a valid identifier\n", var[i]);
+			err = 1;
+			i++;
+			continue ;
+		}
 		err = export_with_option(pipex, var[i]);
 		i++;
 	}
