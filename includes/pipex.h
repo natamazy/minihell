@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:39:28 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 21:39:46 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:36:35 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_pipex
 	int			cmd_cnt;
 	t_cmd		*cmds;
 	t_env_elem	*envp;
+	pid_t		*pids;
 }	t_pipex;
 
 int		run_cmds(t_shell *shell);

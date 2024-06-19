@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:25 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/15 22:26:31 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:45:20 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_pipex(t_shell *shell, t_pipex *pipex)
 	pipex->cmd_cnt = count_cmds(shell->cmds);
 	pipex->cmds = shell->cmds;
 	pipex->envp = shell->envr;
+	pipex->pids = malloc(sizeof(pid_t) * (pipex->cmd_cnt + 1));
 }
 
 int	run_cmds(t_shell *shell)
@@ -34,5 +35,6 @@ int	run_cmds(t_shell *shell)
 	if (pipex.pipes != NULL)
 		free(pipex.pipes);
 	pipex.pipes = NULL;
+	free(pipex.pids);
 	return (EXIT_SUCCESS);
 }

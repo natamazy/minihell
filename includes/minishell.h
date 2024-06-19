@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 18:59:54 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:21:35 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FALSE 22
 
 # define HERE_DOC_FILE "hd_tmp_file"
+# define TERM_CODE_SHIFT 128
 
 typedef struct s_env_elem	t_env_elem;
 typedef struct s_cmd		t_cmd;

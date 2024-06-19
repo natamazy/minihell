@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 22:24:28 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:28:54 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ extern int	g_exit_status;
 
 void	wait_processes(t_pipex *pipex)
 {
-	int	i;
+	int		i;
+	int		exit_status;
+	pid_t	pid;
 
 	i = 0;
 	if (pipex->cmd_cnt == 1 && is_builtin(pipex->cmds->cmd_path) == 1)
 		return ;
 	while (i < pipex->cmd_cnt)
 	{
-		if (wait(NULL) == -1)
-		{
-			printf("OOOOOO\n");
-			exit(EXIT_SUCCESS);
-		}
+		pid = waitpid(pipex->pids[i], &exit_status, 0);
+		if (WIFEXITED(exit_status))
+			g_exit_status = WEXITSTATUS(exit_status);
+		else if (WIFSIGNALED(exit_status))
+			g_exit_status = TERM_CODE_SHIFT + WTERMSIG(exit_status);
 		i++;
 	}
 }
@@ -55,7 +57,7 @@ void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int is_in_fork)
 		exit(g_exit_status);
 }
 
-void	run_standard_mode(t_pipex *pipex, t_cmd *cmd)
+void	run_standard_mode(t_pipex *pipex, t_cmd *cmd, int i)
 {
 	pid_t	pid;
 	int		is_builtin;
@@ -75,7 +77,9 @@ void	run_standard_mode(t_pipex *pipex, t_cmd *cmd)
 					env_list_to_array(pipex->envp)) == -1)
 				perror_exit(EXECVE_ERR, pipex, NULL, 1);
 		}
-	}	
+	}
+	else
+		pipex->pids[i] = pid;
 }
 
 void	create_processes(t_pipex *pipex)
@@ -92,7 +96,7 @@ void	create_processes(t_pipex *pipex)
 		if (pipex->cmd_cnt == 1)
 			run_builtins(pipex, cmd, &is_builtin, 0);
 		if (is_builtin == 0)
-			run_standard_mode(pipex, cmd);
+			run_standard_mode(pipex, cmd, i);
 		cmd = cmd->next;
 		i++;
 	}
