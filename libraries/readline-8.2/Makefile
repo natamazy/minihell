@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/aggrigor/main_cursus/CLONE_MINISHELL/libraries/readline-8.2
+BUILD_DIR = /Users/nkarapet/Desktop/minihell/libraries/readline-8.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/aggrigor/main_cursus/CLONE_MINISHELL/libraries/readline
+prefix = /Users/nkarapet/Desktop/minihell/libraries/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

@@ -1,4 +1,4 @@
-prefix=/Users/aggrigor/main_cursus/CLONE_MINISHELL/libraries/readline
+prefix=/Users/nkarapet/Desktop/minihell/libraries/readline
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
