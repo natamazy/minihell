@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 17:26:42 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:07:38 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	main(int argc, char **argv, char **env)
 		remove_here_doc_file(shell->envr);
 	}
 	printf("exit\n");
-	//free shell NAR JAN
+	free_shell(shell);
 	rl_clear_history();
 }

@@ -3,31 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:59:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 03:18:08 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:09:22 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 #include "utilities.h"
-
-void	print_token_list(t_token *token_list)
-{
-	if (!token_list)
-		return ;
-	while (token_list)
-	{
-		printf("\033[0;035m%s\033[0;032m(%s)\033[0m",
-			str_type(token_list->type), token_list->value);
-		if (token_list && token_list->next)
-			printf("\033[0;036m -> \033[0m");
-		else
-			printf("\n");
-		token_list = token_list->next;
-	}
-}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

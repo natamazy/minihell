@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:14:48 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/05/17 16:00:36 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:08:28 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,20 @@ int	ft_isspace(char c)
 		|| c == '\v' || c == '\f' || c == '\r');
 }
 
-char	*str_type(int token_type)
+void	free_shell(t_shell *shell)
 {
-	if (token_type == 0)
-		return ("WORD");
-	else if (token_type == 1)
-		return ("S_PIPE");
-	else if (token_type == 2)
-		return ("D_PIPE");
-	else if (token_type == 3)
-		return ("S_AND");
-	else if (token_type == 4)
-		return ("D_AND");
-	else if (token_type == 5)
-		return ("D_QUOTE");
-	else if (token_type == 6)
-		return ("S_QUOTE");
-	else if (token_type == 7)
-		return ("IN_REDIR");
-	else if (token_type == 8)
-		return ("OUT_REDIR");
-	else if (token_type == 9)
-		return ("HERE_DOC");
-	else if (token_type == 10)
-		return ("APPEND_REDIR");
-	else if (token_type == 11)
-		return ("ERROR");
-	else if (token_type == 12)
-		return ("NONE");
-	else if (token_type == 13)
-		return ("FILEIN");
-	else if (token_type == 14)
-		return ("LIMITER");
-	else if (token_type == 15)
-		return ("FILEOUT");
-	else if (token_type == 16)
-		return ("APPEND_FILEOUT");
-	else if (token_type == 17)
-		return ("OPEN_PAR");
-	else if (token_type == 18)
-		return ("CLOSE_PAR");
-	else
-		return ("\033[0;031mTOKEN_TYPE_NOT_FOUND");
+	t_env_elem	*current;
+	t_env_elem	*next;
+
+	current = shell->envr;
+	while (current)
+	{
+		next = current->next;
+		if (current->key != NULL)
+			free(current->key);
+		if (current->value != NULL)
+			free(current->value);
+		current = next;
+	}
+	shell->envr = NULL;
 }
