@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:39:28 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 05:25:39 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:00:30 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define INVALID_ARG_CNT 1
 # define SYNTAX_ERR 2
 # define FILEIN_ERR 3
-# define JOIN_ERR 4
+# define QUOT_ERR 4
 # define MALLOC_ERR 5
 # define PIPE_ERR 6
 # define FORK_ERR 7

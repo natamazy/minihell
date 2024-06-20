@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_splitting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:44:01 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 05:52:41 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:54:50 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 	{
 		if (ft_isspace(cmd_line[i]) == 1)
 		{
-			if (i >= 1 && ft_isspace(cmd_line[i - 1]) == 0)
+			if (i >= 1)
 				create_and_add_to_list(tokens_list, cmd_line
 					+ start, i - start);
 			start = i + 1;
 		}
 		if (cmd_line[i] == '\"' || cmd_line[i] == '\'')
-			quote_handling(&i, cmd_line, 0);
-		i++;
+			quote_handling(&i, cmd_line, 1);
+		if (cmd_line[i])
+			i++;
 	}
 	if (i - start > 0)
 		create_and_add_to_list(tokens_list, cmd_line + start, i - start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 05:49:35 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:01:19 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	quote_handling(int *i, char *cmd_line, int print)
 	while (cmd_line[*i] && (cmd_line[j] != cmd_line[*i]))
 		*i = *i + 1;
 	if (cmd_line[*i] == '\0' && print)
-		perror_exit(SYNTAX_ERR, NULL, cmd_line, 2);
+		perror_exit(QUOT_ERR, NULL, &cmd_line[j], 2);
 	else
 		g_exit_status = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 12:28:43 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:05:09 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,17 @@ void	config_cmd(t_pipex *pipex, t_cmd *cmd)
 	cmd->cmd_path = get_cmd_path(cmd->cmd_path, paths, pipex);
 }
 
+int	q_err(int exit_status, char *s1, char s2, char *s3)
+{
+	g_exit_status = exit_status;
+	if (s1 != NULL)
+		ft_putstr_fd(s1, 2);
+	write(2 , &s2, 1);
+	if (s3 != NULL)
+		ft_putstr_fd(s3, 2);
+	return (exit_status);
+}
+
 int	p_err(int exit_status, char *s1, char *s2, char *s3)
 {
 	g_exit_status = exit_status;
@@ -96,8 +107,9 @@ void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
 	}
 	if (err_num == INVALID_ARG_CNT)
 		exit(p_err(1, "Invalid count of arguments\n", NULL, NULL));
-	else if (err_num == JOIN_ERR)
-		perror("join failed");
+	else if (err_num == QUOT_ERR)
+		q_err(exit_status, "minishell : syntax error near unexpected token `", \
+		msg[0], "'\n");
 	else if (err_num == MALLOC_ERR)
 		exit(p_err(exit_status, "minishell: ", NULL, ": malloc error\n"));
 	else if (err_num == PIPE_ERR)
