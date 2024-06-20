@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 16:24:18 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:34:20 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			is_builtin(char *cmd_name);
 void		free_list(t_env_elem *head);
 
 // utilities_6.c
+void		remove_here_doc_file(t_env_elem *envr);
 size_t		count_num_len(long long int k);
 void		int_to_str(long long int k, size_t num_len, char *str_num);
 char		*ft_itoa(int n);

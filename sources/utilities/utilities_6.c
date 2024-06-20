@@ -3,15 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_6.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:48:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/17 20:24:01 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:38:32 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtin.h"
 #include "utilities.h"
+#include "pipex.h"
+
+void	remove_here_doc_file(t_env_elem *envr)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		perror_exit(FORK_ERR, NULL, NULL, 1);
+	if (pid == 0)
+	{
+		if (execve("/bin/rm", (char *[4]){RM, RF, HERE_DOC_FILE, NULL},
+					env_list_to_array(envr)) == -1)
+				perror_exit(EXECVE_ERR, NULL, NULL, 1);
+	}
+}
 
 size_t	count_num_len(long long int k)
 {

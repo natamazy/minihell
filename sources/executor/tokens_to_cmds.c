@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:35:40 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 01:58:58 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:13:00 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 	t_token	*temp2;
 	t_fds	fds;
 
-	init_fds(&fds);
 	temp = tokens;
 	while (temp != NULL)
 	{
+		init_fds(&fds);
 		len = 0;
 		temp2 = temp;
 		while (temp2 != NULL && temp2->type != S_PIPE)
@@ -85,7 +85,6 @@ void	token_to_cmds(t_shell *shell, t_token *tokens)
 			return ;
 		token_to_cmds_helper1(&len, temp, cmd_args, NULL);
 		ft_lstadd_back(shell, ft_lstnew(cmd_args, &fds));
-		fds.infd = 0;
 		token_to_cmds_helper1(&fds.second_case, temp2, NULL, &temp);
 	}
 }

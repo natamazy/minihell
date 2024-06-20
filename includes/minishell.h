@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 23:21:35 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:35:30 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define TRUE 11
 # define FALSE 22
 
+# define RM "rm"
+# define RF	"-rf"
 # define HERE_DOC_FILE "hd_tmp_file"
 # define TERM_CODE_SHIFT 128
 

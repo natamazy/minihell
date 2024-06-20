@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:59:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 19:59:38 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:18:08 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_token_list_clear(t_token **lst)
 	while (l)
 	{
 		t = l->next;
-		if (l->value && l->value[0] == '|')
+		if (l->value && l->type != WORD)
 			free(l->value);
 		free(l);
 		l = t;

@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 22:24:13 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 04:02:02 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv, char **env)
 			clear_cmds(shell);
 		}
 		free(cmd_line);
+		remove_here_doc_file(shell->envr);
 	}
 	printf("exit\n");
 	rl_clear_history();

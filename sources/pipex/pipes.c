@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:10:06 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 02:05:48 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:13:35 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	dups(t_pipex *pipex, t_cmd *cmd)
 	}
 	if (cmd->output != 1)
 	{
-		// printf("CMD:'%s'\nIN:%d\nOUT:%d\n", cmd->cmd_path, cmd->input, cmd->output);
 		if (dup2(cmd->output, 1) == -1)
 			perror_exit(DUP_ERR, pipex, NULL, 1);
 		close(cmd->output);

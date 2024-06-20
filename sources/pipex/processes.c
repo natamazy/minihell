@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 02:41:33 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 03:26:48 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ void	create_processes(t_pipex *pipex)
 	cmd = pipex->cmds;
 	while (i < pipex->cmd_cnt)
 	{
+		if (!cmd->cmd_path)
+		{
+			cmd = cmd->next;
+			i++;
+			continue ;
+		}
 		is_builtin = 0;
 		if (pipex->cmd_cnt == 1)
 			run_builtins(pipex, cmd, &is_builtin, 0);
