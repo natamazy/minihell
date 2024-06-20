@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 04:09:47 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:26:54 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include "tokenization.h"
 #include "utilities.h"
+#include "pipex.h"
 
 t_cmd	*ft_lstnew(char **cmd_args, t_fds *fds)
 {
@@ -69,9 +70,9 @@ int	open_file(char *fn, int type)
 	if (fd > 2)
 		return (fd);
 	if (fd == -1)
-		return (printf("minihell: %s: Permission denied\n", fn), 1);
+		return (p_err(1, "minihell: ", fn, ": Permission denied\n"), 1);
 	if (fd == -2)
-		return (printf("minihell: %s: No such file or directory\n", fn), 1);
+		return (p_err(1, "minihell: ", fn, ": No such file or directory\n"), 1);
 	return (-1);
 }
 
