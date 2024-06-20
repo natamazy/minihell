@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   quoter_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 15:38:29 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:50:12 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntaxer.h"
 #include "tokenization.h"
 #include "utilities.h"
+#include "pipex.h"
+
+void	remove_extra_helper(t_token *token, int *l, int *r)
+{
+	token->value[*l] = token->value[*r];
+	(*l)++;
+	if (token->value[*r])
+		(*r)++;
+}
 
 int	remove_extra_quotes(t_token *token, int l, int r)
 {
@@ -34,10 +43,7 @@ int	remove_extra_quotes(t_token *token, int l, int r)
 				continue ;
 			}
 		}
-		token->value[l] = token->value[r];
-		l++;
-		if (token->value[r])
-			r++;
+		remove_extra_helper(token, &l, &r);
 	}
 	token->value[l] = '\0';
 	remove_empty_fields(token, l - r);
@@ -77,13 +83,14 @@ void	expander(t_token *tokens, t_env_elem *envr, t_token **list)
 		{
 			old_len = ft_strlen(tokens->value);
 			dollar_opener(tokens, old_len, envr);
-			if (tokens->value[0] == '\0')
+			if (tokens && tokens->value && tokens->value[0] == '\0')
 			{
 				remove_empty_tokens(&tokens, list);
 				continue ;
 			}
 			if (remove_extra_quotes(tokens, 0, 0) == -1)
-				printf("HAAY HAAAAY OP STOP BABY ERROR@ STEX DU UR ES GNUM\n");
+				p_err(2, "minishell: error while removing extra quotes\n",
+					NULL, NULL);
 		}
 		tokens = tokens->next;
 	}
