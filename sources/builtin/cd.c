@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:08:47 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 13:32:43 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:39:46 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 		if (!modified_cmd || modified_cmd == NULL
 			|| (modified_cmd && modified_cmd[0] == '\0'))
 		{
-			printf("minishell: cd: HOME not set\n");
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 			return (1);
 		}
 	}
@@ -43,7 +43,7 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 		if (!modified_cmd || modified_cmd == NULL
 			|| (modified_cmd && modified_cmd[0] == '\0'))
 		{
-			printf("minishell: cd: OLDPWD not set\n");
+			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			return (1);
 		}
 	}
@@ -53,31 +53,33 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 		modified_cmd = path;
 	if (!file_or_directory_exists(modified_cmd))
 	{
-		printf("minishell: cd: %s: No such file or directory\n", modified_cmd);
+		p_err(1, "minishell: cd: ",
+			modified_cmd, ": No such file or directory\n");
 		if (path && path[0] == '~')
 			free(modified_cmd);
 		return (1);
 	}
 	if (!is_directory(modified_cmd))
 	{
-		printf("minishell: cd: %s: Not a directory\n", modified_cmd);
+		p_err(1, "minishell: cd: ", modified_cmd, ": Not a directory\n");
 		if (path && path[0] == '~')
 			free(modified_cmd);
 		return (1);
 	}
 	if (!can_access_directory(modified_cmd))
 	{
-		printf("minishell: cd: %s: Permission denied\n", modified_cmd);
+		p_err(1, "minishell: cd: ", modified_cmd, ": Permission denied\n");
 		if (path && path[0] == '~')
 			free(modified_cmd);
 		return (1);
 	}
-	getcwd(old_pwd, PATH_MAX);
 	if (chdir(modified_cmd) == -1)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", modified_cmd);
+		p_err(1, "minishell: cd: ",
+			modified_cmd, ": No such file or directory\n");
 		return (1);
 	}
+	getcwd(old_pwd, PATH_MAX);
 	pwd_to_set = NULL;
 	if (check_and_export(pipex, pwd_to_set, old_pwd, 0) == 1)
 		return (1);
