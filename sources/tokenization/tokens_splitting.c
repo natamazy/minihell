@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_splitting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:44:01 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 05:52:41 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:58:07 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 	i = 0;
 	start = 0;
 	g_exit_status = 0;
-	while (cmd_line[i])
+	while (cmd_line && cmd_line[i] && cmd_line[i] != '\0')
 	{
 		if (ft_isspace(cmd_line[i]) == 1)
 		{

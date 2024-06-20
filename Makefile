@@ -9,8 +9,7 @@ CC = cc
 
 # Compilator flags
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address #-Wno-deprecated-non-prototype 
-# CFLAGS = $(INC_DIRS) -g3 -fsanitize=address -Wno-deprecated-non-prototype 
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 -fsanitize=address #-Wno-deprecated-non-prototype 
 
 # Libraries
 LIBS_DIR = libraries
