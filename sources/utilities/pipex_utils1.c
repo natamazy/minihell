@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 15:07:50 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:04:39 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	q_err(int exit_status, char *s1, char s2, char *s3)
 	g_exit_status = exit_status;
 	if (s1 != NULL)
 		ft_putstr_fd(s1, 2);
-	write(2 , &s2, 1);
+	write(2, &s2, 1);
 	if (s3 != NULL)
 		ft_putstr_fd(s3, 2);
 	return (exit_status);
@@ -96,33 +96,4 @@ int	p_err(int exit_status, char *s1, char *s2, char *s3)
 	if (s3 != NULL)
 		ft_putstr_fd(s3, 2);
 	return (exit_status);
-}
-
-void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
-{
-	if (pipex && pipex->pipes != NULL)
-	{
-		free(pipex->pipes);
-		pipex->pipes = NULL;
-	}
-	if (err_num == INVALID_ARG_CNT)
-		exit(p_err(1, "Invalid count of arguments\n", NULL, NULL));
-	else if (err_num == QUOT_ERR)
-		q_err(exit_status, "minishell : syntax error near unexpected token `", \
-		msg[0], "'\n");
-	else if (err_num == MALLOC_ERR)
-		exit(p_err(exit_status, "minishell: ", NULL, ": malloc error\n"));
-	else if (err_num == PIPE_ERR)
-		perror("pipe failed");
-	else if (err_num == SYNTAX_ERR)
-		p_err(exit_status, "minishell: syntax error near unexpected token `", \
-		msg, "'\n");
-	else if (err_num == FORK_ERR)
-		perror("fork failed");
-	else if (err_num == DUP_ERR)
-		perror("dup failed");
-	else if (err_num == CMD_NOT_FOUND)
-		exit(p_err(exit_status, "minishell: ", msg, ": command not found\n"));
-	else if (err_num == EXECVE_ERR)
-		perror("execve failed");
 }

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_splitting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 15:07:43 by nkarapet         ###   ########.fr       */
+/*   Created: 2024/06/20 17:02:29 by natamazy          #+#    #+#             */
+/*   Updated: 2024/06/20 17:02:31 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "tokenization.h"
 #include "utilities.h"

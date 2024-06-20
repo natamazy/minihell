@@ -40,6 +40,7 @@ SRCS_NAME = minishell.c \
 			syntaxer/validation.c \
 			syntaxer/quoter.c \
 			syntaxer/quoter_2.c \
+			syntaxer/quoter_3.c \
 			utilities/utilities_1.c \
 			utilities/utilities_2.c \
 			utilities/utilities_3.c \
@@ -47,6 +48,7 @@ SRCS_NAME = minishell.c \
 			utilities/utilities_5.c \
 			utilities/utilities_6.c \
 			utilities/pipex_utils1.c \
+			utilities/pipex_utils2.c \
 			utilities/split.c \
 			environment/environment.c \
 			builtin/export.c \

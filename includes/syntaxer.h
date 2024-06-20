@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 18:11:42 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 13:34:25 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:01:01 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@
 
 int		syntax_validator(t_token	*token_list);
 void	expander(t_token *tokens, t_env_elem *envr, t_token **list);
+
+void	dollar_opener(t_token *token, int len, t_env_elem *envr);
+void	remove_empty_fields(t_token *token, int empty_fields);
 
 #endif
