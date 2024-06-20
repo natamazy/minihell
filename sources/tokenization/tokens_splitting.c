@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_splitting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:44:01 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 15:47:35 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:52:41 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 #include "utilities.h"
 #include <stdlib.h>
+
+extern int	g_exit_status;
 
 void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 {
@@ -21,6 +23,7 @@ void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 
 	i = 0;
 	start = 0;
+	g_exit_status = 0;
 	while (cmd_line[i])
 	{
 		if (ft_isspace(cmd_line[i]) == 1)
@@ -45,6 +48,7 @@ void	split_by_operators(t_token **tokens_list)
 	int		is_op;
 
 	is_op = 0;
+	g_exit_status = 0;
 	if (!tokens_list)
 		return ;
 	cur_token = *tokens_list;

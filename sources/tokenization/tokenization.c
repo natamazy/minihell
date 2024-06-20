@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 15:47:31 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:49:35 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 #include "utilities.h"
+#include "pipex.h"
 #include <stdlib.h>
 
-int	quote_handling(int *i, char *cmd_line, int print)
+extern int	g_exit_status;
+
+void	quote_handling(int *i, char *cmd_line, int print)
 {
 	int		j;
 
@@ -23,8 +26,9 @@ int	quote_handling(int *i, char *cmd_line, int print)
 	while (cmd_line[*i] && (cmd_line[j] != cmd_line[*i]))
 		*i = *i + 1;
 	if (cmd_line[*i] == '\0' && print)
-		printf("Syntax error ches pake ay es tipi ->%c<-\n", cmd_line[j]);
-	return (1);
+		perror_exit(SYNTAX_ERR, NULL, cmd_line, 2);
+	else
+		g_exit_status = 0;
 }
 
 t_token	*go_to_next(t_token *current_token, int need_to_del)
@@ -78,6 +82,10 @@ void	procces_one_token(t_token *cur, t_token **tl, int *is_op, int i)
 void	tokenization(char *command_line, t_token **tokens_list)
 {
 	split_by_spaces(command_line, tokens_list);
+	if (g_exit_status != 0)
+		return ;
 	split_by_operators(tokens_list);
+	if (g_exit_status != 0)
+		return ;
 	set_tokens(*tokens_list);
 }

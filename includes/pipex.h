@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:39:28 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/19 22:36:35 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:25:39 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define MIN_ARGS 4
 // CUSTOM ERRORS
 # define INVALID_ARG_CNT 1
-# define FILEOUT_ERR 2
+# define SYNTAX_ERR 2
 # define FILEIN_ERR 3
 # define JOIN_ERR 4
 # define MALLOC_ERR 5

@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 21:58:21 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 06:30:14 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*agvanistan(char *str, int *i, int len, t_env_elem *envr)
 	l_part = ft_substr(str, 0, *i);
 	start = (*i)++;
 	while (str[*i] && ft_isspace(str[*i]) == 0 && \
-		str[*i] != '"' && str[*i] != '\'' && str[*i] != '$')
+		str[*i] != '"' && str[*i] != '\'' && str[*i] != '$' && str[*i] != '/')
 		(*i)++;
 	search = ft_substr(str, start + 1, *i - start - 1);
 	var = get_var_in_env(envr, search, 1);

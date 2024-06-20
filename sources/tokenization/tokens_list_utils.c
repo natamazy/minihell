@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:43:05 by natamazy          #+#    #+#             */
-/*   Updated: 2024/05/17 15:46:49 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:34:39 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenization.h"
 #include "utilities.h"
+#include "pipex.h"
 #include <stdlib.h>
 
 t_token	*ft_new_token(char *value)
@@ -55,7 +56,10 @@ void	create_and_add_to_list(t_token **token_list, char *start, int len)
 
 	new_token = ft_new_token(ft_substr(start, 0, len));
 	if (new_token == NULL)
-		return ;
+	{
+		ft_token_list_clear(token_list);
+		perror_exit(MALLOC_ERR, NULL, NULL, 1);
+	}
 	ft_add_token_to_list(token_list, new_token);
 }
 

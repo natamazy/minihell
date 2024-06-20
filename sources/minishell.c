@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 04:02:02 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 06:31:32 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,28 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(cmd_line);
 			tokenization(cmd_line, &token_list);
-			if (syntax_validator(token_list) == 2)
-				printf("EROR HAPPENED, not definied yet\n");
-			expander(token_list, shell->envr, &token_list);
-			if (token_list)
+			if (g_exit_status != 2)
 			{
-				token_to_cmds(shell, token_list);
-				ft_token_list_clear(&token_list);
-				run_cmds(shell);
+				g_exit_status = syntax_validator(token_list);
+				if (g_exit_status == 2)
+					ft_token_list_clear(&token_list);
+				else
+				{
+					expander(token_list, shell->envr, &token_list);
+					if (token_list)
+					{
+						token_to_cmds(shell, token_list);
+						ft_token_list_clear(&token_list);
+						run_cmds(shell);
+					}
+					clear_cmds(shell);
+				}
 			}
-			clear_cmds(shell);
 		}
 		free(cmd_line);
 		remove_here_doc_file(shell->envr);
 	}
 	printf("exit\n");
+	//free shell NAR JAN
 	rl_clear_history();
 }

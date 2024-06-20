@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:39:03 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/17 12:11:08 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 05:56:44 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void			add_new_bef(t_token **tokens_list,
 char			*str_type(int token_type);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 
-int				quote_handling(int *i, char *cmd_line, int print);
+void			quote_handling(int *i, char *cmd_line, int print);
 
 #endif
