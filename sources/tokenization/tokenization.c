@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 15:01:19 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:24:23 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	quote_handling(int *i, char *cmd_line, int print)
 	if (cmd_line[*i] == '\0' && print)
 		perror_exit(QUOT_ERR, NULL, &cmd_line[j], 2);
 	else
-		g_exit_status = 0;
+		global(0, 1);
 }
 
 t_token	*go_to_next(t_token *current_token, int need_to_del)
@@ -82,10 +82,10 @@ void	procces_one_token(t_token *cur, t_token **tl, int *is_op, int i)
 void	tokenization(char *command_line, t_token **tokens_list)
 {
 	split_by_spaces(command_line, tokens_list);
-	if (g_exit_status != 0)
+	if (global(0, 0) != 0)
 		return ;
 	split_by_operators(tokens_list);
-	if (g_exit_status != 0)
+	if (global(0, 0) != 0)
 		return ;
 	set_tokens(*tokens_list);
 }

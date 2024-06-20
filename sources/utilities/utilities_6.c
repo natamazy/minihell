@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_6.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:48:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 12:25:55 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:28:00 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,13 @@ char	*ft_itoa(int n)
 		return (NULL);
 	int_to_str((long long int) n, num_len, str_num);
 	return (str_num);
+}
+
+int	global(int exit_status, int set)
+{
+	static int	status;
+
+	if (set == 1)
+		status = exit_status;
+	return (status);
 }

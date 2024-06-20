@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 13:42:37 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:26:42 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	main_helper(char *cmd_line, t_token *token_list, t_shell *shell)
 {
 	add_history(cmd_line);
 	tokenization(cmd_line, &token_list);
-	if (g_exit_status != 2)
+	if (global(0, 0) != 2)
 	{
-		g_exit_status = syntax_validator(token_list);
-		if (g_exit_status == 2)
+		global(syntax_validator(token_list), 1);
+		if (global(0, 0) == 2)
 			ft_token_list_clear(&token_list);
 		else
 		{

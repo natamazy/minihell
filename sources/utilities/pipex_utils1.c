@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 17:04:39 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:20:10 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	config_cmd(t_pipex *pipex, t_cmd *cmd)
 
 int	q_err(int exit_status, char *s1, char s2, char *s3)
 {
+	global(exit_status, 1);
 	g_exit_status = exit_status;
 	if (s1 != NULL)
 		ft_putstr_fd(s1, 2);
@@ -88,6 +89,7 @@ int	q_err(int exit_status, char *s1, char s2, char *s3)
 
 int	p_err(int exit_status, char *s1, char *s2, char *s3)
 {
+	global(exit_status, 1);
 	g_exit_status = exit_status;
 	if (s1 != NULL)
 		ft_putstr_fd(s1, 2);

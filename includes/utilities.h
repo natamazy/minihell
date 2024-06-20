@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 13:31:17 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:28:13 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		remove_here_doc_file(t_env_elem *envr);
 size_t		count_num_len(long long int k);
 void		int_to_str(long long int k, size_t num_len, char *str_num);
 char		*ft_itoa(int n);
-
+int			global(int exit_status, int set);
 // split.c
 char		**ft_split(char const *s, char c);
 
