@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 15:05:09 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:07:50 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
 	else if (err_num == PIPE_ERR)
 		perror("pipe failed");
 	else if (err_num == SYNTAX_ERR)
-		p_err(exit_status, "minishell : syntax error near unexpected token `", \
+		p_err(exit_status, "minishell: syntax error near unexpected token `", \
 		msg, "'\n");
 	else if (err_num == FORK_ERR)
 		perror("fork failed");

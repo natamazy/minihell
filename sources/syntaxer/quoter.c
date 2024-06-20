@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   quoter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 06:30:14 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:18:46 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "syntaxer.h"
 #include "tokenization.h"
 #include "utilities.h"
+#include "pipex.h"
 
 extern int	g_exit_status;
 
@@ -44,7 +45,6 @@ char	*join(char const *s1, char const *s2)
 	return (r_s);
 }
 
-// New function to expand ~, $, ?, <empty_var>
 char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 {
 	char	*result;
@@ -53,8 +53,8 @@ char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 	if (is_var == 1 && var == NULL)
 	{
 		result = malloc(sizeof(char));
-		// if (result == NULL)
-		// 	perror_exit();
+		if (result == NULL)
+			perror_exit(MALLOC_ERR, NULL, NULL, 1);
 		result[0] = '\0';
 	}
 	else if (is_var == 0 && ft_strcmp(var, "~") == 0)
@@ -62,16 +62,14 @@ char	*expand_special_var(t_env_elem *envr, char *var, int is_var)
 	else if (var[0] == '\0')
 	{
 		result = ft_strdup("$");
-		// if (result == NULL)
-		// 	perror_exit();
+		if (result == NULL)
+			perror_exit(MALLOC_ERR, NULL, NULL, 1);
 	}
 	else if (ft_strcmp(var, "?") == 0)
 	{
-		// g_exit_status = 155;
-		// printf("DDDDDDDDDDDDDDDDDDDDDDD%d\n", g_exit_status);
 		result = ft_itoa(g_exit_status);
-		// if (result == NULL)
-		// 	perror_exit();
+		if (result == NULL)
+			perror_exit(MALLOC_ERR, NULL, NULL, 1);
 	}
 	return (result);
 }
