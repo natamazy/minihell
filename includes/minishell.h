@@ -6,7 +6,7 @@
 /*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:44:33 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 03:35:30 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 04:17:55 by aggrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define RM "rm"
 # define RF	"-rf"
-# define HERE_DOC_FILE "hd_tmp_file"
+# define HERE_DOC_FILE ".hd_tmp_file"
 # define TERM_CODE_SHIFT 128
 
 typedef struct s_env_elem	t_env_elem;
