@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 13:03:50 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:31:17 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ char		**ft_split(char const *s, char c);
 void		free_2(char *key, char *value);
 
 // export_3.c
-void	put_value(t_env_elem **temp, char **key, char **value);
-int		is_valid_ident(char *str);
+void		put_value(t_env_elem **temp, char **key, char **value);
+int			is_valid_ident(char *str);
 
 // export.4_c
-int		ft_isalpha_ident(int c);
-int		ft_isalphadigit(int c);
+int			ft_isalpha_ident(int c);
+int			ft_isalphadigit(int c);
 
 #endif

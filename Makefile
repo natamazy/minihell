@@ -55,6 +55,7 @@ SRCS_NAME = minishell.c \
 			builtin/export_4.c \
 			builtin/pwd.c \
 			builtin/cd.c \
+			builtin/cd_1.c \
 			builtin/exit.c \
 			builtin/echo.c \
 			executor/executor.c \

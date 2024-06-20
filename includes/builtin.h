@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:50 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 12:43:53 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:32:36 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 # include "pipex.h"
+# include <stdbool.h>
 
 int			export_with_option(t_pipex *pipex, char *var);
 int			unset(t_pipex *pipex, t_cmd *cmd, int *is_builtin);
@@ -42,5 +43,13 @@ void		len_error(const char *str, unsigned long long nbr);
 int			ft_latoi(const char *str);
 void		built_exit(t_cmd *cmd, int *is_builtin, int is_inf_fork, int print);
 int			echo(char **args, int fdtowrite, int *is_builtin);
+
+// cd_1.c
+bool		is_directory(const char	*path);
+bool		can_access_directory(const char	*path);
+bool		file_or_directory_exists(const char	*path);
+int			check_and_export(t_pipex *pipex, char *pwd_to_set,
+				char *pwd, int i);
+char		*modify_cmd(char *path, t_pipex *pipex, int i, int j);
 
 #endif
