@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 11:59:56 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:43:21 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	export_no_option(t_env_elem *envr)
 	ts = temp;
 	while (ts)
 	{
-		if (ts->value && ts->value != NULL && ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
+		if (ts->value && ts->value != NULL
+			&& ts->value[0] != '\0' && ft_strlen(ts->key) > 0)
 			printf("declare -x %s=\"%s\"\n", ts->key, ts->value);
 		else if (ts->key && ts->key != NULL)
 			printf("declare -x %s\n", ts->key);
@@ -79,7 +80,9 @@ int	print_env(t_env_elem *envr, int *is_builtin)
 	temp = envr;
 	while (temp)
 	{
-		if (temp->key && temp->key != NULL && temp->value != NULL && temp->value[0] != '\0' && ft_strlen(temp->key) > 0)
+		if (temp->key && temp->key != NULL
+			&& temp->value != NULL && temp->value[0] != '\0'
+			&& ft_strlen(temp->key) > 0)
 			printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}

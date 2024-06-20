@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 18:11:04 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 06:03:43 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:32:14 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	syntax_validator(t_token	*t_l)
 			|| t_l->type == APPEND_REDIR || t_l->type == HERE_DOC)
 		{
 			if (t_l->next == NULL)
-			{
 				perror_exit(SYNTAX_ERR, NULL, t_l->value, 2);
-				return (2);
-			}
 			if (t_l->next->type == FILEOUT || t_l->next->type == FILEIN \
 				|| t_l->next->type == APPEND_FILEOUT \
 				|| t_l->next->type == LIMITER)
@@ -52,25 +49,13 @@ int	syntax_validator(t_token	*t_l)
 			return (2);
 		}
 		if (t_l->type == S_PIPE && !t_l->prev)
-		{
 			perror_exit(SYNTAX_ERR, NULL, t_l->value, 2);
-			return (2);
-		}
 		if (t_l->type == S_PIPE && !t_l->next)
-		{
-			perror_exit(SYNTAX_ERR, NULL, t_l->value, 2);
-			return (2);
-		}
+			return (perror_exit(SYNTAX_ERR, NULL, t_l->value, 2), 2);
 		if (t_l->type == S_PIPE && is_ctrl_op(t_l->next))
-		{
-			perror_exit(SYNTAX_ERR, NULL, t_l->value, 2);
-			return (2);
-		}
+			return (perror_exit(SYNTAX_ERR, NULL, t_l->value, 2), 2);
 		if (is_permited(t_l))
-		{
-			perror_exit(SYNTAX_ERR, NULL, t_l->value, 2);
-			return (2);
-		}
+			return (perror_exit(SYNTAX_ERR, NULL, t_l->value, 2), 2);
 		t_l = t_l->next;
 	}
 	return (0);

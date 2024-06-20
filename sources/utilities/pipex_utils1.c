@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:09:31 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 05:44:08 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:28:43 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*find_cmd_in_paths(char *cmd_name, char **paths)
 			break ;
 		if (access(cmd_path, F_OK) == 0 && access(cmd_path, X_OK) == 0)
 			break ;
-		free(cmd_path);	
+		free(cmd_path);
 		cmd_path = cmd_name;
 		i++;
 	}
@@ -84,7 +84,7 @@ int	p_err(int exit_status, char *s1, char *s2, char *s3)
 		ft_putstr_fd(s2, 2);
 	if (s3 != NULL)
 		ft_putstr_fd(s3, 2);
-	return(exit_status);
+	return (exit_status);
 }
 
 void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
@@ -103,7 +103,8 @@ void	perror_exit(int err_num, t_pipex *pipex, char *msg, int exit_status)
 	else if (err_num == PIPE_ERR)
 		perror("pipe failed");
 	else if (err_num == SYNTAX_ERR)
-		p_err(exit_status, "minishell : syntax error near unexpected token `", msg, "'\n");
+		p_err(exit_status, "minishell : syntax error near unexpected token `", \
+		msg, "'\n");
 	else if (err_num == FORK_ERR)
 		perror("fork failed");
 	else if (err_num == DUP_ERR)

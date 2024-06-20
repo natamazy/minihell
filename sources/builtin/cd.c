@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:08:47 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 12:01:13 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:20:32 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 
-bool is_directory(const char *path)
+bool	is_directory(const char	*path)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
 
 	if (stat(path, &path_stat) != 0)
-		return false;
-	return S_ISDIR(path_stat.st_mode);
+		return (false);
+	return (S_ISDIR(path_stat.st_mode));
 }
 
-bool can_access_directory(const char *path)
+bool	can_access_directory(const char	*path)
 {
 	if (access(path, R_OK | X_OK) == 0)
-		return true;
+		return (true);
 	else
-		return false;
+		return (false);
 }
 
-bool file_or_directory_exists(const char *path) {
-	struct stat buffer;
+bool	file_or_directory_exists(const char	*path)
+{
+	struct stat	buffer;
 
 	return (stat(path, &buffer) == 0);
 }
@@ -95,7 +96,8 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 	if (!path)
 	{
 		modified_cmd = get_var_in_env(pipex->envp, "HOME", 1);
-		if (!modified_cmd || modified_cmd == NULL || (modified_cmd && modified_cmd[0] == '\0'))
+		if (!modified_cmd || modified_cmd == NULL
+			|| (modified_cmd && modified_cmd[0] == '\0'))
 		{
 			printf("minishell: cd: HOME not set\n");
 			return (1);
@@ -104,7 +106,8 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 	else if (path && path[0] && path[0] == '-' && ft_strlen(path) == 1)
 	{
 		modified_cmd = get_var_in_env(pipex->envp, "OLDPWD", 1);
-		if (!modified_cmd || modified_cmd == NULL || (modified_cmd && modified_cmd[0] == '\0'))
+		if (!modified_cmd || modified_cmd == NULL
+			|| (modified_cmd && modified_cmd[0] == '\0'))
 		{
 			printf("minishell: cd: OLDPWD not set\n");
 			return (1);
@@ -119,7 +122,7 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 		printf("minishell: cd: %s: No such file or directory\n", modified_cmd);
 		if (path && path[0] == '~')
 			free(modified_cmd);
-		return (1);	
+		return (1);
 	}
 	if (!is_directory(modified_cmd))
 	{

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:13:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 12:23:53 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:35:21 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ void	wait_processes(t_pipex *pipex)
 	}
 }
 
-void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int is_in_fork)
+void	run_builtins(t_pipex *pipex, t_cmd *cmd, int *is_builtin, int fork)
 {
-	if (ft_strcmp(cmd->cmd_path, "env") == 0 && is_in_fork == 1)
+	if (ft_strcmp(cmd->cmd_path, "env") == 0 && fork == 1)
 		g_exit_status = print_env(pipex->envp, is_builtin);
-	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0 && is_in_fork == 1)
+	else if (ft_strcmp(cmd->cmd_path, "pwd") == 0 && fork == 1)
 		g_exit_status = pwd(STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "cd") == 0)
 		g_exit_status = cd(pipex->cmds->cmd_args[1], pipex, is_builtin);
-	else if (ft_strcmp(cmd->cmd_path, "echo") == 0 && is_in_fork == 1)
+	else if (ft_strcmp(cmd->cmd_path, "echo") == 0 && fork == 1)
 		g_exit_status = echo(cmd->cmd_args, STDOUT_FILENO, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "export") == 0)
 		g_exit_status = export(pipex, cmd, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "unset") == 0)
 		g_exit_status = unset(pipex, cmd, is_builtin);
 	else if (ft_strcmp(cmd->cmd_path, "exit") == 0)
-		built_exit(cmd, is_builtin, is_in_fork, 0);
-	if (*is_builtin == 1 && is_in_fork == 1)
+		built_exit(cmd, is_builtin, fork, 0);
+	if (*is_builtin == 1 && fork == 1)
 		exit(g_exit_status);
 }
 
