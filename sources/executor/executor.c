@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:42:48 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 18:26:54 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:52:01 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	open_file(char *fn, int type)
 		return (fd);
 	if (fd == -1)
 		return (p_err(1, "minihell: ", fn, ": Permission denied\n"), 1);
-	if (fd == -2)
+	if (fd == -2 && type != INPUT)
 		return (p_err(1, "minihell: ", fn, ": No such file or directory\n"), 1);
 	return (-1);
 }

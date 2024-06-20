@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 18:24:12 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:57:48 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	export_final(t_pipex *pipex, char **var)
 	{
 		if (var && var[i] && var[i][0] && var[i][0] == '=')
 		{
-			p_err(1, "bash: export: `", var[i], "': not a valid identifier\n");
+			p_err(1, "minishell: export: `", var[i],
+				"': not a valid identifier\n");
 			err = 1;
 			i++;
 			continue ;
@@ -119,7 +120,8 @@ int	unset(t_pipex *pipex, t_cmd *cmd, int *is_builtin)
 	{
 		if (is_valid_ident(cmd->cmd_args[i]) == FALSE)
 		{
-			p_err(1, "bash: unset: `", cmd->cmd_args[i], "': not a valid identifier\n");
+			p_err(1, "bash: unset: `", cmd->cmd_args[i],
+				"': not a valid identifier\n");
 			err = 1;
 			i++;
 			continue ;

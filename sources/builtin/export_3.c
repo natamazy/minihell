@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 18:33:10 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:50:52 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	export_helper_1(char **key, char **value, char *var)
 	}
 	if (*key && *key != NULL && is_valid_ident(*key) == FALSE)
 	{
-		p_err(1, "bash: export: `", *key, "': not a valid identifier\n");
+		p_err(1, "minishell: export: `", *key, "': not a valid identifier\n");
 		free (*key);
 		if (*value && *value != NULL)
 			free (*value);
