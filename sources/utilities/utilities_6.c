@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_6.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:48:12 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 17:39:11 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:50:42 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	remove_here_doc_file(t_env_elem *envr)
 		if (execve("/bin/rm", (char *[4]){RM, RF, HERE_DOC_FILE, NULL},
 			env_list_to_array(envr)) == -1)
 			perror_exit(EXECVE_ERR, NULL, NULL, 1);
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		kill(pid, 0);
 	}
 }
 

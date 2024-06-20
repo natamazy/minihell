@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:10:06 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 03:13:35 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:05:09 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ void	close_pipes(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_cnt - 1)
 	{
-		close(pipex->pipes[i][0]);
-		close(pipex->pipes[i][1]);
+		if (pipex->pipes)
+		{
+			close(pipex->pipes[i][0]);
+			close(pipex->pipes[i][1]);
+		}
 		i++;
 	}
 }
