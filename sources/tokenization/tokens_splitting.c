@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_splitting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:02:29 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 17:24:40 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:26:13 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	split_by_spaces(char *cmd_line, t_token **tokens_list)
 		create_and_add_to_list(tokens_list, cmd_line + start, i - start);
 }
 
-// line 145, 154 / in case if there is non operator symbols BEFORE operator
 void	split_by_operators(t_token **tokens_list)
 {
 	t_token	*cur_token;

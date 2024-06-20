@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:56 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 17:24:23 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:25:55 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ void	procces_one_token(t_token *cur, t_token **tl, int *is_op, int i)
 		add_new_bef(tl, cur, ft_substr(cur->value, tok_s, i - tok_s));
 }
 
-//TODO: add one new spliting level by quotation marks
-// print_token_list(*token_list);
 void	tokenization(char *command_line, t_token **tokens_list)
 {
 	split_by_spaces(command_line, tokens_list);
 	if (global(0, 0) != 0)
+	{
+		ft_token_list_clear(tokens_list);
 		return ;
+	}
 	split_by_operators(tokens_list);
 	if (global(0, 0) != 0)
 		return ;

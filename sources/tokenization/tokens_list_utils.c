@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aggrigor <aggrigor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:43:05 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 05:34:39 by aggrigor         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:26:12 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	ft_add_token_to_list(t_token **list_of_tokens, t_token *new_token)
 	new_token->prev = ptr;
 }
 
-// line 56
-// knereq der error handling chka
-// mer kodum dra hamar hl@ vor senc
 void	create_and_add_to_list(t_token **token_list, char *start, int len)
 {
 	t_token	*new_token;
@@ -63,7 +60,6 @@ void	create_and_add_to_list(t_token **token_list, char *start, int len)
 	ft_add_token_to_list(token_list, new_token);
 }
 
-// line 112 / knereq der error handling chka mer kodum dra hamar hl@ vor senc
 void	add_new_bef(t_token **tokens_list,
 	t_token *cur_token, char *value)
 {
