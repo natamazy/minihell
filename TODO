@@ -1,14 +1,8 @@
 AGVAN:
-2. DELETE here_doc temp file after executing each cmd(if there is any commands with here_doc)
-3. Fix malloc failed in here_doc%
-4. Here doc execute each line in temp file, solve this
 
 TAMAZYAN:
 1. prosto cd home
-5. Te faymes vonc here_doc file jnjenq erb vor petqa jnjel minishell.c line :87
+2. Te faymes vonc here_doc file jnjenq erb vor petqa jnjel minishell.c line :87
+3. SEGFAULT in syntax_analyzer
 
 MIHRDAR PHILINI:
-
-
-ALL:
-SEGFAULT in syntax_analyzer
