@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:06:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 18:07:38 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:37:30 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	main_helper(char *cmd_line, t_token *token_list, t_shell *shell)
 	{
 		global(syntax_validator(token_list), 1);
 		if (global(0, 0) == 2)
-			ft_token_list_clear(&token_list);
+			ft_cmd_list_clear(&token_list);
 		else
 		{
 			expander(token_list, shell->envr, &token_list);

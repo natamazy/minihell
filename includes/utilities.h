@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:16:01 by aggrigor          #+#    #+#             */
-/*   Updated: 2024/06/20 18:08:38 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:34:02 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			ft_is_operator(char *s, int i);
 void		free_shell(t_shell *shell);
 
 // utilities_2.c
+void		ft_cmd_list_clear(t_token **lst);
 void		print_token_list(t_token *token_list);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *s);

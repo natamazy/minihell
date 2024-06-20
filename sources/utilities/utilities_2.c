@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:59:58 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 18:09:22 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:33:20 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,24 @@ size_t	ft_strlen(const char *s)
 	while (s[len])
 		len++;
 	return (len);
+}
+
+void	ft_cmd_list_clear(t_token **lst)
+{
+	t_token	*t;
+	t_token	*l;
+
+	if (!lst)
+		return ;
+	l = *lst;
+	while (l)
+	{
+		t = l->next;
+		free(l->value);
+		free(l);
+		l = t;
+	}
+	*lst = NULL;
 }
 
 void	ft_token_list_clear(t_token **lst)
