@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:19:35 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 20:45:45 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:59:56 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	export_no_option(t_env_elem *envr)
 	}
 	free_list(temp);
 	temp = NULL;
-	return (666);
+	return (0);
 }
 
 int	print_env(t_env_elem *envr, int *is_builtin)
@@ -84,7 +84,7 @@ int	print_env(t_env_elem *envr, int *is_builtin)
 		temp = temp->next;
 	}
 	*is_builtin = 1;
-	return (666);
+	return (0);
 }
 
 int	export(t_pipex *pipex, t_cmd *cmd, int *is_builtin)

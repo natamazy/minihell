@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:27:06 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/19 21:45:51 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:01:42 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int	echo(char **args, int fdtowrite, int *is_builtin)
 	if (newline == 1)
 		write(fdtowrite, "\n", 1);
 	*is_builtin = 1;
-	return (666);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:14:00 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 00:25:37 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:07:58 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,20 @@ int	export_final(t_pipex *pipex, char **var)
 	int	err;
 
 	i = 1;
+	err = 0;
 	while (var[i] != NULL)
 	{
 		if (var && var[i] && var[i][0] && var[i][0] == '=')
 		{
-			printf("bash: unset: `%s': not a valid identifier\n", var[i]);
+			printf("bash: export: `%s': not a valid identifier\n", var[i]);
 			err = 1;
 			i++;
 			continue ;
 		}
-		err = export_with_option(pipex, var[i]);
+		if (err == 1)
+			export_with_option(pipex, var[i]);
+		else
+			err = export_with_option(pipex, var[i]);
 		i++;
 	}
 	return (err);

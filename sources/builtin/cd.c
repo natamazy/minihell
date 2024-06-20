@@ -6,7 +6,7 @@
 /*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:08:47 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 11:39:55 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:01:13 by natamazy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,12 @@ int	cd(char *path, t_pipex *pipex, int *is_builtin)
 	}
 	pwd_to_set = NULL;
 	if (check_and_export(pipex, pwd_to_set, old_pwd, 0) == 1)
-		return (666);
+		return (1);
 	getcwd(new_pwd, PATH_MAX);
 	free(pwd_to_set);
 	if (check_and_export(pipex, pwd_to_set, new_pwd, 1) == 1)
-		return (666);
+		return (1);
 	if (path && path[0] == '~')
 		free(modified_cmd);
-	return (666);
+	return (0);
 }
