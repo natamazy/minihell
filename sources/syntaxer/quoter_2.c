@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoter_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natamazy <natamazy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:44:21 by natamazy          #+#    #+#             */
-/*   Updated: 2024/06/20 13:35:04 by natamazy         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:38:29 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	remove_extra_quotes(t_token *token, int l, int r)
 		{
 			if (quote_type == 0)
 				quote_type = token->value[r++];
-			if (quote_type == token->value[r])
+			if (token->value[r] && quote_type == token->value[r])
 			{
 				r++;
 				quote_type = 0;
@@ -36,7 +36,8 @@ int	remove_extra_quotes(t_token *token, int l, int r)
 		}
 		token->value[l] = token->value[r];
 		l++;
-		r++;
+		if (token->value[r])
+			r++;
 	}
 	token->value[l] = '\0';
 	remove_empty_fields(token, l - r);
